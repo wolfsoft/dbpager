@@ -183,7 +183,7 @@ private:
 			if (FCGX_Accept_r(&request) < 0)
 				break;
 
-			http_request req = get_request(request.envp);
+			http_request req = get_request(request.envp, request.in);
 			http_response resp;
 
 			try {
@@ -257,7 +257,7 @@ private:
 	};
 
 	/* copypaste from cgi_application.cpp */
-	http_request get_request(char **env) {
+	http_request get_request(char **env, FCGX_Stream *stream) {
 		http_request req;
 		int c_len = 0;
 		// read environment variables
@@ -336,13 +336,15 @@ private:
 			}
 			// check next environment variable
 			env++;
-		}
+		} // while
 		// if there is a content, read it from standard input
-		// TODO
-		/*
-			if (c_len > 0)
-				req.add_content(c_len, cin);
-		*/
+		if (c_len > 0) {
+			char *buf = new char[c_len + 1];
+			int n = FCGX_GetStr(buf, c_len, stream);
+			req.set_content(n, buf);
+			delete[] buf;
+		}
+
 		return req;
 	}
 

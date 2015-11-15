@@ -21,7 +21,7 @@ out-of-the-box dbPager modules:
 - dbp_xml, provides XML features
 - dbp_xslt, the XSL transformation feature
 
-Visit the web site at http://dbpager.sf.net for more information, downloads
+Visit the web site at http://dbpager.com for more information, downloads
 and community support resources.
 
 Refer to INSTALL file to obtain installation instructions and doc directory
@@ -34,13 +34,13 @@ To build dbPager Server from repository you should have the following
 developer tools installed:
 
 - git
-- autopoint (version 0.17 or newer)
-- libtoolize (version 2.2 or newer)
-- aclocal (version 1.10 or newer)
-- automake (version 1.10 or newer)
-- autoconf (version 2.61 or newer)
-- autoheader (version 2.61 or newer)
-- xgettext (version 0.17 or newer)
+- autopoint
+- libtoolize
+- aclocal
+- automake
+- autoconf
+- autoheader
+- xgettext
 - xsltproc
 
 You will needed some of libraries installed (developer packages):
@@ -51,12 +51,12 @@ You will needed some of libraries installed (developer packages):
 - libapr1-dev
 - apache2-threaded-dev
  
-Also you will needed the dbPager Classes Library, available from the
-sourceforge at http://libdcl.sf.net.
+Also you will needed the dbPager Classes Library, available from
+https://github.com/wolfsoft/libdcl.
 
 To download latest dbPager Server sources, execute the following command:
 
-git pull https://github.com/wolfsoft/dbpager.git
+git clone https://github.com/wolfsoft/dbpager.git
 
 The dbPager Server sources will downloaded into the dbpager directory. Next,
 you should run the autogen.sh script in the dbpager directory - it creates

@@ -7,7 +7,6 @@ libdbpcore_la_LDFLAGS = -static -no-undefined
 libdbpcore_la_CPPFLAGS = \
 	-fPIC \
 	-I../mimetic-0.9.7 \
-	-I../libmemcached-0.44 \
 	@libdclbase_CFLAGS@ \
 	@libdclnet_CFLAGS@ \
 	@libxml2_CFLAGS@ \
@@ -20,7 +19,6 @@ libdbpcore_la_SOURCES = \
 	interpreter/environment.cpp \
 	interpreter/dbpager_application.cpp \
 	interpreter/interpreter.cpp \
-	pool/memcached_cache.cpp \
 	tag/tag_factory.cpp \
 	tag/tag_execute.cpp \
 	tag/tag_unknown.cpp \
@@ -48,7 +46,6 @@ libdbpcore_la_SOURCES = \
 libdbpcore_la_LIBADD = \
 	../libdbpager/libdbpager.la \
 	../mimetic-0.9.7/mimetic/libmimetic.la \
-	../libmemcached-0.44/libmemcached/libmemcached.la \
 	@libdclbase_LIBS@ \
 	@libdclnet_LIBS@ \
 	@libxml2_LIBS@ \

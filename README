@@ -1,10 +1,4 @@
-Table Of Contents
-
-1. About dbPager Server
-2. Downloading and building dbPager Server from subversion repository
-3. Known issues
-	
-1. About dbPager Server
+About dbPager Server
 
 The dbPager Server project provides the dbPager Language - the programming
 language based on XML. The language is simple and understood well; it has
@@ -33,15 +27,13 @@ and community support resources.
 Refer to INSTALL file to obtain installation instructions and doc directory
 for software documentation and examples.
 
-2. Downloading and building dbPager Server from subversion repository
 
-The dbPager Server project provides the subversion (SVN) repository with
-latest version of the code at the sourceforge web site.
+Downloading and building dbPager Server
 
 To build dbPager Server from repository you should have the following
 developer tools installed:
 
-- svn
+- git
 - autopoint (version 0.17 or newer)
 - libtoolize (version 2.2 or newer)
 - aclocal (version 1.10 or newer)
@@ -64,7 +56,7 @@ sourceforge at http://libdcl.sf.net.
 
 To download latest dbPager Server sources, execute the following command:
 
-svn co https://dbpager.svn.sourceforge.net/svnroot/dbpager/trunk/ dbpager
+git pull https://github.com/wolfsoft/dbpager.git
 
 The dbPager Server sources will downloaded into the dbpager directory. Next,
 you should run the autogen.sh script in the dbpager directory - it creates
@@ -79,24 +71,3 @@ Finally, build the configured sources with 'make' command.
 
 More information about building the sources can be found in the INSTALL file.
 
-3. Known issues
-
-The internal user sessions cache backend (the default; check dbpager.conf)
-works only on multithreaded environment, so you can't use apache preforked
-model. To use MPM model you should use the following apache configuration:
-
-<IfModule mpm_worker_module>
-#    StartServers          2
-     StartServers          1
-     MinSpareThreads      25
-     MaxSpareThreads      75
-#    ThreadLimit          64
-     ThreadLimit         150
-#    ThreadsPerChild      25
-     ThreadsPerChild     150
-     MaxClients          150
-     MaxRequestsPerChild   0
-</IfModule>
-
-The key is one and only one server process. The memcached backend have not
-any issues, so use memcached backend if you can.

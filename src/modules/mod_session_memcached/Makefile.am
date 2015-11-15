@@ -11,10 +11,12 @@ libmod_session_memcached_la_LDFLAGS = -version-info $(ABI_CUR):$(ABI_REV):$(ABI_
 
 libmod_session_memcached_la_LIBADD = \
 	../../libdbpager/libdbpager.la \
+	../../libmemcached-0.44/libmemcached/libmemcached.la \
 	@libdclbase_LIBS@
 
 AM_CXXFLAGS += \
 	-I../../libdbpager/include \
+	-I../../libmemcached-0.44 \
 	@libdclbase_CFLAGS@
 
 confdir = $(sysconfdir)/dbpager/services-available

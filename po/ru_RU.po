@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-12 20:36+0300\n"
+"POT-Creation-Date: 2015-11-15 04:43+0300\n"
 "PO-Revision-Date: 2015-08-29 23:47+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -93,7 +93,11 @@ msgstr "Нет такого пользователя {0}"
 msgid "Unknown error"
 msgstr ""
 
-#: src/dbpager/interpreter/environment.cpp:264
+#: src/dbpager/interpreter/dbpager_application.cpp:36
+msgid "Fatal error: can't parse file {0}"
+msgstr "Ошибка при разборе файла '{0}' - продолжение невозможно"
+
+#: src/dbpager/interpreter/environment.cpp:270
 msgid "invalid XML structure of the request"
 msgstr "некорректная XML структура запроса"
 
@@ -107,10 +111,6 @@ msgstr ""
 #: src/dbpager/interpreter/interpreter.cpp:136
 msgid "Configuration realoaded"
 msgstr ""
-
-#: src/dbpager/interpreter/interpreter.cpp:162
-msgid "Fatal error: can't parse file {0}"
-msgstr "Ошибка при разборе файла '{0}' - продолжение невозможно"
 
 #: src/dbpager/parser/dbpx_parser.cpp:43
 msgid "Validity warning at line {0}: {1}"

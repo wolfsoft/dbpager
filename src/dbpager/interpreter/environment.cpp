@@ -113,7 +113,7 @@ void http_environment::init_response(dbp::http_response &resp) {
 			if (i != c.end())
 				s += ";";
 		}
-		//TODO in.get_session().put(session_id, s);
+		in.get_session().put(session_id, s);
 	}
 
 	// setup cookies

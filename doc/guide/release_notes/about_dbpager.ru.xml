@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE manualpage SYSTEM "../style/dtd/manual.dtd">
+
+<?xml-stylesheet type="text/xsl" href="../style/xsl/manual.ru.xsl"?>
+
+<manualpage metafile="about_dbpager.xml.meta" lang="ru">
+
+<title>О программе dbPager Server</title>
+
+<summary>
+   В этом разделе Вы найдете информацию об идеях, положенных в основу
+   dbPager Server, о принципах работы программы, об отличиях языка
+   разметки dbPager от других языков, используемых для генерации
+   web-страниц и о том, как и в каких случаях можно использовать
+   dbPager Server.
+</summary>
+
+<section id="what">
+   <title>Что такое dbPager Server</title>
+   <p>dbPager Server - это программа, выполняющаяся в фоновом режиме
+      (сервер).</p>
+</section>
+
+<section id="mission">
+   <title>Цель создания dbPager Server</title>
+   <p></p>
+</section>
+
+<section id="difference">
+   <title>Отличия dbPager Server от прочих процессоров языков разметки</title>
+   <p></p>
+</section>
+
+<section id="where">
+   <title>Где использовать dbPager Server</title>
+   <p></p>
+</section>
+
+</manualpage>

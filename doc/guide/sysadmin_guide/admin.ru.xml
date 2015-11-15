@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE manualpage SYSTEM "../style/dtd/manual.dtd">
+
+<?xml-stylesheet type="text/xsl" href="../style/xsl/manual.ru.xsl"?>
+
+<manualpage metafile="admin.xml.meta" lang="ru">
+
+<title>Администрирование dbPager Server</title>
+
+<summary>
+</summary>
+
+<section id="config_file">
+	<title>Файл конфигурации</title>
+</section>
+
+<section id="console">
+	<title>dbPager Server Console</title>
+</section>
+
+</manualpage>

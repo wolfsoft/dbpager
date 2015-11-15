@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE metafile SYSTEM "../style/dtd/metafile.dtd">
+
+<metafile>
+  <basename>build</basename>
+  <relpath>../</relpath>
+  <variants>
+    <variant>ru</variant>
+  </variants>
+  <parentdocument>programmers_guide/build</parentdocument>
+  <followdocument>programmers_guide/module</followdocument>
+</metafile>

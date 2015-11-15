@@ -1,0 +1,2 @@
+<!ENTITY % common SYSTEM "common.dtd">
+%common;

@@ -1,0 +1,3 @@
+LoadModule dbpager_module /usr/lib/apache2/modules/mod_dbp.so
+AddType application/x-httpd-dbp .dbp .dbpx
+AddHandler dbpager_module .dbp .dbpx

@@ -1,0 +1,21 @@
+#
+# This directive assigns the default logging subsystem to the mod_logger_file module.
+# The module provides logging service by using plain text file.
+#
+[services]
+logger.backend.file = @PLUGINSDIR@/libmod_logger_file.so
+
+### services.logger.file: backend-specific parameters
+# 
+[services.logger.file]
+# path directive
+#
+# Specifies the log file path.
+#
+# path = /dev/null
+
+# async directive
+#
+# Write log to file in asynchronous mode.
+#
+# async = false

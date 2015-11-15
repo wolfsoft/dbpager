@@ -1,0 +1,3 @@
+etc/apache2/mods-available/dbpager.load
+etc/apache2/mods-available/dbpager.conf
+usr/lib/apache2/modules/mod_dbp.so

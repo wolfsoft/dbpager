@@ -1,0 +1,28 @@
+#
+# This directive assigns the default session storage subsystem to the mod_session_memcached module.
+# The module provides session storage service by using Memcached database.
+#
+[services]
+session.backend.memcached = @PLUGINSDIR@/mod_session_memcached.so
+
+### services.session.memcached: backend-specific parameters
+# 
+[services.session.memcached]
+# servers directive
+#
+# The list of memcached servers to retrieve/store user session data, separated
+# by commas. Network interface address should be separated from port number
+# with semicolon(':'). If port number is omitted, default port (11211) is used.
+# For example: localhost, 192.168.0.1:555, www2:555
+#
+# servers = localhost:11211
+
+#
+# ttl directive
+#
+# Specifies the session time-to-live in the cache (in seconds). This is a time
+# of the user inactivity - each user request resets the timer and the session
+# is closed when timer is out. Zero is the infinity.
+#
+# ttl = 0
+

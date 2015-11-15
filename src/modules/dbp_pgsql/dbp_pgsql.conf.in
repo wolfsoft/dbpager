@@ -1,0 +1,15 @@
+#
+# This directive assigns the XML namespace to the dbPager dbp_pgsql module.
+# The module provides support of native PostgreSQL data sources (databases).
+#
+[modules]
+http://dbpager.org.ru/schemas/dbp/3.0/pgsql = @PLUGINSDIR@/libdbp_pgsql.so
+
+#
+# Module parameters
+#
+[modules.pgsql]
+#
+# Maximum number of persistent database connections (0 - unlimited).
+#
+# pool_connections = 0

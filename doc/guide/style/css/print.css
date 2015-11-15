@@ -1,0 +1,171 @@
+@page {
+   margin: 1.5cm;
+}
+
+body {
+   font: normal 10pt "Bookman Old Style", Georgia, "Times New Roman", serif;
+}
+
+img {
+   border: 0;
+}
+
+p { }
+
+p.title {
+   font: bold 28pt Arial, Sans, sans-serif;
+   letter-spacing: -2px;
+   margin-top: 0em;
+   margin-bottom: 0em;
+}
+
+p.subtitle {
+   font-size: 75%;
+   color: #333399;
+   margin-top: 0em;
+   margin-bottom: 3em;
+   text-align: right;
+}
+
+p.copyright {
+   font-size: 75%;
+   color: gray;
+   margin-top: 2em;
+   text-align: center;
+}
+
+h1,h2,h3,h4 {
+   font-family: "Trebuchet MS", Arial, Sans, sans-serif;
+   letter-spacing: -1px;
+   font-weight: bold;
+}
+
+h2,h3,h4 {
+   margin-bottom: 0;
+}
+
+h1 {
+   font-size: 180%;
+   margin-top: 1em;
+}
+
+h2 { font-size: 150%; }
+
+h3 { font-size: 125%; }
+
+h4 {
+	font-size: 100%;
+	margin-top: 0;
+}
+
+h2.block { margin: 0.25em; }
+
+#inverse {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	color: white;
+	background: black;
+}
+
+h1.glossary {
+   border-bottom: 1px solid black;
+}
+
+table {
+   border-collapse: collapse;
+   margin-top: 0.5em;
+   margin-bottom: 0.5em;
+}
+
+table.tip {
+   border: 1px solid black;
+   margin: 1em;
+   background: #dbddff;
+}
+
+table.note {
+   border: 1px solid black;
+   margin: 1em;
+   background: #fffab8;
+}
+
+table.caution {
+   border: 1px solid black;
+   margin: 1em;
+   background: #ffb4ad;
+}
+
+td {
+   vertical-align: top;
+}
+
+td.header_toc {
+   background: url(../../images/toc_top.png) no-repeat;
+   color: #333399;
+   height: 35px;
+   vertical-align: bottom;
+   font-weight: bold; font-size: 125%; text-align: center;
+   min-width: 250px;
+}
+
+td.body_toc {
+   background: url(../../images/toc_body.png) no-repeat;
+   font-size: 90%;
+   vertical-align: top;
+}
+
+td.header_single {
+   border-bottom: solid 1px black;
+   border-top: solid 2px black;
+}
+
+td.body_single { }
+
+td.footer_single {
+   border-bottom: solid 2px black;
+}
+
+td.header_hidden { }
+
+td.body_hidden { }
+
+td.footer_hidden { }
+
+td.bg {
+   background-color: silver;
+   color: white;
+   vertical-align: middle;
+}
+
+td.bg2 {
+   background-color: #dddddd;
+}
+
+ol {
+   margin: 0;
+}
+
+li {
+   margin-left: -0.5em;
+   margin-right: 1em;
+   margin-bottom: 0.3em;
+}
+
+pre {
+   font: normal 10pt "Courier New", "Lucida Console", courier, monospace;
+   margin-top: 0;
+   margin-bottom: 0;
+}
+
+span.name {
+   font: normal 10pt "Courier New", "Lucida Console", courier, monospace;
+}
+
+span.param {
+	font-weight: bold;
+}
+
+span.value {
+	color: green;
+}
+

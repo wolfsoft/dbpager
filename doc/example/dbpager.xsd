@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<xsd:schema
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns="http://dbpager.org.ru/schemas/dbp/3.0"
+ targetNamespace="http://dbpager.org.ru/schemas/dbp/3.0"
+ elementFormDefault="qualified"
+ attributeFormDefault="unqualified">
+
+ <xsd:element name="module" type="tagsType"/>
+
+ <xsd:complexType name="tagsType" mixed="true">
+  <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+   <xsd:element name="include" minOccurs="0" maxOccurs="unbounded">
+    <xsd:complexType>
+     <xsd:attribute name="href" type="xsd:anyURI" use="required"/>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="var" minOccurs="0" maxOccurs="unbounded">
+    <xsd:complexType mixed="true">
+     <xsd:complexContent>
+      <xsd:extension base="tagsType">
+       <xsd:attribute name="name" type="xsd:string" use="required"/>
+       <xsd:attribute name="type">
+        <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="local"/>
+          <xsd:enumeration value="global"/>
+          <xsd:enumeration value="session"/>
+         </xsd:restriction>
+        </xsd:simpleType>
+       </xsd:attribute>
+       <xsd:attribute name="value" type="xsd:string"/>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="set" minOccurs="0" maxOccurs="unbounded">
+    <xsd:complexType>
+     <xsd:complexContent>
+      <xsd:extension base="tagsType">
+       <xsd:attribute name="name" type="xsd:string" use="required"/>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="try" minOccurs="0" maxOccurs="unbounded">
+    <xsd:complexType mixed="true">
+     <xsd:complexContent>
+      <xsd:extension base="tagsType">
+       <xsd:sequence>
+        <xsd:element name="catch" minOccurs="1" type="tagsType"/>
+       </xsd:sequence>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="throw" minOccurs="0" maxOccurs="unbounded">
+    <xsd:complexType>
+     <xsd:complexContent>
+      <xsd:extension  base="tagsType">
+       <xsd:sequence/>
+       <xsd:attribute name="message" type="xsd:string"/>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="switch" minOccurs="0" maxOccurs="unbounded">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="case" minOccurs="1" maxOccurs="unbounded">
+       <xsd:complexType>
+        <xsd:complexContent>
+         <xsd:extension base="tagsType">
+          <xsd:attribute name="match" type="xsd:string" use="required"/>
+         </xsd:extension>
+        </xsd:complexContent>
+       </xsd:complexType>
+      </xsd:element>
+     </xsd:sequence>
+     <xsd:attribute name="test" type="xsd:string"/>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="split" minOccurs="0" maxOccurs="unbounded">
+    <xsd:complexType>
+     <xsd:complexContent>
+      <xsd:extension  base="tagsType">
+       <xsd:attribute name="name" type="xsd:string" use="required"/>
+       <xsd:attribute name="separator" type="xsd:string"/>
+       <xsd:attribute name="value" type="xsd:string" use="required"/>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="substr" minOccurs="0" maxOccurs="unbounded">
+    <xsd:complexType>
+     <xsd:complexContent>
+      <xsd:extension  base="tagsType">
+       <xsd:attribute name="what" type="xsd:string" use="required"/>
+       <xsd:attribute name="with" type="xsd:string" use="required"/>
+       <xsd:attribute name="value" type="xsd:string" use="required"/>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="regexp" minOccurs="0" maxOccurs="unbounded"/>
+   <xsd:element name="tag" minOccurs="0" maxOccurs="unbounded">
+    <xsd:complexType>
+     <xsd:complexContent>
+      <xsd:extension  base="tagsType">
+       <xsd:attribute name="name" type="xsd:string" use="required"/>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="execute" minOccurs="0" maxOccurs="unbounded">
+    <xsd:complexType>
+     <xsd:attribute name="name" type="xsd:string"/>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="while" minOccurs="0" maxOccurs="unbounded">
+    <xsd:complexType>
+     <xsd:complexContent>
+      <xsd:extension  base="tagsType">
+       <xsd:attribute name="test" type="xsd:string" use="required"/>
+      </xsd:extension>
+     </xsd:complexContent>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+  </xsd:sequence>
+ </xsd:complexType>
+</xsd:schema>

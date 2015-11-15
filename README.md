@@ -1,2 +1,0 @@
-# dbpager
-dbPager Server

@@ -1,0 +1,4 @@
+# dbPager Server Upstart and SysVinit configuration file
+
+# Use DBPAGER_OPTS to modify the daemon startup options.
+#DBPAGER_OPTS="-f /usr/local/etc/dbpager/dbpager.conf"

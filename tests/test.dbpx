@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+<dbp:module
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+	xmlns:usr="http://dbpager.org.ru/schemas/dbp/3.0/custom"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+
+test
+
+</dbp:module>

@@ -1,0 +1,15 @@
+<!ENTITY % common SYSTEM "common.dtd">
+%common;
+
+<!ELEMENT messages (message+)>
+
+<!ATTLIST messages
+  lang		CDATA	#IMPLIED
+  name		CDATA	#IMPLIED
+>
+
+<!ELEMENT message (#PCDATA)>
+
+<!ATTLIST message
+  name		CDATA	#IMPLIED
+>

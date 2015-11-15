@@ -1,0 +1,11 @@
+# Let's compiler to be more restrictive
+AM_CXXFLAGS = -I. -I$(srcdir) \
+	-I@top_srcdir@/src/dbpager \
+	-I@top_srcdir@/src/libdbpager/include \
+	@libdclbase_CFLAGS@ \
+	@libxml2_CFLAGS@ \
+	-W -Wall -Wno-unused-parameter -Wunused-variable
+
+# Link time dependencies.
+LDADD = @LIBINTL@
+

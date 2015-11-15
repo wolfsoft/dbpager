@@ -1,0 +1,14 @@
+[Unit]
+Description=dbPager Server
+Documentation=http://dbpager.com
+After=network.target auditd.service
+
+[Service]
+ExecStart=/usr/bin/dbpagerd ${DBPAGER_OPTS}
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+Alias=dbpagerd.service

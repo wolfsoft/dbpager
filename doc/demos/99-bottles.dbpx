@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<dbp:module
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+	xmlns:usr="http://dbpager.org.ru/schemas/dbp/3.0/custom"
+>
+
+<dbp:tag name="sing">
+	{$number} bottles of beer on the wall, {$number} bottles of beer.{$crlf}
+	Take one down, pass it around, {$number - 1} bottles of beer on the wall.{$crlf}{$crlf}
+	<dbp:switch test="{($number - 1) = 0}">
+		<dbp:case match="1">
+			No more bottles of beer on the wall, no more bottles of beer.{$crlf}
+			Go to the store and buy some more, 99 bottles of beer on the wall.{$crlf}
+		</dbp:case>
+		<dbp:case match="0">
+			<usr:sing number="{$number - 1}"/>
+		</dbp:case>
+	</dbp:switch>
+</dbp:tag>
+
+<dbp:var name="crlf" value="{byte(13)}{byte(10)}">
+	<usr:sing number="99"/>
+</dbp:var>
+
+
+</dbp:module>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE metafile SYSTEM "../style/dtd/metafile.dtd">
+
+<metafile>
+  <basename>about</basename>
+  <relpath>../</relpath>
+  <variants>
+    <variant>ru</variant>
+  </variants>
+  <parentdocument>about/conventions</parentdocument>
+  <followdocument>index</followdocument>
+</metafile>

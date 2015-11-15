@@ -1,0 +1,8 @@
+#
+# This directive assigns the XML namespace to the dbPager dbp_mongo module.
+# The module provides support of Mongo NoSQL database.
+#
+[modules]
+http://dbpager.org.ru/schemas/dbp/3.0/mongo = @PLUGINSDIR@/libdbp_mongo.so
+
+

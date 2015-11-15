@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE metafile SYSTEM "../style/dtd/metafile.dtd">
+
+<metafile>
+  <basename>setup</basename>
+  <relpath>../</relpath>
+  <variants>
+    <variant>ru</variant>
+  </variants>
+  <parentdocument>sysadmin_guide/about</parentdocument>
+  <followdocument>sysadmin_guide/configure</followdocument>
+</metafile>

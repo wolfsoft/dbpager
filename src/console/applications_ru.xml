@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<?xml-stylesheet type="text/xsl" href="template.xsl"?>
+
+<page xml:lang="ru" lang="ru">
+	<block title="Задачи">
+		<h3>Последние задачи</h3>
+		<p><a href="#">Просмотр логов сервера</a></p>	</block>
+	<block title="Информация">
+		<h3>Версия</h3>
+		<p>
+			Приложение: dbPager Server<br/>
+			Версия: 3.0.0
+		</p>
+		<hr/>
+		<h3>Окружение</h3>
+		<p>
+			ОС: Ubuntu Linux 9.04<br/>
+			Машина: localhost
+		</p>
+		<hr/>
+		<h3>Статистика</h3>
+		<p>
+			В работе: 4 дня<br/>
+			Средняя загрузка: 24%<br/>
+			Открытых сеансов: 17<br/>
+			Пик нагрузки:<br/>286 сеансов в 04.08.2009 18:03
+		</p>
+		<p><a href="#">Еще статистики...</a></p>
+	</block>
+	<menu>
+		<item link="?section=index" title="В начало">Посетить домашнюю страницу</item>
+		<item link="?section=logout" title="Выход">Выйти из системы</item>
+		<item link="?section=help" title="Справка">Прочитать документацию</item>
+	</menu>
+	<status>
+		<item title="Зарегистрирован как">admin</item>
+		<item title="Сервер">localhost</item>
+	</status>
+	<text>
+		<h1>Приложения</h1>
+		<p>Вы можете установить новое приложение, настроить, обновить или
+			удалить уже установленное приложение в системе.</p>
+	</text>
+	<applications>
+		<item id="7e5801cd-a746-41f5-a05b-8f95332f652c">
+			<icon>console.png</icon>
+			<version>3.0.0.0</version>
+			<update-url>http://dbpager.org.ru/downloads/console/manifest.xml</update-url>
+			<name>dbPager Server Console</name>
+			<description>
+				dbPager Server Console поможет вам настраивать и обслуживать
+				dbPager Server и его приложения через web интерфейс.
+			</description>
+		</item>
+		<item id="7e5801cd-a746-41f5-a05b-8f95332f652d">
+			<icon>console.png</icon>
+			<version>3.0.0.0</version>
+			<update-url>http://dbpager.org.ru/downloads/console/manifest.xml</update-url>
+			<name>DietDiary.ru</name>
+			<description>
+				DietDiary.ru - Web-дневник для людей, следящих за своим весом.
+				Приложение предоставляет возможность вести блоги,
+				кулинарную книгу, расчет калорийности блюд,
+				учет потребленных калорий.
+			</description>
+		</item>
+	</applications>
+	<copyright>
+		Авторские права (c) 2009 Прочко Денис Владимирович &lt;wolfsoft@mail.ru&gt;
+	</copyright>
+</page>

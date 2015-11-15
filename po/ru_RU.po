@@ -1,0 +1,369 @@
+# Russian translation of the dbpager.pot file.
+# Copyright (C) 2008 Dennis Prochko <wolfsoft@mail.ru>
+# This file is distributed under the same license as the
+# dbpager package.
+#
+#
+# Dennis Prochko <wolfsoft@mail.ru>, 2008, 2009, 2010, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: dbpager 3.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-12 20:36+0300\n"
+"PO-Revision-Date: 2015-08-29 23:47+0300\n"
+"Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
+"Language-Team: ru <wolfsoft@mail.ru>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: src/dbpager/application/dbp_cgi.cpp:110
+#: src/dbpager/application/dbpagerd.cpp:162
+#: src/dbpager/application/dbpagerd.cpp:253
+msgid "Internal error: {0}"
+msgstr "Внутренняя ошибка: {0}"
+
+#: src/dbpager/application/dbpager.cpp:43
+msgid "dbPager Language interpretator"
+msgstr "интерпретатор языка dbPager"
+
+#: src/dbpager/application/dbpager.cpp:45
+#: src/dbpager/application/dbpagerd.cpp:57
+msgid "show application version"
+msgstr "показать версию приложения"
+
+#: src/dbpager/application/dbpager.cpp:48
+#: src/dbpager/application/dbpagerd.cpp:60
+msgid "name"
+msgstr "имя"
+
+#: src/dbpager/application/dbpager.cpp:48
+#: src/dbpager/application/dbpagerd.cpp:60
+msgid "use an alternate configuration file"
+msgstr "использовать альтернативный файл конфигурации"
+
+#: src/dbpager/application/dbpager.cpp:52
+msgid "URL|file [[param1=value] ... [paramN=value]]"
+msgstr "URL|файл [[парам1=значение] ... [парамN=значение]]"
+
+#: src/dbpager/application/dbpager.cpp:62
+msgid "the URL or file name is not defined"
+msgstr "URL или имя файла не определено"
+
+#: src/dbpager/application/dbpager.cpp:104
+#: src/dbpager/application/dbpagerd.cpp:82
+#, fuzzy
+msgid "Copyright (c) 2008-2015 Dennis Prochko <wolfsoft@mail.ru>"
+msgstr "Авторские права (c) 2008-2011 Прочко Денис <wolfsoft@mail.ru>"
+
+#: src/dbpager/application/dbpagerd.cpp:54
+msgid "dbPager FastCGI Server"
+msgstr "Сервер dbPager FastCGI"
+
+#: src/dbpager/application/dbpagerd.cpp:123
+msgid ""
+"Can't bind to the {0}. Check your access rights or check for some other "
+"program using this resource"
+msgstr ""
+"Невозможно привязаться к {0}. Проверьте ваши права доступа или наличие "
+"других программ, использующих этот ресурс"
+
+#: src/dbpager/application/dbpagerd.cpp:132
+msgid "Can't switch current group to {0} - check your access rights"
+msgstr ""
+"Невозможно сменить текущую группу на {0} - проверьте ваши права доступа"
+
+#: src/dbpager/application/dbpagerd.cpp:135
+msgid "No such group {0}"
+msgstr "Нет такой группы {0}"
+
+#: src/dbpager/application/dbpagerd.cpp:140
+msgid "Can't switch current user to {0} - check your access rights"
+msgstr ""
+"Невозможно сменить текущего пользователя на {0} - проверьте ваши права "
+"доступа"
+
+#: src/dbpager/application/dbpagerd.cpp:143
+msgid "No such user {0}"
+msgstr "Нет такого пользователя {0}"
+
+#: src/dbpager/application/dbpagerd.cpp:164
+msgid "Unknown error"
+msgstr ""
+
+#: src/dbpager/interpreter/environment.cpp:264
+msgid "invalid XML structure of the request"
+msgstr "некорректная XML структура запроса"
+
+#: src/dbpager/interpreter/interpreter.cpp:130
+msgid ""
+"Configuration file \"{0}\" was not found; will use default values instead"
+msgstr ""
+"Конфигурационный файл \"{0}\" не найден; будут использованы значения по "
+"умолчанию"
+
+#: src/dbpager/interpreter/interpreter.cpp:136
+msgid "Configuration realoaded"
+msgstr ""
+
+#: src/dbpager/interpreter/interpreter.cpp:162
+msgid "Fatal error: can't parse file {0}"
+msgstr "Ошибка при разборе файла '{0}' - продолжение невозможно"
+
+#: src/dbpager/parser/dbpx_parser.cpp:43
+msgid "Validity warning at line {0}: {1}"
+msgstr "Предупреждение валидации на строке {0}: {1}"
+
+#: src/dbpager/parser/dbpx_parser.cpp:45
+msgid "Validity error at line {0}: {1}"
+msgstr "Ошибка валидации на строке {0}: {1}"
+
+#: src/dbpager/parser/dbpx_parser.cpp:47
+msgid "Warning at line {0}: {1}"
+msgstr "Предупреждение на строке {0}: {1}"
+
+#: src/dbpager/parser/dbpx_parser.cpp:49
+msgid "Error at line {0}: {1}"
+msgstr "Ошибка на строке {0}: {1}"
+
+#: src/dbpager/parser/dbpx_parser.cpp:61
+msgid "unable to open file '{0}'. {1}"
+msgstr "невозможно открыть файл '{0}'. {1}"
+
+#: src/dbpager/parser/dbpx_parser.cpp:87
+msgid "failed to parse file '{0}'. {1}"
+msgstr "ошибка при разборе файла '{0}'. {1}"
+
+#: src/dbpager/parser/dbpx_parser.cpp:108
+#: src/dbpager/parser/dbpx_parser.cpp:123
+msgid "invalid nested tags ({0})"
+msgstr "неверная вложенность тегов ({0})"
+
+#: src/dbpager/parser/dbpx_parser.cpp:165
+msgid "href parameter missing for tag include"
+msgstr "у тега include отсутствует параметр href"
+
+#: src/dbpager/tag/functions.cpp:47 src/dbpager/tag/functions.cpp:58
+#: src/dbpager/tag/functions.cpp:77 src/dbpager/tag/functions.cpp:99
+#: src/dbpager/tag/functions.cpp:111 src/dbpager/tag/functions.cpp:123
+#: src/dbpager/tag/functions.cpp:140 src/dbpager/tag/functions.cpp:152
+#: src/dbpager/tag/functions.cpp:164 src/dbpager/tag/functions.cpp:186
+msgid "wrong number of arguments ({0} instead {1} expected)"
+msgstr "неверное число аргументов ({0} вместо ожидаемых {1})"
+
+#: src/dbpager/tag/tag_delete.cpp:38
+msgid "file {0} can't be deleted"
+msgstr "файл {0} не может быть удалён"
+
+#: src/dbpager/tag/tag_expression.cpp:85
+msgid "unbalanced expression braces found"
+msgstr "найдены не сбалансированные скобки выражения"
+
+#: src/dbpager/tag/tag_expression.cpp:168
+msgid "invalid expression: {0} expected"
+msgstr "неверное выражение: ожидался {0}"
+
+#: src/dbpager/tag/tag_expression.cpp:185
+msgid ""
+"parameter(s) are not defined for function '{0}', expected '(', found '{1}'"
+msgstr ""
+"параметр(ы) для функции '{0}' не определен(ы), ожидалась '(', найдено '{1}'"
+
+#: src/dbpager/tag/tag_expression.cpp:204
+#: src/dbpager/tag/tag_expression.cpp:440
+msgid "invalid expression: \")\" expected"
+msgstr "неверное выражение: ожидалась \")\""
+
+#: src/dbpager/tag/tag_expression.cpp:209
+msgid "unknown expression token '{0}'"
+msgstr "неизвестный оператор '{0}' в выражении"
+
+#: src/dbpager/tag/tag_expression.cpp:355
+#: src/dbpager/tag/tag_expression.cpp:391
+#: src/dbpager/tag/tag_expression.cpp:427
+msgid "can't convert the string to a number"
+msgstr "невозможно преобразовать строку в число"
+
+#: src/dbpager/tag/tag_expression.cpp:447
+msgid "invalid expression: primary expected"
+msgstr "неверное выражение: ожидалось число"
+
+#: src/dbpager/tag/tag_factory.cpp:123 src/dbpager/tag/tag_factory.cpp:135
+msgid "unknown tag found ({0})"
+msgstr "обнаружен неизвестный тег ({0})"
+
+#: src/dbpager/tag/tag_locale.cpp:38
+msgid "message domain (domain) is not defined"
+msgstr "домен сообщений (domain) не определен"
+
+#: src/dbpager/tag/tag_locale.cpp:42
+msgid ""
+"base directory of the hierarchy containing message catalogs (path) is not "
+"defined"
+msgstr ""
+"основной каталог иерархии, содержащий файлы сообщений (path) не определен"
+
+#: src/dbpager/tag/tag_read (cURL).cpp:64
+msgid "read error ({0})"
+msgstr "ошибка чтения: {0}"
+
+#: src/dbpager/tag/tag_read.cpp:49
+msgid "file {0} not found or read error"
+msgstr "файл {0} не найден или ошибка чтения файла"
+
+#: src/dbpager/tag/tag_rename.cpp:39
+msgid "file {0} can't be renamed"
+msgstr "файл {0} не может быть переименован"
+
+#: src/dbpager/tag/tag_split.cpp:54
+msgid "parameter 'name' is undefined"
+msgstr "параметр 'name' не определен"
+
+#: src/dbpager/tag/tag_split.cpp:81
+msgid "invalid 'order' parameter value. expected (asc,desc). found: {0}"
+msgstr ""
+"неверное значение параметра 'order'. ожидалось (asc, desc). найдено: {0}"
+
+#: src/dbpager/tag/tag_write.cpp:48
+msgid "can't write to file {0}"
+msgstr "невозможно записать данные в файл {0}"
+
+#: src/libdbpager/context.cpp:87
+msgid "variable {0} is not defined"
+msgstr "переменная {0} не определена"
+
+#: src/libdbpager/context.cpp:101
+msgid "unknown variable type {0}"
+msgstr "неизвестный тип переменной '{0}'"
+
+#: src/libdbpager/tag_usr.cpp:63
+msgid "custom tag '{0}' is not defined at this scope"
+msgstr "вызываемый тег '{0}' не определен в этой области видимости"
+
+#: src/modules/dbp_bdb/tag_delete.cpp:42 src/modules/dbp_bdb/tag_find.cpp:39
+#: src/modules/dbp_bdb/tag_get.cpp:39 src/modules/dbp_bdb/tag_set.cpp:42
+msgid "key name (name) is not defined"
+msgstr "имя ключа (name) не определено"
+
+#: src/modules/dbp_bdb/tag_delete.cpp:49 src/modules/dbp_bdb/tag_find.cpp:46
+#: src/modules/dbp_bdb/tag_get.cpp:46 src/modules/dbp_bdb/tag_set.cpp:49
+#: src/modules/dbp_odbc/tag_query.cpp:44
+#: src/modules/dbp_odbc/tag_transaction.cpp:40
+#: src/modules/dbp_pgsql/tag_query.cpp:44
+#: src/modules/dbp_pgsql/tag_transaction.cpp:41
+msgid "(default)"
+msgstr "(по умолчанию)"
+
+#: src/modules/dbp_bdb/tag_delete.cpp:52 src/modules/dbp_bdb/tag_find.cpp:49
+#: src/modules/dbp_bdb/tag_get.cpp:49 src/modules/dbp_bdb/tag_set.cpp:52
+msgid "storage (id='{0}') is not defined in the current context"
+msgstr "хранилище (id='{0}') не определено в текущем контексте"
+
+#: src/modules/dbp_bdb/tag_storage.cpp:64
+#: src/modules/dbp_bdb/tag_storage.cpp:100
+msgid "storage can't be opened ({0})"
+msgstr "не удается открыть хранилище ({0})"
+
+#: src/modules/dbp_bdb/tag_storage.cpp:119
+#: src/modules/dbp_bdb/tag_storage.cpp:136
+#: src/modules/dbp_bdb/tag_storage.cpp:149
+#: src/modules/dbp_bdb/tag_storage.cpp:160
+msgid "storage is not opened"
+msgstr "хранилище не открыто"
+
+#: src/modules/dbp_bdb/tag_storage.cpp:130
+msgid "can't retrieve data from the storage ({0})"
+msgstr "невозможно получить данные из хранилища ({0})"
+
+#: src/modules/dbp_bdb/tag_storage.cpp:142
+msgid "can't add data to the storage ({0})"
+msgstr "невозможно добавить данные в хранилище ({0})"
+
+#: src/modules/dbp_bdb/tag_storage.cpp:153
+msgid "can't delete data from the storage ({0})"
+msgstr "невозможно удалить данные из хранилища ({0})"
+
+#: src/modules/dbp_bdb/tag_storage.cpp:174
+msgid "storage file name (href) is not defined"
+msgstr "имя файла хранилища (href) не определено"
+
+#: src/modules/dbp_gearman/tag_task.cpp:39
+msgid "gearman server is not defined in the current context"
+msgstr "сервер gearman не определен в текущем контексте"
+
+#: src/modules/dbp_mongo/tag_database.cpp:39
+msgid "MongoDB server host name (host) is not defined"
+msgstr "Имя сервера MongoDB (host) не определено"
+
+#: src/modules/dbp_mongo/tag_delete.cpp:41
+#: src/modules/dbp_mongo/tag_insert.cpp:41
+#: src/modules/dbp_mongo/tag_query.cpp:41
+#: src/modules/dbp_mongo/tag_update.cpp:41
+msgid "query collection (collection) is not defined"
+msgstr "коллекция (collection) не определена"
+
+#: src/modules/dbp_mongo/tag_delete.cpp:46
+#: src/modules/dbp_mongo/tag_insert.cpp:46
+#: src/modules/dbp_mongo/tag_query.cpp:46
+#: src/modules/dbp_mongo/tag_update.cpp:46
+msgid "MongoDB database is not defined in the current context"
+msgstr "База данных MongoDB не определена в текущем контексте"
+
+#: src/modules/dbp_mongo/tag_param.cpp:41
+msgid "query is not defined in the current context"
+msgstr "запрос не определен в текущем контексте"
+
+#: src/modules/dbp_mongo/tag_param.cpp:49
+msgid "parameter name (name) is not defined"
+msgstr "имя параметра (name) не определено"
+
+#: src/modules/dbp_odbc/tag_database.cpp:41
+#: src/modules/dbp_pgsql/tag_database.cpp:37
+msgid "data source name (dsn) is not defined"
+msgstr "имя источника данных (dsn) не определено"
+
+#: src/modules/dbp_odbc/tag_query.cpp:47
+#: src/modules/dbp_odbc/tag_transaction.cpp:43
+#: src/modules/dbp_pgsql/tag_query.cpp:47
+#: src/modules/dbp_pgsql/tag_transaction.cpp:44
+msgid "database (id='{0}') is not defined in the current context"
+msgstr "база данных (id='{0}') не определена в текущем контексте"
+
+#: src/modules/dbp_xslt/tag_transform.cpp:50
+msgid "can't parse stylesheet file '{0}'"
+msgstr "невозможно разобрать файл шаблона '{0}'"
+
+#: src/modules/dbp_xslt/tag_transform.cpp:58
+msgid "the input stream does not contain the valid XML data"
+msgstr "входной поток не содержит корректных XML данных"
+
+#: src/modules/dbp_xslt/tag_transform.cpp:65
+msgid "can't transform XML data"
+msgstr "невозможно преобразовать данные XML"
+
+#~ msgid "Internal error"
+#~ msgstr "Внутренняя ошибка"
+
+#~ msgid "Copyright (c) 2014 Dennis Prochko <wolfsoft@mail.ru>"
+#~ msgstr "Авторские права (c) 2014 Прочко Денис <wolfsoft@mail.ru>"
+
+#, fuzzy
+#~ msgid "cURL error: {0}"
+#~ msgstr "Внутренняя ошибка: {0}"
+
+#~ msgid "dbPager Server daemon"
+#~ msgstr "Служба dbPager Server"
+
+#~ msgid "using config file: {0}"
+#~ msgstr "используется файл конфигурации: {0}"
+
+#~ msgid "regular expression compilation failed at offset {0}: {1}"
+#~ msgstr "компиляция регулярного выражения не удалась в позиции {0}: {1}"
+
+#~ msgid "regular expression execution error #{0}"
+#~ msgstr "ошибка выполнения регулярного выражения #{0}"
+
+#~ msgid "warning - "
+#~ msgstr "внимание - "

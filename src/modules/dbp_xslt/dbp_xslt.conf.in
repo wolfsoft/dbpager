@@ -1,0 +1,7 @@
+#
+# This directive assigns the XML namespace to the dbPager dbp_xslt module.
+# The module provides support of XSL transformations.
+#
+[modules]
+http://dbpager.org.ru/schemas/dbp/3.0/xslt = @PLUGINSDIR@/libdbp_xslt.so
+

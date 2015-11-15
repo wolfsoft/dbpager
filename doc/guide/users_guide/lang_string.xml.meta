@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE metafile SYSTEM "../style/dtd/metafile.dtd">
+
+<metafile>
+  <basename>lang_string</basename>
+  <relpath>../</relpath>
+  <variants>
+    <variant>ru</variant>
+  </variants>
+  <parentdocument>users_guide/lang_exceptions</parentdocument>
+  <followdocument>users_guide/lang_ml</followdocument>
+</metafile>

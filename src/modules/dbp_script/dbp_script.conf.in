@@ -1,0 +1,7 @@
+#
+# This directive assigns the XML namespace to the dbPager dbp_script module.
+# The module provides support of server-side JavaScript.
+#
+[modules]
+http://dbpager.org.ru/schemas/dbp/3.0/script = @PLUGINSDIR@/libdbp_script.so
+

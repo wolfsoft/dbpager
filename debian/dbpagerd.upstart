@@ -1,0 +1,17 @@
+# dbPager Server Upstart job configuration file
+author "Dennis Prochko <wolfsoft@mail.ru>"
+description "dbPager Server"
+
+start on runlevel [2345]
+stop on runlevel [016]
+
+respawn
+
+script
+	DBPAGER=/usr/bin/$UPSTART_JOB
+	DBPAGER_OPTS=
+	if [ -f /etc/default/$UPSTART_JOB ]; then
+		. /etc/default/$UPSTART_JOB
+	fi
+	exec "$DBPAGER" $DBPAGER_OPTS
+end script

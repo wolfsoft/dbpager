@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE metafile SYSTEM "../style/dtd/metafile.dtd">
+
+<metafile>
+  <basename>lang_subroutines</basename>
+  <relpath>../</relpath>
+  <variants>
+    <variant>ru</variant>
+  </variants>
+  <parentdocument>users_guide/lang_comp</parentdocument>
+  <followdocument>users_guide/lang_exceptions</followdocument>
+</metafile>

@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!DOCTYPE manualpage SYSTEM "../style/dtd/manual.dtd">
+
+<?xml-stylesheet type="text/xsl" href="../style/xsl/manual.ru.xsl"?>
+
+<manualpage metafile="lang_subroutines.xml.meta" lang="ru">
+
+<title>Подпрограммы</title>
+
+<summary>
+   В этом разделе рассказывается о расширении возможностей языка dbPager
+   путем определения своих собственных тегов и функций, а также о создании
+   библиотек пользовательских функций.
+</summary>
+
+<section id="tags">
+   <title>Теги, определенные пользователем</title>
+   <p>Подобно тому, как язык C или Паскаль помимо встроенных функций позволяют
+      программисту определить свои собственные функции, язык dbPager позволяет
+      определить теги пользователя. Для определения тега пользователя
+      используется тег <name>&lt;dbp:tag></name> с параметром <name>name</name>,
+      определяющим имя тега:</p>
+   <code>&lt;dbp:tag <param>name</param>=<value>"имя"</value>>
+<value>[Программный код тега пользователя]</value>
+&lt;/dbp:tag></code>
+   <p>Тег должен содержать программный код на языке dbPager, подлежащий
+      исполнению при его вызове. Все параметры тега преобразуются в
+      соответствующие переменные.</p>
+   <subtitle>Вызов тега пользователя</subtitle>
+   <p>Для вызова тега пользователя следует определять имена тегов в
+      зарезервированном пространстве имён пользователя,
+      <name>http://dbpager.org.ru/shemas/dbp/3.0/custom</name>,
+      таким образом:</p>
+   <code>&lt;<value>имя_тега</value> <param>xmlns="http://dbpager.org.ru/shemas/dbp/3.0/custom"></param>
+<value>[Программный код]</value>
+&lt;/<param>имя_тега</param>>
+   </code>
+   <p>На практике удобнее определить какое-либо имя, например <name>usr</name>
+      для пространства имён пользователя в теге <name>module</name> и
+      использовать теги пользователя с префиксом usr, не указывая каждый
+      раз пространство имён с помощью xmlns, как показано в следующем примере:</p>
+   <example>
+      <title>Цикл for</title>
+      <comment>
+         <p>Данный пример демонстрирует определение тега <name>for</name>,
+            который отсутствует в языке dbPager по причине избыточности,
+            с целью создания цикла. Тег принимает параметры <name>var</name>,
+            <name>from</name>, <name>to</name> и <name>step</name>,
+            в которые помещаются имя переменной - счётчика цикла,
+            начальное значение счётчика, конечное значение счетчика и
+            шаг приращения, соответственно. При исполнении тега выполняется
+            прибавление шага к счётчику до тех пор, пока значение счётчика
+            не станет больше заданного конечного значения и на каждой
+            итерации происходит выполнение вложенных тегов.</p>
+         <p>Для организации цикла с помощью определённого пользователем тега
+            for, используется его вызов из пространства имён тегов пользователя,
+            определённого в <name>&lt;dbp:module></name> как
+            <name>usr</name>.</p>
+      </comment>
+      <input>
+&lt;?xml version="1.0" encoding="ISO-8859-1" ?>
+
+&lt;!DOCTYPE dbp:module SYSTEM "http://dbpager.org.ru/shemas/dbp/3.0/module.dtd">
+
+&lt;dbp:module version="1.0"
+   xmlns:dbp="http://dbpager.org.ru/shemas/dbp/3.0"
+   xmlns:usr="http://dbpager.org.ru/shemas/dbp/3.0/custom"
+   xmlns="http://www.w3.org/1999/xhtml">
+
+&lt;dbp:tag name="for">
+   &lt;dbp:var name="{$var}" value="{$from}">
+      &lt;dbp:while test="{$to >= ${$var}}">
+         &lt;dbp:execute/>
+         &lt;dbp:set name="{$var}" value="{${$var} + $step}"/>
+      &lt;/dbp:while>
+   &lt;/dbp:var>
+&lt;/dbp:tag>
+
+&lt;usr:for var="count" from="1" to="5" step="1">
+   &lt;p>Line #{$count}&lt;/p>
+&lt;/usr:for>
+
+&lt;/dbp:module>
+      </input>
+      <output>
+&lt;p>Line #1&lt;/p>
+&lt;p>Line #2&lt;/p>
+&lt;p>Line #3&lt;/p>
+&lt;p>Line #4&lt;/p>
+&lt;p>Line #5&lt;/p>
+      </output>
+   </example>
+</section>
+
+<section id="functions">
+   <title>Функции, определенные пользователем</title>
+   <p>Подобно тому, как язык C или Паскаль помимо встроенных функций позволяют
+      определить функции пользователя, язык dbPager позволяет определить
+      теги пользователя.</p>
+</section>
+
+<section id="library">
+   <title>Библиотека функций пользователя</title>
+   <p>Теги пользователя и функции пользователя удобно помещать в библиотеки.</p>
+   <code>&lt;dbp:import <param>href</param>="<value>URL</value>"></code>
+</section>
+
+</manualpage>

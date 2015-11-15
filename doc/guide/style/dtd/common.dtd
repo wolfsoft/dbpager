@@ -1,0 +1,5 @@
+<!ENTITY % HTMLStrict SYSTEM "xhtml1-strict.dtd">
+%HTMLStrict;
+
+<!ENTITY lf "&#xA;">
+<!ENTITY tab "&#x9;">

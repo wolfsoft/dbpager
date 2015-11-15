@@ -1,0 +1,17 @@
+#
+# This directive assigns the XML namespace to the dbPager dbp_bdb module.
+# The module provides support of Berkeley DB data storage.
+#
+# Note that under heavy load you can decide to increase storage locks and
+# mutex limits, according to
+# http://www.oracle.com/technetwork/database/berkeleydb/je-faq-096044.html
+#
+# It can be done with DB_CONFIG file into your storage directory:
+#   mutex_set_increment NUMBER
+#   set_lk_max_locks NUMBER
+#   set_lk_max_lockers NUMBER
+#
+[modules]
+http://dbpager.org.ru/schemas/dbp/3.0/bdb = @PLUGINSDIR@/libdbp_bdb.so
+
+

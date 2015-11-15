@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE metafile SYSTEM "../style/dtd/metafile.dtd">
+
+<metafile>
+  <basename>config_other</basename>
+  <relpath>../</relpath>
+  <variants>
+    <variant>ru</variant>
+  </variants>
+  <parentdocument>sysadmin_guide/cluster</parentdocument>
+  <followdocument>index</followdocument>
+</metafile>

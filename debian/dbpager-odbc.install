@@ -1,0 +1,3 @@
+usr/lib/dbpager/libdbp_odbc*.so.*
+usr/lib/dbpager/libdbp_odbc*.so
+etc/dbpager/modules-available/dbp_odbc.conf

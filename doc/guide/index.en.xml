@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE indexpage SYSTEM "style/dtd/index.dtd">
+
+<?xml-stylesheet type="text/xsl" href="style/xsl/manual.en.xsl"?>
+
+<indexpage metafile="index.xml.meta" lang="en" version="2010062501">
+
+<title>dbPager Server Guide</title>
+
+<summary>
+	This guide is a complete set of the dbPager Server project
+	documentation. It includes the information about the
+	dbPager programming language, software and related
+	web-oriented technologies.
+	All documentation is divided into several sections for
+	easier use by system administrators and programmers who
+	intend to use the dbPager Server to create web-based
+	applications and web sites.
+</summary>
+
+<category id="about">
+	<title>About This Guide</title>
+	<page href="about">About This Guide</page>
+	<page href="conventions">Typographic Conventions</page>
+	<page href="terms_and_conditions">Terms and Conditions</page>
+</category>
+
+<category id="users_guide">
+	<title>dbPager Language Guide</title>
+	<page href="lang_overview">Language Overview</page>
+	<page href="lang_vars">Variables and Expressions</page>
+	<page href="lang_comp">Controlling of Execution Order</page>
+	<page href="lang_subroutines">Subroutines and Functions</page>
+	<page href="lang_exceptions">Exceptions and Software Transactions</page>
+	<page href="lang_string">Text Operations</page>
+	<page href="lang_ml">XML Data Operations</page>
+	<page href="lang_system">Interaction with operating system</page>
+	<page href="lang_index">Alphabetical and Functional Index</page>
+</category>	 
+
+<category id="sysadmin_guide">
+	<title>System Administrator Guide</title>
+	<page href="about">About dbPager Server Software</page>
+	<page href="setup">dbPager Server Installation</page>
+	<page href="configure">dbPager Server Configuration</page>
+	<page href="admin">dbPager Server Administration</page>
+	<page href="cluster">Combining Multiple Servers Into a Cluster</page>
+	<page href="config_other">Related Software Setup</page>
+</category>
+
+<category id="modules">
+	<title>Extension Modules</title>
+	<page href="overview">Overview</page>
+	<page href="mod_odbc">RDBMS Access via ODBC</page>
+	<page href="mod_bdb">Berkeley DB Data Storage</page>
+</category>	 
+
+<category id="programmers_guide">
+	<title>Developer Guide</title>
+	<page href="overview">Overview</page>
+	<page href="build">Web Application Building</page>
+	<page href="deploy">Web Application Deployment</page>
+	<page href="module">Extension Module Development</page>
+</category>	 
+
+<category id="library">
+	<title>Standard Library</title>
+	<page href="overview">Overview</page>
+	<page href="operators">Operators</page>
+	<page href="lists">Lists</page>
+	<page href="index">Alphabetical and Functional Index</page>
+</category>
+
+</indexpage>

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<dbp:module
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+	xmlns:usr="http://dbpager.org.ru/schemas/dbp/3.0/custom"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+
+<dbp:include href="test.dbpx"/>
+
+<dbp:tag name="func">
+	1
+</dbp:tag>
+
+<dbp:var name="test1" value="{@func() * 5}">
+	<dbp:set name="test1">{$test1 * 2 + 10}</dbp:set>
+</dbp:var>
+
+</dbp:module>

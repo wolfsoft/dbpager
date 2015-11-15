@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/xsl" href="manpage.xsl"?>
+
+<manpage section="1">
+
+<package>dbPager Server</package>
+
+<name>dbpager</name>
+
+<summary>
+	the command line dbPager programming language interpretator.
+</summary>
+
+<date>2008-12-28</date>
+
+<author>
+	<name>Dennis Prochko</name>
+	<email>wolfsoft@mail.ru</email>
+</author>
+
+<sections>
+
+<synopsis>
+	<b>dbpager</b>[<b>-h</b>] [<b>-v</b>] [<b>-f</b><i>name</i>] [<i>param=value</i>] <i>URL/filename</i>
+</synopsis>
+
+<description>
+<p>The dbPager Server is a multifunctional, cross-platform, open source application
+server, containing own XML-based script language interpretator. The script
+language is simply and understood well; it contains facilities to access
+external data such as databases, web-pages, text files and data in XML format
+plus powerful data processing facilities.</p>
+
+<p>dbPager Server package includes the documentation (User's Guide) in HTML
+format, available at <i>/usr/share/doc/dbpager</i>. Refer to that manual for
+details in configuration file options.</p>
+
+<p>Visit the web site at <i>http://dbpager.org.ru</i> for more information,
+downloads and community support resources.</p>
+</description>
+
+<options>
+	<option name="-f name">uses an alternate configuration file, specified by name.</option>
+	<option name="-h">shows a help page.</option>
+	<option name="-v">shows a program version.</option>
+	<option name="param=value">initializes one or more parameters with values.</option>
+	<option name="URL/filename">specifies the file to execute by path or URL.</option>
+</options>
+
+<files>
+/etc/dbpager/dbpager.conf
+</files>
+
+<see-also>
+dbpager.conf(5)
+dbp_cgi(1)
+</see-also>
+
+<other name="copyright">
+<p>Copyright (c) 2008 Dennis Prochko &lt;wolfsoft@mail.ru&gt;.</p>
+<p>dbPager Server is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation version 3.</p>
+</other>
+
+</sections>
+
+</manpage>
+

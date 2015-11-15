@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!--
+	prolog.dbpx
+	This file is part of dbPager Server
+
+	Copyright (c) 2009 Dennis Prochko <wolfsoft@mail.ru>
+
+	dbPager Server is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation version 3.
+
+	dbPager Server is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with dbPager Server; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, 
+	Boston, MA  02110-1301  USA
+-->
+<module
+	xmlns="http://dbpager.org.ru/schemas/dbp/3.0"
+	xmlns:lib="http://dbpager.org.ru/schemas/dbp/3.0/custom"
+>
+
+<include href="operators.dbpx"/>
+
+<!--
+	'prolog/before/after' tags.
+
+	Usage:
+	<lib:prolog>
+		<dbp:ANY_LOOP_TAG>
+			<lib:before>
+				...
+			</lib:before>
+			...
+			<lib:after>
+				...
+			</lib:after>
+		<dbp:ANY_LOOP_TAG>
+	</lib:>
+-->
+
+<tag name="prolog">
+	<var name="before,after,rslt" value="">
+		<set name="rslt"><execute/></set>
+		{$before}{$rslt}{$after}
+	</var>
+</tag>
+
+<tag name="before">
+	<lib:if test="{$after = ''}">
+		<set name="after"><execute/></set>
+	</lib:if>
+</tag>
+
+<tag name="after">
+	<lib:if test="{$before = ''}">
+		<set name="before"><execute/></set>
+	</lib:if>
+</tag>
+
+</module>

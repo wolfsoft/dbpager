@@ -1,0 +1,282 @@
+2010-11-22  Dennis Prochko <wolfsoft@mail.ru>
+
+	* src/dbpager/tag/tag_expression.cpp: % operator can process float
+	  numbers now
+	* src/dbpager/interpreter/environment.h: some refactoring after
+	  interview in EMC
+	* src/dbpager/Makefile.am, src/dbpager/tag/tag_factory.cpp,
+	  src/dbpager/tag/tag_log.cpp, src/dbpager/tag/tag_log.h: dbp:log
+	  tag has been added
+
+2010-11-09  Dennis Prochko <wolfsoft@mail.ru>
+
+	* src/dbpager/tag/tag_expression.cpp,
+	  src/dbpager/tag/tag_expression.h: add modulus (%) operator for
+	  expressions
+
+2010-09-27  Dennis Prochko <wolfsoft@mail.ru>
+
+	* debian/control, debian/control.ubuntu_karmic,
+	  debian/control.ubuntu_lucid, debian/dbpager-core-dev.install,
+	  debian/dbpager-core.install, debian/dbpager-core.manpages,
+	  debian/dbpagerd.init.d, debian/dbpagerd.install,
+	  debian/dbpagerd.postinst, debian/dbpagerd.prerm,
+	  debian/libdbpager-dev.install, debian/libdbpager4.install,
+	  debian/libdbpager4.manpages, debian/watch: prepare for release
+	* po/ru_RU.po, src/dbpager/interpreter/environment.cpp: dbp:var
+	  type="global" bugfix
+
+2010-09-24  Dennis Prochko <wolfsoft@mail.ru>
+
+	* configure.ac, po/ru_RU.po, src/libdbpager/include/dbpager/tag.h,
+	  src/libdbpager/include/dbpager/tag_impl.h,
+	  src/libdbpager/tag_impl.cpp: new tag::apply() method, to iterate
+	  all tags in the tree
+
+2010-09-23  Dennis Prochko <wolfsoft@mail.ru>
+
+	* src/dbpager/tag/tag_split.cpp: dbp::split bugfix: remaining
+	  string doesn't set to the last variable in name parameter
+
+2010-09-12  Dennis Prochko <wolfsoft@mail.ru>
+
+	* configure.ac, debian/changelog,
+	  src/modules/dbp_bdb/tag_delete.cpp,
+	  src/modules/dbp_bdb/tag_find.cpp,
+	  src/modules/dbp_bdb/tag_get.cpp, src/modules/dbp_bdb/tag_set.cpp,
+	  src/modules/dbp_bdb/tag_storage.cpp,
+	  src/modules/dbp_odbc/tag_database.cpp,
+	  src/modules/dbp_odbc/tag_query.cpp,
+	  src/modules/dbp_odbc/tag_transaction.cpp: Bugfix: using multiple
+	  databases or key-value storages fails
+
+2010-08-17  Dennis Prochko <wolfsoft@mail.ru>
+
+	* doc/guide/index.en.xml, doc/guide/index.ru.xml,
+	  doc/guide/users_guide/lang_comp.ru.xml,
+	  doc/guide/users_guide/lang_ml.xml.meta,
+	  doc/guide/users_guide/lang_overview.en.xml,
+	  doc/guide/users_guide/lang_overview.ru.xml,
+	  doc/guide/users_guide/lang_overview.xml.meta,
+	  doc/guide/users_guide/lang_system.ru.xml,
+	  doc/guide/users_guide/lang_system.xml.meta,
+	  doc/guide/users_guide/lang_vars.ru.xml: documentation update
+
+2010-08-13  Dennis Prochko <wolfsoft@mail.ru>
+
+	* po/ru_RU.po, src/dbpager/Makefile.am,
+	  src/dbpager/tag/tag_delete.cpp, src/dbpager/tag/tag_delete.h,
+	  src/dbpager/tag/tag_factory.cpp, src/dbpager/tag/tag_rename.cpp,
+	  src/dbpager/tag/tag_rename.h: dbp:delete tag added
+	  dbp:rename tag added
+
+2010-08-08  Dennis Prochko <wolfsoft@mail.ru>
+
+	* src/dbpager/tag/tag_system.cpp: dbp:execute: error stream raises
+	  an exception
+
+2010-08-07  Dennis Prochko <wolfsoft@mail.ru>
+
+	* configure.ac, po/ru_RU.po, src/dbpager/Makefile.am,
+	  src/dbpager/tag/tag_factory.cpp, src/dbpager/tag/tag_system.cpp,
+	  src/dbpager/tag/tag_system.h: <dbp:system href="path"
+	  parameters="args"> tag added
+	  version is changed to 3.0.2
+
+2010-07-28  Dennis Prochko <wolfsoft@mail.ru>
+
+	* doc/guide/modules/mod_odbc.ru.xml, po/ru_RU.po,
+	  src/dbpager/interpreter/environment.cpp,
+	  src/dbpager/interpreter/environment.h: session cookie handling
+	  (setup only first time) optimized
+
+2010-07-25  Dennis Prochko <wolfsoft@mail.ru>
+
+	* debian/control.ubuntu_lucid, src/dbpager/tag/tag_regexp.cpp,
+	  tests/Makefile.am, tests/test_functions.cpp,
+	  tests/test_tag_regexp.cpp: regexp tag bugfix, 2 unit tests added
+
+2010-06-16  Dennis Prochko <wolfsoft@mail.ru>
+
+	* ChangeLog, debian/changelog: changelog for 3.0.1 update
+	* po/ru_RU.po, src/mimetic-0.9.6/mimetic/config.h.in: translation
+	  update
+
+2010-06-09 Dennis Prochko <wolfsoft@mail.ru>
+
+	* src/dbpager/Makefile.am, src/dbpager/tag/functions.cpp,
+	  src/dbpager/tag/functions.h, src/dbpager/tag/tag_factory.cpp,
+	  src/dbpager/tag/tag_locale.cpp, src/dbpager/tag/tag_locale.h:
+	  i18n support: dbp::locale tag, _() function
+
+2010-05-28 Dennis Prochko <wolfsoft@mail.ru>
+
+	* configure.ac, src/dbpager/tag/functions.cpp,
+	  src/dbpager/tag/functions.h, src/dbpager/tag/tag_factory.cpp,
+	  src/mimetic-0.9.6/mimetic/config.h.in: encode_base64 function
+	  added
+	* decode_url function added
+	* migrate to DCL 0.1.3
+
+2010-05-24 Dennis Prochko <wolfsoft@mail.ru>
+
+	* configure.ac, doc/guide/style/xsl/common.xsl,
+	  doc/guide/users_guide/lang_overview.ru.xml,
+	  doc/guide/users_guide/lang_vars.ru.xml, po/ru_RU.po,
+	  src/dbpager/interpreter/environment.cpp,
+	  src/dbpager/tag/functions.cpp, src/dbpager/tag/functions.h,
+	  src/dbpager/tag/tag_factory.cpp, src/mimetic-0.9.6/configure.ac,
+	  src/mimetic-0.9.6/mimetic/config.h.in,
+	  src/mimetic-0.9.6/mimetic/rfc822/messageid.h: 3.0.1 version
+	  started
+	* CRLF bugfix when uploading files on win32 platform
+	  encode_url() function implemented
+	* Added multipart/form-data request encoding support by embedding
+	  of mimetic library
+
+2010-04-16 Dennis Prochko <wolfsoft@mail.ru>
+
+	* Documentation update
+
+2010-04-06 Dennis Prochko <wolfsoft@mail.ru>
+
+	* Documentation update
+
+2010-03-11 Dennis Prochko <wolfsoft@mail.ru>
+
+	* tp3 release
+
+2010-01-24 Dennis Prochko <wolfsoft@mail.ru>
+
+	* documentation update
+
+2010-01-21 Dennis Prochko <wolfsoft@mail.ru>
+
+	* fix isapi module function name mangling issue
+	* doc update
+
+2010-01-19 Dennis Prochko <wolfsoft@mail.ru>
+
+	* dbPager ISAPI module added
+
+2010-01-17 Dennis Prochko <wolfsoft@mail.ru>
+
+	* technology preview version checkpoint
+	* fixed user sessions issues (cookie processing)
+
+2010-01-13 Dennis Prochko <wolfsoft@mail.ru>
+
+	* build scripts updates to generate dist-bzip2
+	* function argument number now starts from 1 (was 0)
+	* HTTP_METHOD environment variable added
+
+2010-01-11 Dennis Prochko <wolfsoft@mail.ru>
+
+	* build system update
+
+2010-01-10 Dennis Prochko <wolfsoft@mail.ru>
+
+	* dbp:read, dbp:write - exceptions support
+	* dbp:read, dbp:write tags implemented
+	* documentation updated
+
+2010-01-08 Dennis Prochko <wolfsoft@mail.ru>
+
+	* documentation update
+
+2010-01-06 Dennis Prochko <wolfsoft@mail.ru>
+
+	* memcached support added to store user sessions
+
+2010-01-04 Dennis Prochko <wolfsoft@mail.ru>
+
+	* debian build system: separate control file for ubuntu karmic and
+	  later
+	* debian build system updated
+	* control files of debian build system added
+
+2010-01-02 Dennis Prochko <wolfsoft@mail.ru>
+
+	* global and user variables saving fixed
+
+2009-12-27 Dennis Prochko <wolfsoft@mail.ru>
+
+	* dbp:split: 'order' parameter added
+	* dbp_bdb changes to support concurrent database access
+
+2009-12-26 Dennis Prochko <wolfsoft@mail.ru>
+
+	* dbp_bdb module improved
+
+2009-12-25 Dennis Prochko <wolfsoft@mail.ru>
+
+	* bdb:delete tag implemented
+
+2009-12-24 Dennis Prochko <wolfsoft@mail.ru>
+
+	* implemented bdb:find
+
+2009-12-23 Dennis Prochko <wolfsoft@mail.ru>
+
+	* fixed dbp:execute bug (dbp:execute don't work as expected when it
+	  is placed after custom tag calls)
+
+2009-12-22 Dennis Prochko <wolfsoft@mail.ru>
+
+	* multiple bugfixes
+	* fixed calling of custom tags as functions behaviour ({@FUNC(args)})
+
+2009-12-21 Dennis Prochko <wolfsoft@mail.ru>
+
+	* fixed win32 build issues
+	* fixed IE-awareness console
+
+2009-12-20 Dennis Prochko <wolfsoft@mail.ru>
+
+	* dbp_bdb plugin fixed bdb:set tag namespace issue
+	* documentation update
+	* dbp_bdb Berkley DB based storage module
+	* dbpagerd - new error pages translation update
+
+2009-11-24 Dennis Prochko <wolfsoft@mail.ru>
+
+	* web console: added language resources for XSL template
+	* dbpagerd prototype
+
+2009-11-15 Dennis Prochko <wolfsoft@mail.ru>
+
+	* added error pages for dbpagerd, console application updated
+	* dbpagerd fixes
+	* dbpager server console application update
+	* user guide update
+
+2009-08-14 Dennis Prochko <wolfsoft@mail.ru>
+
+	* documentation update
+
+2009-08-11 Dennis Prochko <wolfsoft@mail.ru>
+
+	* dbPager Server Console web UI mockup
+
+2009-08-08 Dennis Prochko <wolfsoft@mail.ru>
+
+	* dbp:execute bugfix completed
+	* dbpagerd prototype application
+
+2009-07-31 Dennis Prochko <wolfsoft@mail.ru>
+
+	* dbp:regexp tag now supports replacing
+	* documentation update
+
+2009-07-30 Dennis Prochko <wolfsoft@mail.ru>
+
+	* documentation update
+
+2009-07-22 Dennis Prochko <wolfsoft@mail.ru>
+
+	* read tag implemented
+
+2009-07-20 Dennis Prochko <wolfsoft@mail.ru>
+
+	* Initial release
+

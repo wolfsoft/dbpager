@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/xsl" href="manpage.xsl"?>
+
+<manpage section="5">
+
+<package>dbPager Server</package>
+
+<name>dbpager.conf</name>
+
+<summary>
+	dbPager Server configuration file.
+</summary>
+
+<date>2008-12-28</date>
+
+<author>
+	<name>Dennis Prochko</name>
+	<email>wolfsoft@mail.ru</email>
+</author>
+
+<sections>
+
+<synopsis>
+	<i>/etc/dbpager/dbpager.conf</i>
+</synopsis>
+
+<description>
+<p>The dbPager Server reads configuration directives from a file
+<i>/etc/dbpager/dbpager.conf</i> on startup. The configuration file
+is also used by all dbPager software.</p>
+
+<p>The configuration file is a simple collection of variable declarations.
+If the configuration file parser encounters either <b>;</b> or <b>#</b> for it
+ignores the rest of the line until its end.</p>
+
+<p>The configuration file can include other configuration files with
+<b>@include</b> directive, so configuration can be splitted into several
+files.</p>
+
+<p>For the settings that take a boolean argument, the values <b>true</b>,
+<b>yes</b>, <b>on</b> and <b>1</b> are equivalent, resp. <b>false</b>,
+<b>no</b>, <b>off</b> and <b>0</b>.</p>
+
+<p>All configuration directives are documented in the configuration file itself
+by the comments. Moreover, dbPager Server package includes the documentation
+(The User's Guide) in HTML format, available at <i>/usr/share/doc/dbpager</i>.
+Refer to that manual for details in configuration file options.</p>
+
+<p>Visit the web site at <i>http://dbpager.org.ru</i> for more information,
+downloads and community support resources.</p>
+</description>
+
+<see-also>
+dbpager(1)
+dbp_cgi(1)
+</see-also>
+
+<other name="copyright">
+<p>Copyright (c) 2008 Dennis Prochko &lt;wolfsoft@mail.ru&gt;.</p>
+<p>dbPager Server is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation version 3.</p>
+</other>
+
+</sections>
+
+</manpage>
+

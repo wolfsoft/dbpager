@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!DOCTYPE manualpage SYSTEM "../style/dtd/manual.dtd">
+
+<?xml-stylesheet type="text/xsl" href="../style/xsl/manual.ru.xsl"?>
+
+<manualpage metafile="configure.xml.meta" lang="ru">
+
+<title>Интеграция с web-сервером</title>
+
+<summary>
+   В этом разделе содержатся сведения о том, как интегрировать dbPager Server
+   в виде модуля расширения в популярные web-серверы, такие как Apache HTTP
+   Server или Microsoft IIS.
+</summary>
+
+<section id="overview">
+   <title>Введение</title>
+   <p>Приложение dbPager Server представлено в нескольких вариантах: в виде
+     консольного приложения, в виде приложения-модуля расширения возможностей
+     web-сервера и в виде самостоятельного сервера приложений.</p>
+   <p>Интеграция dbPager Server с web-сервером позволяет сочетать возможности
+     динамической генерации web-содержимого с помощью приложений dbPager со
+     статическим содержимым web-сервера, такими как файлы графики, сценариев
+     на Javascript или таблиц стилей CSS.</p>
+   <p>Для интеграции dbPager Server с web-сервером требуется выбрать модуль
+     расширения, совместимый с используемым вами web-сервером и настроить
+     web-сервер на использование этого модуля. Процедура настройки для наиболее
+     популярных web-серверов представлена ниже.</p>
+</section>
+
+<section id="apache">
+   <title>Apache HTTP Server</title>
+   <p>Для интеграции dbPager Server в популярный web-сервер
+     <link to="http://httpd.apache.org">Apache HTTP Server</link>
+     используется dbPager Server в виде модуля расширения Apache
+     (<term>mod_dbp</term>).</p>
+   <p>После установки этого модуля в вашу систему, как показано в разделах
+	 <link to="setup" bookmark="setup_windows">Установка на
+	 Microsoft Windows</link> или
+	<link to="setup" bookmark="setup_linux">Установка на
+	GNU/Linux</link>, возможно потребуется дополнительно сконфигурировать
+	web-сервер Apache HTTP Server,
+    для чего в файл конфигурации Apache <term>httpd.conf</term> необходимо
+    добавить следующие строки:</p>
+   <code>AddType application/x-httpd-dbp .dbp .dbpx
+LoadModule dbpager_module "/usr/lib/apache2/modules/mod_dbp.so"
+AddHandler dbpager_module .dbp .dbpx</code>
+   <p>где <name>/usr/lib/apache2/modules/mod_dbp.so</name> &mdash; путь к файлу
+     модуля. В Windows-системе он может выглядеть как
+     "C:/Program Files/dbPager Server/lib/mod_dbp.dll".</p>
+   <p>В зависимости от вашей сборки Apache HTTP Server, его конфигурационный
+     файл может включать несколько конфигурационных файлов; в таком случае
+     обратитесь к документации по вашей сборке для того, чтобы определить, где
+     именно необходимо определить директивы загрузки модулей расширения.
+     В зависимости от того, в каком месте конфигурации Apache будут определены
+     эти директивы, вы можете разрешить использование приложений dbPager
+     глобально или в отдельно взятом виртуальном сервере; в любом URL или
+     ограничить использование приложений только определенными местами.
+     Обратитесь к <link to="http://httpd.apache.org/docs/">документации</link>
+     Apache HTTP Server для того, чтобы более полно ознакомиться с процедурой
+     настройки web-сервера Apache и форматом его конфигурационного файла.</p>
+   <p>После внесения изменений в конфигурацию web-сервера Apache, не забудьте
+     перезапустить его, чтобы данные изменения вступили в силу.</p>
+</section>
+
+<section id="microsoft">
+   <title>Microsoft Internet Information Server (IIS)</title>
+   <p>При необходимости интеграции dbPager Server с web-сервером Microsoft
+     (Microsoft IIS) следует использовать dbPager Server в виде модуля ISAPI
+     (<term>dbp_isapi</term>).</p>
+   <p>После установки этого модуля в вашу систему, как показано в разделе
+	<link to="setup" bookmark="setup_windows">Установка на Microsoft
+	Windows</link>, возможно
+	потребуется дополнительно сконфигурировать IIS, для чего необходимо
+	проделать следующие операции:</p>
+   <p>1. Перейдите в Панель Управления, раздел "Администрирование".</p>
+   <image src="setup_cp.png"/>
+   <p>2. Запустите Internet Information Services (IIS) Manager и с помощью
+     контекстного меню вызовите команду "Свойства" для web-сервера
+     (Web Sites) или для конкретного web-сайта (если dbPager Server необходимо
+     интегрировать только с определенным сайтом).</p>
+   <image src="setup_iis_mgr.png"/>
+   <p>3. В открывшемся диалоговом окне перейдите на вкладку "Home Directory" и
+     нажмите кнопку "Configuration" для изменения конфигурации приложения.
+     Если кнопка "Configuration" недоступна, сначала создайте приложение
+     для web-сайта с помощью кнопки "Create".</p>
+   <image src="setup_iis_dlg1.png"/>
+   <p>4. В открывшемся диалоге конфигурации приложения нажмите кнопку "Add" для
+     добавления нового обработчика расширения файла.</p>
+   <image src="setup_iis_dlg2.png"/>
+   <p>5. В диалоговом окне добавления обработчика укажите имя файла ISAPI
+     расширения dbPager Server (dbp_isapi.dll) и ассоциируемый с ним тип файлов
+     (.dbp). Повторите операции 4-5 для ассоциации еще одного типа файла
+     (.dbpx).</p>
+   <image src="setup_iis_dlg3.png"/>
+   <p>6. Подтвердите сохранение изменений и закройте диалоговое окно нажатием
+     на кнопку "ОК". Перейдите в раздел "Web Service Extensions" окна
+     Internet Information Services (IIS) Manager и убедитесь, что расширение
+     web-сервера "dbPager Server" не запрещено ("Allowed"), либо разрешены
+     все ISAPI расширения ("All unknown ISAPI extensions" - "Allowed").</p>
+   <image src="setup_iis_mgr2.png"/>
+   <p>7. С помощью контекстного меню выполните команду "Свойства" для
+	 локального компьютера. В открывшемся диалоговом окне нажмите кнопку
+	 "MIME Types..." для просмотра перечня зарегистрированных в IIS типов
+	 файлов.</p>
+	<image src="setup_iis_mgr3.png"/>
+	<p>В появившемся диалоговом окне нажмите кнопку "New..." для регистрации
+	  нового типа файла:</p>
+	<image src="setup_iis_mgr4.png"/>
+	<p>Добавьте тип файла "application/x-httpd-dbp" для расширения ".dbpx"
+	  и ".dbp".</p>
+   <p>После внесения изменений в конфигурацию web-сервера Microsoft IIS, не
+     забудьте перезапустить его, чтобы данные изменения вступили в силу.</p>
+</section>
+
+<section id="other">
+   <title>Другие web-серверы</title>
+   <p>dbPager Server можно интегрировать с любым другим web-сервером,
+     поддерживающим модули расширения Common Gateway Interface 1.1 (CGI).
+     Большинство web-серверов (Apache, IIS, lighthttpd, nginx) имеют такую
+     поддержку.
+     Для интеграции с такими web-серверами необходимо использовать dbPager
+     Server в виде модуля CGI (<term>dbp_cgi</term>). Обратитесь к документации
+     на используемый вами web-сервер для того, чтобы узнать, каким образом в
+     нем подключаются CGI-модули.</p>
+   <p>В качестве примера рассмотрим подключение dbPager Server как CGI модуля
+     к web-серверу Apache HTTP Server, для чего в файл конфигурации Apache
+     <term>httpd.conf</term> необходимо добавить следующие строки:</p>
+   <code>AddType application/x-httpd-dbp .dbp .dbpx
+ScriptAlias /dbpager/ /usr/bin/
+&lt;Directory "/usr/bin">
+  AllowOverride None
+  Options ExecCGI -MultiViews -Indexes FollowSymLinks
+  Order allow,deny
+  Allow from all
+&lt;/Directory>
+Action  application/x-httpd-dbp /dbpager/dbp_cgi
+</code>
+   <p>где <name>/usr/bin</name> &mdash; каталог, в котором находится CGI модуль
+     dbPager Server (в Windows-системах может выглядеть как
+     "C:/Program Files/dbPager Server/bin"), а dbp_cgi &mdash; имя CGI-модуля
+     (в Windows-системах выглядит как <name>dbp_cgi.exe</name>).</p>
+   <p>Использование dbPager Server в качестве модуля CGI имеет ряд недостатков,
+     таких как недостаточная производительность работы при нагрузке, но и ряд
+     преимуществ, например, возможность ограничения потребления системных
+     ресурсов, поэтому для выбора варианта интеграции dbPager Server с
+     конкретным web-сервером необходимо оценить преимущества и недостатки
+     каждого из подходов, применительно к конкретному случаю.</p>
+</section>
+
+<section id="other">
+	<p>Генерация самоподписанного сертификата</p>
+	<code>
+openssl genrsa -out pkey.pem 2048
+	</code>
+	<code>
+openssl req -new -x509 -key pkey.pem -out cert.pem -days 365
+	</code>
+</section>
+
+</manualpage>

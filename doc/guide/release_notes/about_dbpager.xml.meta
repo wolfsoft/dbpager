@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE metafile SYSTEM "../style/dtd/metafile.dtd">
+
+<metafile>
+  <basename>about_dbpager</basename>
+  <relpath>../</relpath>
+  <variants>
+    <variant>ru</variant>
+  </variants>
+  <parentdocument>about/license</parentdocument>
+  <followdocument>new_features</followdocument>
+</metafile>
+

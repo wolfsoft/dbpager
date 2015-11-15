@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE manualpage SYSTEM "../style/dtd/manual.dtd">
+
+<?xml-stylesheet type="text/xsl" href="../style/xsl/manual.ru.xsl"?>
+
+<manualpage metafile="about.xml.meta" lang="ru">
+
+<title>О программном обеспечении dbPager</title>
+
+<summary>
+</summary>
+
+<section id="new_features">
+	<title>Новые возможности версии 3.0</title>
+</section>
+
+</manualpage>

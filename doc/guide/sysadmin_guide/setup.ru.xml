@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE manualpage SYSTEM "../style/dtd/manual.dtd">
+
+<?xml-stylesheet type="text/xsl" href="../style/xsl/manual.ru.xsl"?>
+
+<manualpage metafile="setup.xml.meta" lang="ru">
+
+<title>Установка dbPager Server</title>
+
+<summary>
+</summary>
+
+<section id="system_requirements">
+	<title>Системные требования</title>
+</section>
+
+<section id="setup_windows">
+	<title>Установка на Microsoft Windows</title>
+</section>
+
+<section id="setup_linux">
+	<title>Установка на GNU/Linux</title>
+</section>
+
+<section id="setup_compilation">
+	<title>Установка из исходного кода</title>
+</section>
+
+</manualpage>

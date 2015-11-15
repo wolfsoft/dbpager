@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<?xml-stylesheet type="text/xsl" href="template.xsl"?>
+
+<page xml:lang="ru" lang="ru">
+	<block title="Задачи">
+		<h3>Последние задачи</h3>
+		<p><a href="#">Просмотр логов сервера</a></p>	</block>
+	<block title="Информация">
+		<h3>Версия</h3>
+		<p>
+			Приложение: dbPager Server<br/>
+			Версия: 3.0.0
+		</p>
+		<hr/>
+		<h3>Окружение</h3>
+		<p>
+			ОС: Ubuntu Linux 9.04<br/>
+			Машина: localhost
+		</p>
+		<hr/>
+		<h3>Статистика</h3>
+		<p>
+			В работе: 4 дня<br/>
+			Средняя загрузка: 24%<br/>
+			Открытых сеансов: 17<br/>
+			Пик нагрузки:<br/>286 сеансов в 04.08.2009 18:03
+		</p>
+		<p><a href="#">Еще статистики...</a></p>
+	</block>
+	<menu>
+		<item link="?section=index" title="В начало">Посетить домашнюю страницу</item>
+		<item link="?section=logout" title="Выход">Выйти из системы</item>
+		<item link="?section=help" title="Справка">Прочитать документацию</item>
+	</menu>
+	<status>
+		<item title="Зарегистрирован как">admin</item>
+		<item title="Сервер">localhost</item>
+	</status>
+	<text>
+		<h1>Добро пожаловать!</h1>
+		<p>Добро пожаловать в административную консоль dbPager Server. Этот сайт поможет вам
+			настраивать и обслуживать dbPager Server и его приложения. Для выполнения задачи
+			выберите действие из списка задач.</p>
+	</text>
+	<tasks>
+		<group title="Мониторинг">
+			<item icon="images/logs.png" href="logs" title="Логи сервера">Поиск и просмотр в логах сервера событий об ошибках, отказах или успешном выполнении.</item>
+			<item icon="images/chart.png" href="chart" title="Статистика">Просмотр графиков с динамической статистикой.</item>
+			<item icon="images/monitor.png" href="monitor" title="Счётчики производительности">Создание и просмотр графиков с данными производительности.</item>
+		</group>
+		<group title="Управление">
+			<item icon="images/restart.png" href="restart" title="Старт/Стоп/Перезагрузка">Запуск, остановка, приостановка и возобновление работы сервера.</item>
+			<item icon="images/backup.png" href="backup" title="Резервные копии">Создание копий конигурации сервера и восстановление конфигурации.</item>
+			<item icon="images/security.png" href="security" title="Безопасность">Управление учетными записями и правами доступа.</item>
+		</group>
+		<group title="Настройка">
+			<item icon="images/configure.png" href="configure" title="dbPager Server">Настройка собственных параметров сервера.</item>
+			<item icon="images/sheduler.png" href="sheduler" title="Планировщик задач">Настройка параметров планировщика задач.</item>
+			<item icon="images/apps-config.png" href="applications" title="Web-приложения">Настройка параметров web-приложений.</item>
+			<item icon="images/databases.png" href="databases" title="Базы данных">Настройка источников данных ODBC.</item>
+		</group>
+	</tasks>
+	<copyright>
+		Авторские права (c) 2009 Прочко Денис Владимирович &lt;wolfsoft@mail.ru&gt;
+	</copyright>
+</page>

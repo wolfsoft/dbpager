@@ -1,0 +1,15 @@
+#
+# This directive assigns the XML namespace to the dbPager dbp_odbc module.
+# The module provides support of ODBC data sources (databases).
+#
+[modules]
+http://dbpager.org.ru/schemas/dbp/3.0/odbc = @PLUGINSDIR@/libdbp_odbc.so
+
+#
+# Module parameters
+#
+[modules.odbc]
+#
+# Maximum number of persistent database connections (0 - unlimited).
+#
+# pool_connections = 0

@@ -1,0 +1,3 @@
+usr/lib/dbpager/libdbp_pgsql*.so.*
+usr/lib/dbpager/libdbp_pgsql*.so
+etc/dbpager/modules-available/dbp_pgsql.conf

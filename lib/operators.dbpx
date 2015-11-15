@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+	operators.dbpx
+	This file is part of dbPager Server
+
+	Copyright (c) 2008 Dennis Prochko <wolfsoft@mail.ru>
+
+	dbPager Server is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation version 3.
+
+	dbPager Server is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with dbPager Server; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, 
+	Boston, MA  02110-1301  USA
+-->
+<module
+	xmlns="http://dbpager.org.ru/schemas/dbp/3.0"
+	xmlns:lib="http://dbpager.org.ru/schemas/dbp/3.0/custom"
+>
+
+<!--
+	'if' operator (C, Pascal, Javascript, Basic, etc...) analog.
+	
+	Syntax:
+	<lib:if test="exp">
+		...
+	</lib:if>
+	Where exp is a logical expression.
+	
+	Executes enclosed tags if the expression execution result is true.
+-->
+<tag name="if">
+	<switch test="{$test}">
+		<case match="1">
+			<execute/>
+		</case>
+	</switch>
+</tag>
+
+<!--
+	'while' operator (C, Pascal, Javascript, Basic, etc...) analog.
+	
+	Syntax:
+	<lib:while test="expression">
+		...
+	</lib:while>
+
+	Executes enclosed tags so much times, while expression returns 1.
+-->
+<tag name="while">
+	<lib:if test="{$test}">
+		<execute/>
+		<lib:while test="{$test}"/>
+	</lib:if>
+</tag>
+
+<!--
+	'for' operator (C, Pascal, Javascript, Basic, etc...) analog.
+	
+	Syntax:
+	<lib:for from="x" to="y" step="z">
+		...
+	</lib:for>
+	Where x, y and z are numbers.
+	
+	Executes enclosed tags (y-x+1)/z times. Initializes count variable
+	with current loop count.
+-->
+<tag name="for">
+	<var name="count" value="{$from}">
+		<lib:while test="{$to >= $count}">
+			<execute/>
+			<set name="count" value="{$count + $step}"/>
+		</lib:while>
+	</var>
+</tag>
+
+<!--
+	'default' operator.
+	
+	Syntax:
+	<lib:default name="variable" value="content">
+		...
+	</lib:default>
+	
+	If the variable is not specified, initializes the variable with the
+	provided default value.
+-->
+<tag name="default">
+	<var name="{$name}" value="{${$name}}">
+		<lib:if test="{len(${$name}) = 0}">
+			<set name="{$name}">{$value}</set>
+		</lib:if>
+		<execute/>
+	</var>
+</tag>
+
+</module>

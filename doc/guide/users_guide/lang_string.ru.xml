@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!DOCTYPE manualpage SYSTEM "../style/dtd/manual.dtd">
+
+<?xml-stylesheet type="text/xsl" href="../style/xsl/manual.ru.xsl"?>
+
+<manualpage metafile="lang_string.xml.meta" lang="ru">
+
+<title>Операции с текстом</title>
+
+<summary>
+	Язык dbPager содержит удобные средства для обработки текста, предоставляя функции
+	для часто используемых операций, таких как поиск и замена. Эта глава посвящена
+	обзору функций для работы с текстом.
+</summary>
+
+<section id="split">
+	<title>Разделение текста на фрагменты</title>
+	<p>Язык dbPager предоставляет тег для токенизации текста <term>dbp:split</term>
+		(разделение строки на фрагменты):</p>
+	<code>&lt;dbp:split [<param>name="<value>имя[,имя,...]</value>"</param>]
+	  <param>value="<value>исходная строка</value>"</param>
+	  [<param>separator="<value>разделитель</value>"</param>]
+	  [<param>order="<value>(asc,desc)</value>"</param>]&gt;
+   ...
+&lt;/dbp:split&gt;</code>
+	<p>Параметр <param>value</param> определяет исходную строку, которая должна
+		быть разделена на фрагменты; <param>separator</param> &mdash; определяет
+		один или несколько символов, которые будут служить разделителем
+		фрагментов, а параметр <param>name</param> &mdash; одно или несколько
+		имен переменных, в которые будет помещен результат.</p>
+	<p>Если параметр <param>name</param> не задан, то полагается, что имя переменной
+		&mdash; <term>result</term>. Если не задан параметр <param>separator</param>,
+		то символом-разделителем является запятая.</p>
+	<p>Параметр <term>order</term> определяет порядок вывода результатов &mdash;
+		прямой или обратный. По умолчанию порядок &mdash; прямой.</p>
+	<p>Тег dbp:split разделяет строку на фрагменты, используя указанные разделители,
+		после чего, в зависимости от количества заданных переменных в параметре
+		<param>name</param>:</p>
+	<list>
+		<item>В случае, если параметр <param>value</param> содержит одно имя переменной,
+			переменная с заданным именем инициализируется, после чего выполняются все
+			вложенные теги такое число раз, сколько фрагментов будет при этом содержать
+			исходная строка. Каждый раз перед выполнением вложенных тегов результирующей
+			переменной будет присвоено следующий найденный фрагмент текста.
+			<example>
+				<title>Подсчет числа слов в тексте</title>
+				<comment>
+					<p>Программа разделяет текст на отдельные слова и подсчитывает общее
+						количество слов в тексте.</p>
+				</comment>
+				<input>&lt;dbp:var name="count" value="0"&gt;
+   &lt;dbp:var name="text" value="This is a text to count words within"&gt;
+      &lt;dbp:split value="{$text}" separator=" "&gt;
+         &lt;dbp:set name="count"&gt;{$count + 1}&lt;/dbp:set&gt;
+      &lt;/dbp:split&gt;
+   &lt;/dbp:var&gt;
+   The words count: {$count}
+&lt;/dbp:var&gt;</input>
+				<output>The words count: 8</output>
+				</example>
+		</item>
+		<item>В случае, если параметр <param>value</param> содержит несколько имен
+			переменных, исходная строка разбивается фрагменты, количеством не более,
+			чем число переменных в параметре <param>name</param>.
+			После этого, каждая переменная инициализируется значением найденного
+			по очереди фрагмента и однократно выполняются вложенные в dbp:split
+			теги.
+			<example>
+				<title>Разбор адреса на элементы</title>
+				<comment>
+					<p>Программа разделяет набор сетевых адресов, представленных как
+						"адрес:порт[;адрес:порт;...]" на отдельные элементы.</p>
+				</comment>
+				<input>&lt;dbp:var name="addrs" value="127.0.0.1:80;192.168.0.1:8080"&gt;
+   &lt;dbp:split value="{$addrs}" separator=";"&gt;
+      &lt;dbp:split name="host,port" separator=":" value="{$result}"&gt;
+         host: {$host}\n
+         port: {$port}\n
+      &lt;/dbp:split&gt;
+   &lt;/dbp:split&gt;
+&lt;/dbp:var&gt;</input>
+				<output>host: 127.0.0.1
+port: 80
+host: 192.168.0.1
+port: 8080</output>
+				</example>
+		</item>
+	</list>
+</section>
+
+<section id="substr">
+	<title>Поиск и замена подстроки</title>
+	<p>Для поиска и замены одной строки на другую в заданном тексте используется
+		тег <term>dbp:substr</term>:</p>
+	<code>&lt;dbp:substr [<param>name="<value>имя</value>"</param>] <param>what="<value>строка для поиска</value>"</param> <param>with="<value>строка для замены</value>"</param> <param>value="<value>исходная строка</value>"</param>&gt;
+   ...
+&lt;/dbp:substr&gt;</code>
+	<p></p>
+</section>
+
+<section id="regexp">
+	<title>Регулярные выражения</title>
+	<p>В случае необходимости производить поиск и замену подстроки в тексте
+		по более сложным критериям, чем сравнение, возможно использовать
+		<link to="http://en.wikipedia.org/wiki/Regular_expression">регулярные
+		выражения</link>. Тег <term>regexp</term> предоставляет возможность
+		использования регулярных выражений, совместимых с Perl, для поиска
+		и замены подстроки в тексте:</p>
+	<code>&lt;dbp:regexp <param>[name="<value>имя переменной</value>"]</param> <param>expr="<value>регулярное выражение</value>"</param> <param>value="<value>исходная строка</value>"</param>
+            <param>[with="<value>строка замены</value>"]</param>>
+   ...
+&lt;/dbp:regexp></code>
+	<p>Параметр <param>исходная строка</param> определяет исходную строку, в которой будет
+		производиться поиск. Параметр <param>expression</param> задает
+		регулярное выражение для поиска.</p>
+	<p>В случае, если в исходной строке будет найдена подстрока, соответствующая
+		заданному регулярному выражению,...to be continued</p>
+</section>
+
+</manualpage>
+

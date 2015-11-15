@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<!DOCTYPE metafile SYSTEM "../style/dtd/metafile.dtd">
+<metafile>
+  <basename>lang_comp</basename>
+  <relpath>../</relpath>
+  <variants>
+    <variant>ru</variant>
+  </variants>
+  <parentdocument>users_guide/lang_vars</parentdocument>
+  <followdocument>users_guide/lang_subroutines</followdocument>
+</metafile>

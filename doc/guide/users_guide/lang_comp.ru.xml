@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE manualpage SYSTEM "../style/dtd/manual.dtd">
+
+<?xml-stylesheet type="text/xsl" href="../style/xsl/manual.ru.xsl"?>
+
+<manualpage metafile="lang_comp.xml.meta" lang="ru">
+
+<title>Управление порядком исполнения</title>
+
+<summary>
+	Эта глава посвящена обзору операций, которые изменяют порядок исполнения
+	программы, реализуя таким образом программную логику. Это аналоги
+	операторов в импертивных языках программирования &mdash; переключателя
+	и цикла с предусловием, а также производных от них операторов
+	условной инструкции и цикла со счетчиком.
+</summary>
+
+<section id="switch">
+	<title>Выполнение по условию</title>
+	<p>При обычном ходе выполнения программы последовательно, один за другим,
+		выполняются все теги. Для того, чтобы исключить выполнение
+		участка кода в зависимости от определенного условия,
+		используется пара тегов <term>switch</term> и <term>case</term>:</p>
+	<code>&lt;dbp:switch <param>test="<value>выражение</value>"</param>>
+    &lt;dbp:case <param>match="<value>выражение1</value>"</param>>...&lt;/dbp:case>
+    &lt;dbp:case <param>match="<value>выражение2</value>"</param>>...&lt;/dbp:case>
+    ...
+    &lt;dbp:case <param>match="<value>выражениеN</value>"</param>>...&lt;/dbp:case>
+&lt;/dbp:switch></code>
+</section>
+
+<section id="while">
+	<title>Рекурсивное выполнение</title>
+    <p>Специальной синтаксической конструкции для повторения выполнения по
+      условию в языке dbPager нет &mdash; для организации циклического
+      выполнения используется
+      <link to="http://en.wikipedia.org/wiki/Recursion">рекурсия</link>.</p>
+</section>
+
+<section id="analogs">
+	<title>Производные операции</title>
+	<p>С помощью тегов switch/case и while можно реализовать другие операторы,
+		имеющиеся в императивных языках программирования, такие как
+		оператор условной инструкции (if) и цикл со счетчиком (for).
+		Стандартная библиотека dbPager предоставляет эти операторы в модуле
+		<term>operators.dbpx</term>. Их реализация тривиальна:</p>
+	<code>&lt;dbp:tag name="if">
+    &lt;dbp:switch test="{$test}">
+        &lt;dbp:case match="1">
+            &lt;dbp:execute/&gt;
+        &lt;/dbp:case>
+    &lt;/dbp:switch>
+&lt;/dbp:tag></code>
+	<code>&lt;tag name="for">
+    &lt;var name="count" value="{$from}">
+        &lt;while test="{$to >= $count}">
+            &lt;execute/&gt;
+            &lt;set name="count" value="{$count + $step}"/&gt;
+        &lt;/while>
+    &lt;/var>
+&lt;/tag></code>
+</section>
+
+</manualpage>
+

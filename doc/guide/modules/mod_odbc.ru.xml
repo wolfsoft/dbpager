@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+<!DOCTYPE manualpage SYSTEM "../style/dtd/manual.dtd">
+
+<?xml-stylesheet type="text/xsl" href="../style/xsl/manual.ru.xsl"?>
+
+<manualpage metafile="mod_odbc.xml.meta" lang="ru">
+
+<title>Модуль dbp_odbc</title>
+
+<summary>
+	Этот раздел посвящен модулю расширения возможностей языка dbPager средствами
+	доступа к базам данных (СУБД) - dbp_odbc. Эти средства включают функции для
+	выполнения SQL-запросов к базам данных и управления транзакциями.
+	Поддерживаются все базы данных, имеющие ODBC-интерфейс, в том числе
+	PostgreSQL, MySQL, MS SQL, Oracle и другие.
+</summary>
+
+<section id="overview">
+	<title>Введение</title>
+	<p>Модуль <term>dbp_odbc</term> после его установки и регистрации в
+		системе предоставляет в распоряжение разработчика несколько тегов
+		для работы с СУБД посредством подсистемы ODBC. Эти теги регистрируются
+		в пространстве имен <term>http://dbpager.org.ru/schemas/dbp/3.0/odbc</term>.</p>
+	<p>Для их использования в программе удобно определить псевдоним для этого
+		пространства имен в самом начале программы, после чего можно использовать
+		теги модуля с префиксом этого псевдонима, например:</p>
+<code>&lt;?xml version="1.0" encoding="ISO-8859-1" ?>
+
+&lt;!DOCTYPE dbp:module SYSTEM "http://dbpager.org.ru/schemas/dbp/3.0/module.dtd">
+
+&lt;dbp:module
+  xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+  xmlns:odbc="http://dbpager.org.ru/schemas/dbp/3.0/odbc"
+  xmlns="http://www.w3.org/1999/xhtml">
+  ...
+  &lt;odbc:database dsn="TestDB" user="sysdba" password="masterkey">
+  ...
+  &lt;/odbc:database>
+  ...
+&lt;/dbp:module></code>
+	<p>В дальнейшем, при описании тегов модуля, мы будем подразумевать, что
+		псевдоним пространства имен определен как <term>odbc.</term></p>
+	<p>Работа с базой данных сводится к инициализации соединения с БД,
+		выполнению SQL-запросов в контексте созданного соединения и
+		в управлении транзакциями при необходимости, что подробно будет
+		рассмотрено далее.</p>
+</section>
+
+<section id="database">
+	<title>Инициализация соединения с СУБД</title>
+	<p>Для инициализации соединения (подключения) к базе данных используется
+		тег <term>odbc:database</term>:</p>
+	<code>&lt;odbc:database <param>dsn="<value>имя</value>"</param> [<param>id</param>="<value>имя</value>"] [<param>user="<value>имя пользователя</value>"</param>] [<param>password="<value>пароль</value>"</param>]></code>
+	<p>Обязательный параметр <param>dsn</param> (Data Source Name)
+		определяет имя источника данных, определенное в ODBC-подсистеме вашей
+		операционной системы. В зависимости от типа ODBC-подсистемы (unixODBC,
+		iODBC, Windows ODBC), имя источника данных может задаваться по-разному:
+		unixODBC использует утилиту <term>ODBCConfig</term>, iODBC - утилиту
+		<term>iodbc-config</term> или <term>iodbcadm-gtk</term>, а Windows ODBC
+		использует соответствующий апплет панели управления Windows.
+		Обратитесь к документации вашей ODBC подсистемы, чтобы выяснить точно,
+		как определить источник данных ODBC.</p>
+	<p>Необязательный параметр <param>id</param> - определяет синоним имени базы
+		данных. Используется в том случае, когда необходимо одновременно работать
+		с несколькими базами данных. Если параметр не определен, то считается
+		что данное подключение к БД является текущим по умолчанию.</p>
+	<p>Параметр <param>user</param> - необязательное имя пользователя (логин) для
+		подключения к этому источнику данных, а параметр
+		<param>password</param> - пароль для этого имени пользователя.</p>
+	<p>В случае, если подключение к базе данных будет успешно установлено,
+		выполняются все вложенные в <term>odbc:database</term> теги; в противном
+		случае генерируется программное исключение.</p>
+	<example>
+		<title>работа с двумя базами данных</title>
+		<comment>
+			<p>В данном примере создается подключение к двум базам данных -
+			bank и docflow, после чего из БД bank выбираются все номера и
+			имена пользователей и для каждого во второй БД исполняется
+			хранимая процедура с аргументами, полученными из первой БД.</p>
+		</comment>
+		<input>&lt;odbc:database dsn="bank" user="sysdba" password="masterkey">
+  &lt;odbc:database id="docs" dsn="docflow" user="sa" password="sa">
+    &lt;dbp:var name="description" value="Plan the meeting at monday">
+      &lt;odbc:query statement="select id, name from users">
+        &lt;odbc:query database="docs" statement="\{call task_add(:id, :description)\}" /&gt;
+        &lt;p>Task added for user {$name}.&lt;/p>
+      &lt;/odbc:query>
+    &lt;/dbp:var>
+  &lt;/odbc:database>
+&lt;/odbc:database></input>
+		<output>&lt;p>Task added for user vasya_pupkin.&lt;/p>
+&lt;p>Task added for user admin.&lt;/p></output>
+	</example>
+</section>
+
+<section id="queries">
+	<title>Выполнение запросов к СУБД</title>
+	<p>Для выполнения запроса к СУБД используется тег <term>odbc:query</term>.
+		Он должен быть вложен в тег <term>odbc:database</term>:</p>
+	<code>&lt;odbc:query <param>statement="<value>SQL-запрос</value>"</param> [<param>database</param>="<value>имя</value>"] [<param>parameters="<value>parameter_1,parameter_2,...,parameter_n</value>"</param>]></code>
+	<p>Обязательный параметр тега, <param>statement</param>, определяет текст SQL-запроса
+		(предложения), который должен быть выполнен. SQL-запрос может содержать
+		параметры запроса - как именованные, так и нет. Именованные параметры SQL-запроса
+		определяются двоеточием с последующим именем параметра:</p>
+	<code>&lt;odbc:query statement="select id from users where user_name = :p_name"></code>
+	<p>В этом примере SQL-запрос содержит один параметр с именем <term>p_name</term>.
+		Неименованные параметры задаются с помощью вопросительного знака, например:</p>
+	<code>&lt;odbc:query statement="insert into users (user_name, user_group) values (?, ?)"></code>
+	<p>Небязательный параметр <param>database</param> определяет синоним имени БД,
+		к которой будет произведен запрос. Если параметр не определен, считается,
+		что запрос будет произведен к БД по умолчанию (с неопределенным	параметром id).</p>
+	<p>Необязательный параметр <param>parameters</param> инициализирует
+		неименованные параметры запроса, как будет показано ниже.</p>
+	<subtitle>Инициализация параметров запроса</subtitle>
+	<p>Инициализация именованных параметров при выполнении SQL-запроса
+		производится путем подстановки значений переменных с тем-же именем,
+		определенных в данном контексте:</p>
+	<code>&lt;dbp:var name="p_name" value="Albert Hoffmann">
+  &lt;dbp:var name="p_group" value="Scientists">
+    &lt;odbc:query statement="insert into users (user_name, user_group) values (:p_name, :p_group)"/&gt;
+  &lt;/dbp:var>
+&lt;/dbp:var></code>
+	<p>Для инициализации неименованных параметров запроса используется
+		опциональный параметр тега - <param>parameters</param>,
+		в котором значения неименованных параметров перечисляются через запятую:</p>
+	<code>&lt;dbp:var name="p_name" value="Albert Hoffmann">
+  &lt;dbp:var name="p_group" value="Scientists">
+    &lt;odbc:query statement="insert into users (user_name, user_group) values (?, ?)"
+                 parameters="{$p_name},{$p_group}"/&gt;
+  &lt;/dbp:var>
+&lt;/dbp:var></code>
+	<p>Два вышеприведенных примера кода приводят к одному и тому-же результату.
+		Использовать именованные и неименованные параметры запроса в одном
+		SQL-запросе допускается, хотя и не рекомендуется, так как это снижает
+		читаемость кода.</p>
+	<p>В случае, когда значение переменной, которой будет инициализирован
+		параметр запроса, не определено, полагается, что параметр будет
+		инициализирован значением NULL. В случае ошибки инициализации параметров
+		запроса генерируется программное исключение.</p>
+	<subtitle>Выполнение запроса</subtitle>
+	<p>Вслед за инициализацией параметров запроса, запрос к СУБД выполняется.
+		В случае, если при выполнении запроса возникает ошибка, генерируется
+		программное исключение. Если выполнение запроса проходит успешно, то,
+		в зависимости от вида запроса, будут произведены следующие действия:</p>
+	<list>
+		<item>Если запрос не возвращает результатов (например DDL-запросы,
+		  запросы вставки, обновления, удаления данных), то в результате
+		  выполнения запроса будет создана переменная <term>rows_affected</term>,
+		  которая будет инициализирована значением количества строк в таблице
+		  СУБД, которые были изменены в результате выполнения запроса, после
+		  чего будут выполнены все вложенные в <term>odbc:query</term> теги.
+		</item>
+		<item>Если запрос возвращает результат в виде переменных,
+		  инициализированных каким-либо значением (например, результат
+		  выполнения хранимой процедуры), то при выполнении запроса будут
+		  созданы переменные с такими-же именами, что и переменные-результаты
+		  выполнения запроса, инициализированы значениями этих переменных,
+		  после чего будут выполнены все вложенные в <term>odbc:query</term>
+		  теги.
+		</item>
+		<item>Если запрос возвращает результат в виде набора данных
+		  (курсора), то будут созданы переменные с именами, соответствующими
+		  именам колонок (столбцов) возвращаемого набора данных, после чего
+		  будут выполнены все вложенные в <term>odbc:query</term> теги такое
+		  число раз, что и количество строк в возвращаемом наборе данных. В
+		  каждой итерации значения созданных переменных будут инициализированы
+		  значениями соответствующих столбцов из следующей строки возвращаемого
+		  набора данных.
+		</item>
+	</list>
+	<p>Для демонстрации использования результатов выполнения запроса, приведем
+		три простых примера, демонстрирующие операции изменения данных в СУБД,
+		выполнение хранимой процедуры и выбор данных из таблиц.</p>
+	<example>
+		<title>изменение данных</title>
+		<comment>
+			<p>Данный пример (для PostgreSQL) предполагает наличие в базе
+			данных bank таблицы users с полями active (boolean) - признаком
+			активности учетной записи и last_logon (timestamp) - датой и временем
+			последнего входа. Данный код блокирует все учетные записи с датой
+			последнего входа более 90 дней.</p>
+		</comment>
+		<input>&lt;odbc:database dsn="bank" user="sysdba" password="masterkey">
+  &lt;odbc:query statement="update users set active = false where
+                          (NOW() - last_logon) &lt; INTERVAL '90 days'">
+    &lt;p>{$rows_affected} account(s) are disabled.&lt;/p>
+  &lt;/dbp:query>
+&lt;/odbc:database></input>
+		<output>&lt;p>10 account(s) are disabled.&lt;/p></output>
+	</example>
+	<example>
+		<title>выполнение хранимой процедуры</title>
+		<comment>
+			<p>Данный пример (для PostgreSQL) предполагает наличие в базе
+			данных bank таблицы users с полями user_name и password
+			(varchar) - именем пользователя и паролем соответственно. Кроме того,
+			предполагается, что в БД присутствует хранимая процедура со следующей
+			сигнатурой:</p>
+			<code>CREATE OR REPLACE FUNCTION
+  check_password(u_name varchar, u_password varchar)
+  RETURNS boolean AS
+$BODY$
+  DECLARE passed boolean;
+BEGIN
+  select (password = u_password) into passed
+  from users
+  where user_name = u_name;
+  if (passed is NULL) then
+	 passed := FALSE;
+  end if;
+  return passed;
+END;
+$BODY$
+LANGUAGE 'plpgsql' VOLATILE</code>
+			<p>Данный код проверяет правильность ввода имени пользователя
+			и пароля; предполагается что переменные user_name и user_password
+			определены.</p>
+		</comment>
+		<input>&lt;odbc:database dsn="bank" user="sysdba" password="masterkey">
+  &lt;odbc:query statement="\{call :passed = check_password(:user_name, :user_password)\}">
+    &lt;dbp:switch test="{$passed}">
+      &lt;dbp:case match="t">&lt;p>You are logged in as {$user_name}.&lt;/p>&lt;/dbp:case>
+      &lt;dbp:case match="f">&lt;p>You are not logged in.&lt;/p>&lt;/dbp:case>
+    &lt;/dbp:switch>
+  &lt;/dbp:query>
+&lt;/odbc:database></input>
+		<output>&lt;p>You are logged in as vasya_pupkin.&lt;/p></output>
+	</example>
+	<example>
+		<title>выполнение выборки данных из таблицы</title>
+		<comment>
+			<p>Данный пример (для PostgreSQL) предполагает наличие в базе
+			данных bank таблицы users со структурой, аналогичной предыдущим
+			примерам.</p>
+			<p>Данный код выводит перечень активных пользователей в виде
+			HTML-таблицы.</p>
+		</comment>
+		<input>&lt;odbc:database dsn="bank" user="sysdba" password="masterkey">
+  &lt;table>
+    &lt;tr>
+      &lt;td>Id&lt;/td>
+      &lt;td>Name&lt;/td>
+      &lt;td>Last logon&lt;/td>
+    &lt;/tr>
+    &lt;odbc:query statement="select * from users where active = true">
+      &lt;tr>
+        &lt;td>{$id}&lt;/td>
+        &lt;td>{$user_name}&lt;/td>
+        &lt;td>{$last_logon}&lt;/td>
+      &lt;/tr>
+    &lt;/dbp:query>
+  &lt;/table>
+&lt;/odbc:database></input>
+		<output>
+&lt;table>
+  &lt;tr>
+    &lt;td>Id&lt;/td>
+    &lt;td>Name&lt;/td>
+    &lt;td>Last logon&lt;/td>
+  &lt;/tr>
+  &lt;tr>
+    &lt;td>1&lt;/td>
+    &lt;td>vasya_pupkin&lt;/td>
+    &lt;td>2008-10-03 00:43:42.304074&lt;/td>
+  &lt;/tr>
+  &lt;tr>
+    &lt;td>2&lt;/td>
+    &lt;td>admin&lt;/td>
+    &lt;td>2008-10-02 00:00:00.102000&lt;/td>
+  &lt;/tr>
+&lt;/table></output>
+	</example>
+</section>
+
+<section id="transaction">
+	<title>Транзакции</title>
+	<p>Для того, чтобы объединить несколько последовательных запросов к
+		базе данных в неделимую (атомарную) операцию, образуя одну транзакцию,
+		используется тег <term>odbc:transaction</term>:</p>
+	<code>&lt;odbc:transaction [<param>database</param>="<value>имя</value>"]></code>
+	<p>Небязательный параметр <param>database</param> определяет синоним имени БД,
+		в которой будет инициализирована транзакция. Если параметр не определен, считается,
+		что транзакция будет начата в БД по умолчанию (с неопределенным	параметром id).</p>
+	<p>При выполнении все вложенные в тег <term>odbc:transaction</term> теги
+		<term>odbc:query</term> (с той-же БД, что и в начатой транзакции)
+		будут выполняться в контексте одной транзакции.</p>
+	<p>Если в случае выполнения какого-либо вложенного тега будет возбуждено
+		программное исключение, которое не будет перехвачено обработчиком
+		исключения, при выходе из тега <term>odbc:transaction</term> будет
+		вызван откат транзакции. При этом все изменения, произведенные
+		в базе данных, будут отменены.</p>
+	<p>В случае, если в результате выполнения вложенных тегов
+		исключительной ситуации не возникло, или она была перехвачена,
+		при выходе из тега <term>odbc:transaction</term> транзакция будет
+		подтверждена.</p>
+	<example>
+		<title>Изменение банковского счета</title>
+		<comment>
+			<p>При финансовых операциях в банке происходит списание
+				суммы с одного счета и зачисление этой суммы на другой счет.
+				Требуется, чтобы в случае ошибки списания суммы не произошло
+				зачисления на другой счет, и наоборот.</p>
+		</comment>
+		<input>&lt;odbc:database dsn="bank" user="sysdba" password="masterkey">
+  id; balance&amp;crlf;
+  &lt;odbc:query statement="select id, balance from accounts">
+    {$id}; {$balance}&amp;crlf;
+  &lt;/dbp:query>
+  &lt;dbp:try>
+    &lt;odbc:transaction>
+      &lt;odbc:query statement="update accounts set balance = balance + 50 where id = 2"/&gt;
+      &lt;!-- предположим, что триггер БД вызывает исключение при уменьшении значения
+           поля ниже 0 в нижеследующем запросе -->
+      &lt;odbc:query statement="update accounts set balance = balance - 50 where id = 1"/&gt;
+      transfer ok.&amp;crlf;
+    &lt;/odbc:transaction>
+    &lt;dbp:catch>
+      transfer failed.&amp;crlf;
+    &lt;/dbp:catch>
+  &lt;/dbp:try>
+  id;balance&amp;crlf;
+  &lt;odbc:query statement="select id, balance from accounts">
+    {$id};{$balance}&amp;crlf;
+  &lt;/dbp:query>
+&lt;/odbc:database></input>
+		<output>id;balance
+1;30
+2;30
+transfer failed.
+id;balance
+1;30
+2;30</output>
+	</example>
+</section>
+
+<section id="tips">
+	<title>Советы и рекомендации</title>
+	<list>
+		<item>Используйте среду исполнения dbPager Server или модули web-сервера
+			Apache или IIS, если это возможно, для выполнения программ, в которых
+			операции над базой данных происходят достаточно часто. В этих средах
+			инициализируется пул открытых соединений с базой данных. Так как
+			подключение к базе данных - достаточно ресурсоемкая операция,
+			использование пула открытых подключений значительным образом ускоряет
+			процесс подключения к БД. Однако открытые подключения к БД занимают
+			некоторые ресурсы сервера (в том числе и по допустимому числу
+			ограниченных лицензий на подключения), поэтому параметры пула можно
+			настраивать для получения оптимальной производительности.</item>
+		<item>Используйте параметризованные запросы при необходимости
+			выполнить одну и ту же SQL-команду с различными параметрами несколько
+			раз. Подготовка к выполнению запроса - достаточно длительно
+			выполняющаяся операция, но последние подготовленные к выполнению
+			запросы кешируются, поэтому последовательные запросы, отличающиеся
+			лишь параметрами, но не текстом запроса в параметре statement,
+			выполняются быстрее.</item>
+		<item>Используйте динамически изменяемый текст SQL-запроса только
+			тогда, когда это действительно необходимо, в остальных случаях
+			используйте параметры запроса - см.
+			<link to="http://en.wikipedia.org/wiki/SQL_injection">SQL-инъекции</link>.</item>
+	</list>
+</section>
+
+<section id="references">
+	<title>Ссылки</title>
+	<p><link to="http://www.iodbc.org/">Домашняя страница iODBC</link></p>
+	<p><link to="http://www.unixodbc.org/">Домашняя страница unixODBC</link></p>
+	<p><link to="http://msdn.microsoft.com/en-us/library/ms710252.aspx">Microsoft
+		Open Database Connectivity (ODBC)</link></p>
+</section>
+
+</manualpage>

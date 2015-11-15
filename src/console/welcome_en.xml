@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<?xml-stylesheet type="text/xsl" href="template.xsl"?>
+
+<page xml:lang="en" lang="en">
+	<block title="Tasks">
+		<h3>Recent tasks</h3>
+		<p><a href="#">View server logs</a></p>	</block>
+	<block title="Information">
+		<h3>Version</h3>
+		<p>
+			Software: dbPager Server<br/>
+			Version: 3.0.0
+		</p>
+		<hr/>
+		<h3>Environment</h3>
+		<p>
+			OS: Ubuntu Linux 9.04<br/>
+			Host: localhost
+		</p>
+		<hr/>
+		<h3>Statistics</h3>
+		<p>
+			Uptime: 4 days<br/>
+			Average load: 24%<br/>
+			Current open sessions: 17<br/>
+			Peak load:<br/>286 sessions at 08/04/2009 18:03
+		</p>
+		<p><a href="#">More statistics...</a></p>
+	</block>
+	<menu>
+		<item link="?section=index" title="Home">Visit home page</item>
+		<item link="?section=logout" title="Logout">Logging out from the system</item>
+		<item link="?section=help" title="Help">Read the documentation</item>
+	</menu>
+	<status>
+		<item title="Logged in">admin</item>
+		<item title="Server">localhost</item>
+	</status>
+	<text>
+		<h1>Welcome!</h1>
+		<p>Welcome to the dbPager Server web administration console. This site helps you to configure
+			and manage dbPager Server and its applications. To perform the task, select the
+			action from the tasks list.</p>
+	</text>
+	<tasks>
+		<group title="Monitor">
+			<item icon="images/logs.png" href="logs" title="Server logs">Search and view server logs for error, failure or success events.</item>
+			<item icon="images/chart.png" href="chart" title="Statistics information">View graphs with the dynamic statistics information.</item>
+			<item icon="images/monitor.png" href="monitor" title="Performance counters">Create and view graphs with performance data.</item>
+		</group>
+		<group title="Manage">
+			<item icon="images/restart.png" href="restart" title="Start/Stop/Restart">Start, stop, pause, resume or reload the server.</item>
+			<item icon="images/backup.png" href="backup" title="Backups">Make the copy of the server configuration or restore the configuration.</item>
+			<item icon="images/security.png" href="security" title="Security">Manage system accounts and access rights.</item>
+		</group>
+		<group title="Настройка">
+			<item icon="images/configure.png" href="configure" title="dbPager Server">Setup server own parameters.</item>
+			<item icon="images/sheduler.png" href="sheduler" title="Tasks sheduler">Setup tasks sheduler parameters.</item>
+			<item icon="images/apps-config.png" href="applications" title="Web applications">Setup web applications parameters.</item>
+			<item icon="images/databases.png" href="databases" title="Databases">Setup ODBC data sources.</item>
+		</group>
+	</tasks>
+	<copyright>
+		Copyright (c) 2009 Dennis Prochko &lt;wolfsoft@mail.ru&gt;
+	</copyright>
+</page>

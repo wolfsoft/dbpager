@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE manualpage SYSTEM "../style/dtd/manual.dtd">
+
+<?xml-stylesheet type="text/xsl" href="../style/xsl/manual.ru.xsl"?>
+
+<manualpage metafile="lang_summary.xml.meta" lang="ru">
+
+<title>Указатель</title>
+
+<summary>
+   Указатель предоставляет ссылки на описание всех элементов языка.
+</summary>
+
+<section id="index_by_name">
+   <title>Символьный указатель</title>
+   <index>
+      <link to="lang_vars" bookmark="">var, тег</link>
+      <link to="lang_vars" bookmark="">set, тег</link>
+      
+      <link to="lang_exceptions" bookmark="">try, тег</link>
+      <link to="lang_exceptions" bookmark="">catch, тег</link>
+      <link to="lang_exceptions" bookmark="">throw, тег</link>
+      
+      <link to="lang_custom" bookmark="">tag, тег</link>
+      <link to="lang_custom" bookmark="">execute, тег</link>
+      <link to="lang_custom" bookmark="">include, тег</link>
+      
+      <link to="lang_case" bookmark="">switch, тег</link>
+      <link to="lang_case" bookmark="">case, тег</link>
+
+      <link to="lang_string" bookmark="">regexp, тег</link>
+      <link to="lang_string" bookmark="">split, тег</link>
+      <link to="lang_string" bookmark="">substr, тег</link>
+
+      <link to="lang_database" bookmark="">database, тег</link>
+      <link to="lang_database" bookmark="">transaction, тег</link>
+      <link to="lang_database" bookmark="">sql, тег</link>
+
+      <link to="lang_url" bookmark="">read, тег</link>
+      <link to="lang_url" bookmark="">write, тег</link>
+      
+   </index>
+</section>
+
+<section id="index_by_function">
+   <title>Функциональный указатель</title>
+</section>
+
+</manualpage>

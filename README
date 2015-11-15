@@ -1,0 +1,102 @@
+Table Of Contents
+
+1. About dbPager Server
+2. Downloading and building dbPager Server from subversion repository
+3. Known issues
+	
+1. About dbPager Server
+
+The dbPager Server project provides the dbPager Language - the programming
+language based on XML. The language is simple and understood well; it has
+facilities to access and process external data quite easy, so it is an ideal
+language for middle level logic implementation in multitier software complexes,
+such as web servers.
+
+The software implementations of the dbPager Language are:
+
+- dbpager, the console language interpretator
+- dbp_cgi, the interpretator as a CGI extension of the web server
+- mod_dbp, the interpretator as an Apache extension module
+- dbp_isapi, the interpretator as an ISAPI module (Microsoft IIS extension)
+- dbpagerd, the application server
+
+The sofware can be extended with plugins (dbPager modules). There are
+out-of-the-box dbPager modules:
+
+- dbp_odbc, the ODBC interaface to databases
+- dbp_xml, provides XML features
+- dbp_xslt, the XSL transformation feature
+
+Visit the web site at http://dbpager.sf.net for more information, downloads
+and community support resources.
+
+Refer to INSTALL file to obtain installation instructions and doc directory
+for software documentation and examples.
+
+2. Downloading and building dbPager Server from subversion repository
+
+The dbPager Server project provides the subversion (SVN) repository with
+latest version of the code at the sourceforge web site.
+
+To build dbPager Server from repository you should have the following
+developer tools installed:
+
+- svn
+- autopoint (version 0.17 or newer)
+- libtoolize (version 2.2 or newer)
+- aclocal (version 1.10 or newer)
+- automake (version 1.10 or newer)
+- autoconf (version 2.61 or newer)
+- autoheader (version 2.61 or newer)
+- xgettext (version 0.17 or newer)
+- xsltproc
+
+You will needed some of libraries installed (developer packages):
+
+- libxml-2.0-dev
+- libxslt-dev
+- libpcre-dev
+- libapr1-dev
+- apache2-threaded-dev
+ 
+Also you will needed the dbPager Classes Library, available from the
+sourceforge at http://libdcl.sf.net.
+
+To download latest dbPager Server sources, execute the following command:
+
+svn co https://dbpager.svn.sourceforge.net/svnroot/dbpager/trunk/ dbpager
+
+The dbPager Server sources will downloaded into the dbpager directory. Next,
+you should run the autogen.sh script in the dbpager directory - it creates
+all necessary infrastructure to build the dbPager Server with developer
+tools mentioned above.
+
+After building the infrastructure complete, you should configure the
+dbPager Server sources by running 'configure' script. The configure script
+has various options, run it with --help parameter for details.
+
+Finally, build the configured sources with 'make' command.
+
+More information about building the sources can be found in the INSTALL file.
+
+3. Known issues
+
+The internal user sessions cache backend (the default; check dbpager.conf)
+works only on multithreaded environment, so you can't use apache preforked
+model. To use MPM model you should use the following apache configuration:
+
+<IfModule mpm_worker_module>
+#    StartServers          2
+     StartServers          1
+     MinSpareThreads      25
+     MaxSpareThreads      75
+#    ThreadLimit          64
+     ThreadLimit         150
+#    ThreadsPerChild      25
+     ThreadsPerChild     150
+     MaxClients          150
+     MaxRequestsPerChild   0
+</IfModule>
+
+The key is one and only one server process. The memcached backend have not
+any issues, so use memcached backend if you can.

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE manualpage SYSTEM "../style/dtd/manual.dtd">
+
+<?xml-stylesheet type="text/xsl" href="../style/xsl/manual.ru.xsl"?>
+
+<manualpage metafile="lang_ml.xml.meta" lang="ru" version="2010081001">
+
+<title>Взаимодействие с системой</title>
+
+<summary>
+  Этот раздел посвящён обзору способов взаимодействия с операционной системой —
+  операций с файловой системой и вызовом внешних программ.
+</summary>
+
+<section id="file-operations">
+  <title>Операции с файловой системой</title>
+  <subtitle>Чтение данных из файла</subtitle>
+  <subtitle>Запись данных в файл</subtitle>
+  <subtitle>Перечисление содержимого каталога</subtitle>
+  <subtitle>Удаление файла/каталога</subtitle>
+  <subtitle>Переименование файла/каталога</subtitle>
+</section>
+
+<section id="call-external">
+  <title>Вызов внешних программ</title>
+  <p>Для вызова внешней программы (запуска системного процесса) используется тег <term>dbp:system</term>:</p>
+  <code>&lt;dbp:system <param>href="<value>путь к исполняемому файлу</value>"</param> [<param>parameters="<value>параметры</value>"</param>]&gt;
+  ...
+&lt;/dbp:system&gt;</code>
+  <p>Обязательный параметр <param>href</param> должен содержать имя исполняемого файла,
+    например <term>C:\WINDOWS\cmd.exe</term> (Windows) или <term>/usr/bin/mail</term> (Unix).
+    Если полный путь к файлу не указан, производится поиск исполняемого файла в соответствии
+    с правилами, принятыми в целевой операционной системе: в каталоге, откуда было запущено
+    приложение, в каталоге dbPager, в системных каталогах (Windows), в каталогах, перечисленных
+    в переменной окружения <term>PATH</term>.</p>
+  <p>Необязательный параметр <param>parameters</param> может содержать параметры командной строки,
+    передаваемые исполняемому файлу. В случае, если параметров — несколько, они должны быть разделены
+    пробелом. В случае, если какой-либо из параметров содержит пробел, он должен быть заключён
+    в двойные кавычки, например:</p>
+  <code>&lt;dbp:system href="cmd.exe" parameters='/C echo "hello, world!"'&gt;
+  ...
+&lt;/dbp:system&gt;</code>
+  <p>В случае, если исполняемый файл является скриптом:</p>
+  <list>
+    <item>В ОС Windows в качестве имени исполняемого файла необходимо указать имя
+      файла интерпретатора — <term>cmd.exe</term>, а путь к скрипту указывать в параметрах
+      в виде <term>/C &lt;путь к .bat файлу&gt;</term>.</item>
+    <item>В POSIX-совместимых ОС (Linux, BSD) необходимо, чтобы файл скрипта в первой строке
+      содержал путь к интерпретатору, например <term>#!/usr/bin/perl</term> — в таком случае
+      скрипт можно использовать в качестве исполняемого файла.</item>
+  </list>
+  <p></p>
+  <p></p>
+  <p></p>
+  <p></p>
+</section>
+
+</manualpage>

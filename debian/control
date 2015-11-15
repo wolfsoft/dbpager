@@ -1,0 +1,183 @@
+Source: dbpager
+Maintainer: Dennis Prochko <wolfsoft@mail.ru>
+Section: web
+Priority: optional
+Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), autotools-dev, xsltproc, pkg-config,
+ unixodbc-dev | libiodbc2-dev, libdcl-dev (>= 0.2.0), libdb++-dev,
+ libxml2-dev, libxslt1-dev | libxslt-dev, libpcre3-dev, libcurl4-openssl-dev,
+ apache2-dev | apache2-threaded-dev | apache2-prefork-dev,
+ libaprutil1-dev | libapr1-dev, memcached,
+ libgearman-dev | gearmand, libevent-dev, uuid-dev,
+ scons, libboost-thread-dev, libboost-filesystem-dev, libboost-system-dev,
+ libpqxx-dev, libv8-dev
+Standards-Version: 3.9.5
+Homepage: http://dbpager.com
+
+Package: libdbpager4
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Replaces: dbpager-core
+Conflicts: dbpager-core
+Recommends: dbpager
+Description: The core functions of the dbPager Language
+ The dbPager Server project provides the dbPager Language - the programming
+ language based on XML. The language is simple and understood well; it has
+ facilities to access and process external data quite easy, so it is an ideal
+ language for middle level logic implementation in multitier software complexes,
+ such as web servers.
+ .
+ This is a core functions for all dbPager software.
+
+Package: libdbpager-dev
+Architecture: any
+Depends: libdbpager4 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: The core functions of the dbPager Language, development files
+ The dbPager Server project provides the dbPager Language - the programming
+ language based on XML. The language is simple and understood well; it has
+ facilities to access and process external data quite easy, so it is an ideal
+ language for middle level logic implementation in multitier software complexes,
+ such as web servers.
+ .
+ This is a development files for dbPager modules development.
+
+Package: dbpager
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: dbPager Language interpretator
+ The dbPager Server project provides the dbPager Language - the programming
+ language based on XML. The language is simple and understood well; it has
+ facilities to access and process external data quite easy, so it is an ideal
+ language for middle level logic implementation in multitier software complexes,
+ such as web servers.
+ .
+ This is a console interpretator for applications on dbPager Language.
+
+Package: dbpager-lib
+Architecture: all
+Depends: ${misc:Depends}
+Description: dbPager Standard Library
+ The dbPager Server project provides the most frequent used functions
+ implemented in dbPager Language as reusable, standard library.
+ .
+ Many applications written on dbPager Language uses this library.
+
+Package: dbpager-doc
+Architecture: all
+Depends: ${misc:Depends}
+Description: dbPager Developer Guide - the documentation
+ The dbPager Server project provides the guide for the dbPager Language and
+ related software in the HTML format.
+
+Package: dbp-cgi
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: dbPager Language interpretator
+ The dbPager Server project provides the dbPager Language - the programming
+ language based on XML. The language is simple and understood well; it has
+ facilities to access and process external data quite easy, so it is an ideal
+ language for middle level logic implementation in multitier software complexes,
+ such as web servers.
+ .
+ This is a dbPager Language interpretator implemented as the CGI extension
+ of the web server.
+
+Package: libapache2-mod-dbp
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: dbPager Language interpretator
+ The dbPager Server project provides the dbPager Language - the programming
+ language based on XML. The language is simple and understood well; it has
+ facilities to access and process external data quite easy, so it is an ideal
+ language for middle level logic implementation in multitier software complexes,
+ such as web servers.
+ .
+ This is a dbPager Language interpretator implemented as Apache Web Server
+ extension.
+
+Package: dbpagerd
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: dbPager FastCGI Server
+ The dbPager Server project provides the dbPager Language - the programming
+ language based on XML. The language is simple and understood well; it has
+ facilities to access and process external data quite easy, so it is an ideal
+ language for middle level logic implementation in multitier software complexes,
+ such as web servers.
+ .
+ This is a dbPager Language interpretator implemented as FastCGI server.
+
+Package: dbpager-odbc
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libdbp-odbc
+Description: dbPager Server extensions - ODBC database interface
+ This is a dbPager Language interpretators extension. It provides database
+ access features to dbPager applications via ODBC interface.
+
+Package: dbpager-postgresql
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libdbp-pgsql
+Description: dbPager Server extensions - PostgreSQL database interface
+ This is a dbPager Language interpretators extension. It provides database
+ access features to dbPager applications via native PostgreSQL interface.
+
+Package: dbpager-memcached
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: dbPager Server extensions - Memcached database interface
+ This is a dbPager Language interpretators extension. It provides database
+ access features to dbPager applications via native Memcached interface.
+
+Package: dbpager-bdb
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libdbp-bdb
+Description: dbPager Server extensions - BerkleyDB database interface
+ This is a dbPager Language interpretators extension. It provides database
+ access features to dbPager applications via native BerkleyDB interface.
+
+Package: dbpager-mongo
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libdbp-mongo
+Description: dbPager Server extensions - MongoDB database support
+ This is a dbPager Language interpretators extension. It provides access
+ to the MongoDB database.
+
+Package: dbpager-xslt
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libdbp-xslt
+Description: dbPager Server extension - XSL transformation
+ This is a dbPager Language interpretators extension. It provides XSL
+ transformation feature to dbPager applications.
+
+Package: dbpager-gearman
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libdbp-gearman
+Description: dbPager Server extension - Gearman job server support
+ This is a dbPager Language interpretators extension. It provides access
+ to the Gearman job server acting as client.
+
+Package: dbpager-script
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libdbp-script
+Description: dbPager Server extension - JavaScript support
+ This is a dbPager Language interpretators extension. It provides
+ server-side JavaScript.
+
+Package: dbpager-dbg
+Architecture: any
+Depends: libdbpager4 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: The core functions of the dbPager Language
+ The dbPager Server project provides the dbPager Language - the programming
+ language based on XML. The language is simple and understood well; it has
+ facilities to access and process external data quite easy, so it is an ideal
+ language for middle level logic implementation in multitier software complexes,
+ such as web servers.
+ .
+ This is a debugging symbols.
+

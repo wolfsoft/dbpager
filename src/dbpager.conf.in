@@ -1,0 +1,116 @@
+#
+# This is the main dbPager Server configuration file.  It contains the
+# configuration directives that give the server its instructions.
+# See the program documentation for detailed information about
+# the directives.
+#
+# The other dbPager interpreters use some of options from this
+# configuration file too.
+#
+
+
+### modules: the list of dbPager modules (plugins) to load
+# 
+[modules]
+@include = modules-available/*.conf
+
+
+### services: the list of dbPager Server services to use.
+#
+[services]
+@include = services-available/*.conf
+
+# session directive
+#
+# Specifies what session data storage system backend to use.
+# Available values: pgsql, odbc, memcached, internal
+#
+# session = internal
+
+# cache directive
+#
+# Specifies what cache data storage system backend to use.
+# Available values: pgsql, odbc, memcached, internal
+#
+# cache = internal
+
+# log directive
+#
+# Specifies what logging backend to use.
+# Available values: pgsql, odbc, file, internal
+#
+# log = internal
+
+# log.level directive
+#
+# Specifies how to verbose the log messages should be (0..6, from logging off
+# to complete logging. Default is 3 (only errors are logged).
+#
+# log.level = 3
+
+# queue directive
+#
+# Specifies what task queue engine to use.
+# Available values: gearman, beanstalkd, sqs, rabbitmq, internal
+#
+# queue = internal
+
+# mail directive
+#
+# Specifies what mail delivery subsystem to use.
+# Available values: smtp, sendmail, discard
+#
+# mail = discard
+
+
+### dbpagerd: the dbPager FastCGI Server parameters.
+# 
+[dbpagerd]
+# bind directive
+#
+# Specifies network addresses and/or ports which dbPager FastCGI Server should bind to.
+# To specify all network interfaces, simply don`t provide network address, to specify
+# several network interfaces, separate them with commas. Network interface
+# address should be separated from port number with semicolon(':').
+#
+# For example: 127.0.0.1:9000, :9001
+#
+# Instead of providing network address, you can specify the unix socket path name
+#
+# bind = @UNIX_SOCKET_PATH@
+
+# threads directive
+#
+# Specifies maximum amount of threads dbPager FastCGI Server should start to.
+# The web server can accept several connections in one time, so this value
+# limit the maximum number of concurrent connections to the dbPager applications.
+#
+# Optimal value is the number of processor cores * k, where k is 1..5 depends of
+# your application. Starting with k = 1, try to increase the value until the maximal
+# throughput stop increasing under heavy load.
+#
+# threads = 8
+
+# user directive
+#
+# Specifies the user of process. Usually equals the web server user id.
+#
+# user = nobody
+
+# group directive
+#
+# Specifies the group of process. Usually equals the web server group id.
+# If the group is not set, the default group of user will be used.
+#
+# group = nogroup
+
+
+### application: the list of installed web applications.
+# 
+[application]
+# pool directive
+#
+# Specifies pool size for applications. Possible values are: unlimited, 0 or any integer number.
+#
+# pool = unlimited
+

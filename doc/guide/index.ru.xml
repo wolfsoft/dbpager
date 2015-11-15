@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE indexpage SYSTEM "style/dtd/index.dtd">
+
+<?xml-stylesheet type="text/xsl" href="style/xsl/manual.ru.xsl"?>
+
+<indexpage metafile="index.xml.meta" lang="ru" version="2010062501">
+
+<title>Руководство dbPager Server</title>
+
+<summary>
+	Это руководство является полным комплектом документации по проекту
+	dbPager Server, включая информацию о языке программирования dbPager,
+	программном обеспечении и о смежных web-ориентированных технологиях.
+	Вся документация разделена на несколько разделов для более удобного
+	использования системными администраторами и программистами,
+	которые намерены использовать dbPager Server для создания
+	web-ориентированных приложений и web-сайтов.
+</summary>
+
+<category id="about">
+	<title>Об этом руководстве</title>
+	<page href="about">Об этом руководстве</page>
+	<page href="conventions">Типографские соглашения</page>
+	<page href="terms_and_conditions">Термины и определения</page>
+</category>
+
+<category id="users_guide">
+	<title>Руководство по языку dbPager</title>
+	<page href="lang_overview">Обзор языка</page>
+	<page href="lang_vars">Переменные и выражения</page>
+	<page href="lang_comp">Управление порядком исполнения</page>
+	<page href="lang_subroutines">Подпрограммы и функции</page>
+	<page href="lang_exceptions">Исключения и программные транзакции</page>
+	<page href="lang_string">Операции с текстом</page>
+	<page href="lang_ml">Операции над данными в формате XML</page>
+	<page href="lang_system">Взаимодействие с системой</page>
+	<page href="lang_index">Алфавитный и функциональный указатель</page>
+</category>	 
+
+<category id="sysadmin_guide">
+	<title>Руководство системного администратора</title>
+	<page href="about">О программном обеспечении dbPager Server</page>
+	<page href="setup">Установка dbPager Server</page>
+	<page href="configure">Настройка dbPager Server</page>
+	<page href="admin">Администрирование dbPager Server</page>
+	<page href="cluster">Объединение нескольких серверов в кластер</page>
+	<page href="config_other">Настройка сопутствующего ПО</page>
+</category>
+
+<category id="modules">
+	<title>Модули расширения</title>
+	<page href="overview">Введение</page>
+	<page href="mod_odbc">Доступ к СУБД через ODBC</page>
+	<page href="mod_bdb">Хранилище данных на основе Berkeley DB</page>
+</category>	 
+
+<category id="programmers_guide">
+	<title>Руководство разработчика</title>
+	<page href="overview">Введение</page>
+	<page href="build">Сборка web-приложения</page>
+	<page href="deploy">Развертывание web-приложения</page>
+	<page href="module">Разработка модуля расширения</page>
+</category>	 
+
+<category id="library">
+	<title>Стандартная библиотека</title>
+	<page href="overview">Введение</page>
+	<page href="operators">Операторы</page>
+	<page href="lists">Списки</page>
+	<page href="index">Алфавитный и функциональный указатель</page>
+</category>
+
+</indexpage>

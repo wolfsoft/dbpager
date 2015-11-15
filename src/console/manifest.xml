@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://dbpager.org.ru/schemas/1.0 manifest.xsd">
+	<properties>
+		<icon>console.png</icon>
+		<version>3.0.0.0</version>
+		<update-url>http://dbpager.org.ru/downloads/console/manifest.xml</update-url>
+	</properties>
+	<properties lang="en">
+		<name>dbPager Server Console</name>
+		<description>
+			dbPager Server Console helps you to configure and manage
+			dbPager Server and its applications via web interface.
+		</description>
+	</properties>
+	<properties lang="ru">
+		<name>dbPager Server Console</name>
+		<description>
+			dbPager Server Console поможет вам настраивать и обслуживать
+			dbPager Server и его приложения через web интерфейс.
+		</description>
+	</properties>
+</manifest>

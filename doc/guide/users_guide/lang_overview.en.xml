@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+<!DOCTYPE manualpage SYSTEM "../style/dtd/manual.dtd">
+
+<?xml-stylesheet type="text/xsl" href="../style/xsl/manual.en.xsl"?>
+
+<manualpage metafile="lang_overview.xml.meta" lang="en" version="2010062501">
+
+<title>Language overview</title>
+
+<summary>
+  This chapter provides the overview of the dbPager programming language:
+  the reasons of it occurrence, the language features in comparison with other
+  programming languages and also the overview of the program structure
+  written on dbPager language by example of the simple program.
+</summary>
+
+<section id="header">
+	<title>Why the dbPager language was created</title>
+	<p>The dbPager language has appeared as a result of solving
+	  problems on dynamic HTML pages generation for
+	  interactive web-sites for deadlines.
+	  To solve these problems, the rapid development tool of
+	  typical web sites templates was required. This tool
+	  should was accessible to understand even by web-designer with
+	  the knowing of markup languages, but not familiar with
+	  common programming languages.
+	  The such simplicity would allow to effectively divide the work of
+	  the web-designer and the programmer over one project. Besides,
+	  this tool should possess expansion possibilities of it
+	  features by the programmer if needed.</p>
+    <p>To complete these requirements the common existing tools was considered.
+      All these tools was divided into categories by the principle of dynamic
+      web pages generation:</p>
+	<list>
+      <item>Static HTML pages contain the program code insertions that are
+        generating of dynamic parts of web page. The examples of this approach
+        are the PHP and ASP languages.</item>
+	  <item>The program code generate of HTML pages content completely
+		by the output operations. The vivid examples of this approach are
+        the Perl and Python languages.</item>
+      <item>The DBMS contains all logic required to generate web pages,
+        based on its internal features (stored procedures, for example).
+        The web server with feature of HTTP queries to DBMS translation
+        provides the results of procedure execution in a form of dynamically
+        generated XML data. This data next transformed with XSL into
+        HTML page. The example of such approach is the integration of
+        MS SQL Server with Microsoft IIS.</item>
+	</list>
+    <p>The offered ways of completing these tasks have some advantages and lacks.
+      The first approach does not allow to divide work of the programmer and the
+      web designer, forcing the web designer to study programming. The second
+      one also does not allow the web designer and the programmer to divide the
+      duties, forcing the programmer to study web designing. Third approach
+      assumes of DBMS programmer also. Moreover it is poorly extentesible and
+      is functionally limited. As a result, there are many of specialized
+      applications to solve these tasks
+	  (<link to="http://en.wikipedia.org/wiki/Web_application_framework">web
+	  application framework</link>). But these applications haven't flexibility
+      we needed and was hard to learn.</p>
+    <p>The <link to="http://en.wikipedia.org/wiki/XSLT">XSL transformation technology</link>
+      generally doesn't have these lacks by providing the possibility of
+      dividing of data from its view. By the preliminary coordination of
+      a XML data format between the programmer and the web designer
+      the work on the web design is made in parallel with XSL
+      transformation files and the program kernel generating
+      XML data presentation.
+      The problem was that the such universal kernel was not exist &mdash;
+      this is because the dbPager Server and the language of application
+      logic running on it environment was created.
+      The language has undergone set of changes and now is the high-grade
+      programming language for the solving of a wide range of problems
+      on effective dynamic XML, JSON or HTML code generation by
+      combining of simplicity and great opportunities.</p>
+</section>
+
+<section id="features">
+	<title>Language features</title>
+    <p>The dbPager language is a multiparadigm programming language
+      in which you can combine both the imperative style of programming,
+      declarative and functional styles. The language syntax is based on
+      <link to="http://www.w3.org/TR/1998/REC-xml-19980210">XML</link> and
+      have some similarities with
+      <link to="http://www.w3.org/TR/xsl">XSL</link> and
+      <link to="http://ru.wikipedia.org/wiki/JSTL">JSTL</link> languages.
+      As well as in these languages, the program on the dbPager language
+      represents the conform XML document which correctness can be
+      checked up by widely used tools of XML conformity to its scheme checking
+      even before program executing.</p>
+	<p>The main syntax element of the dbPager language program is <term>tag</term>.
+      The tag term is identical to the element term in the XML language.
+      On the functionality it corresponds to functions in other
+      programming languages. As well as a function, the tag accepts
+      the arguments corresponding to attributes in XML language
+      as parameters. Besides, the tag can contain enclosed tags
+      and the text. The tag is a unit of the program execution;
+      depending on its appointment, the executing of the tag leads
+      to corresponding results.</p>
+	<image src="language-tag.png"/>
+	<p>(1 &mdash; tag name; 2,3 &mdash; parameters; 4 &mdash; tag end;
+		5 &mdash; tag content)</p>
+	<p>Программа на языке dbPager представляет собой
+		иерархическую структуру, состоящую из тегов, вложенных друг в друга.
+		Визуально программа может быть представлена как дерево:</p>
+	<image src="program-diagram.png"/>
+	<subtitle>Program execution</subtitle>
+	<p>Выполнение программы происходит следующим образом. Теги исполняются
+		последовательно, один за другим. При выполнении тега сначала
+		выполняются все вложенные в него теги и только после этого происходит
+		выполнение следующего тега. На рисунке цифрами обозначен порядок
+		его выполнения.</p>
+	<p>Каждый тег, помимо собственных параметров, имеет поток входа и
+		поток выхода данных. Тег может содержать вложенный текст, который
+		поступает во входной поток данных. Кроме этого, тег может
+		сам генерировать какие-либо данные. В результате выполнения тега
+		эти данные после обработки передаются в выходной поток тега.
+		Каждый выходной поток данных тега является входным
+		потоком данных родительского тега, таким образом тег может также
+		манипулировать результатами выполнения вложенных в него тегов.
+		Результатом работы программы вцелом является содержимое выходного потока
+		корневого тега.</p>
+	<p>В примере программы, представленной выше, два тега (3 и 4) содержат
+	    вложенный текст (<term>z = {$z}</term>); прочие теги вложенного
+		текста не содержат.
+		В процессе выполнения последовательно выполняются теги 1, 2, 3 и 4.
+		Тег (3) помещает в свой выходной поток строку <term>z = 6</term>,
+		а тег (4) &mdash; строку <term>z = 9</term>. Эти строки поступают
+		во входной поток данных их родительского тега (2), который, в свою
+		очередь, помещает полученную строку <term>z = 6z = 9</term> в свой
+		выходной поток. Далее строка поступает по входной поток тега (1).
+		Этот тег является корневым, и в результате эта строка становится
+		результатом выполнения программы.</p>
+	<subtitle>Namespaces</subtitle>
+	<p>Для того, чтобы соотнести теги с функцией, которую они выполняют и
+		избежать проблемы совпадения имен тегов (коллизий) используется
+		механизм <link to="http://www.w3.org/TR/REC-xml-names">пространства имен XML</link>.
+		Теги ядра системы, а также теги внешних модулей регистрируются в
+		соответствующих пространствах имен, характеризуемыми уникальными
+		адресами <link to="http://www.ietf.org/rfc/rfc2396.txt">URI</link>:</p>
+	<table style="single">
+		<header>
+			<cell>Модуль</cell>
+			<cell>URI</cell>
+			<cell>Описание</cell>
+		</header>
+		<row>
+			<cell>ядро</cell>
+			<cell>http://dbpager.org.ru/schemas/dbp/3.0</cell>
+			<cell>Теги системы dbPager Server</cell>
+		</row>
+		<row>
+			<cell>ядро</cell>
+			<cell>http://dbpager.org.ru/schemas/dbp/3.0/custom</cell>
+			<cell>Теги, определяемые пользователем</cell>
+		</row>
+		<row>
+			<cell>dbp_bdb</cell>
+			<cell>http://dbpager.org.ru/schemas/dbp/3.0/bdb</cell>
+			<cell>Теги поддержки хранилища данных Berkeley DB</cell>
+		</row>
+		<row>
+			<cell>dbp_odbc</cell>
+			<cell>http://dbpager.org.ru/schemas/dbp/3.0/odbc</cell>
+			<cell>Теги для работы с базами данных через интерфейс ODBC</cell>
+		</row>
+	</table>
+	<p>Прочие внешние модули могут использовать другие URI &mdash; обратитесь к
+		документации к ним.</p>
+	<p>Теги, не относящиеся ни к одному из зарегистрированных пространств
+		имён, обрабатываются особым образом &mdash; как обычный текст, но в общем
+		для всех тегов порядке исполнения.</p>
+	<p>В примере программы, приведённой выше, показано, как однозначно определить пространство
+		имён для тегов программы: строка <term>xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"</term>
+		назначает пространству имен <term>http://dbpager.org.ru/schemas/dbp/3.0</term>
+		имя-псевдоним <term>dbp</term>. Таким образом, тег <term>dbp:var</term>
+		однозначно определён как функция ядра системы. В результате использования
+		различных пространств имён одновременно могут существовать теги с
+		одинаковым именем, но несущие разные функции.</p>
+	<tip>Удобно определить все используемые пространства имен сразу в корневом
+	    теге module &mdash; это повысит читаемость текста программы.</tip>
+	<subtitle>Comments</subtitle>
+	<p>The program on dbPager language may contain comments. The comments are blocks of text
+		with informational meaning for the developer. They are not interpreted.
+		Кроме чисто справочной функции по коду программы, комментариями удобно использоваться
+		при отладке программы, для временного исключения какого-либо блока кода.</p>
+	<p>Комментарий начинается с последовательности символов <term>&lt;!--</term> и
+	  заканчивается последовательностью символов <term>--&gt;</term>. Вложенные комментарии
+	  не допускаются:</p>
+	<code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+
+&lt;!--
+    This is a comment.
+    It will be ignored when program executing.
+--&gt;
+
+&lt;dbp:module
+    xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+    xmlns:usr="http://dbpager.org.ru/schemas/dbp/3.0/custom"
+&gt;
+
+&lt;!-- Here will be placed program code --&gt;
+
+&lt;/dbp:module&gt;</code>
+</section>
+
+<section id="byexample">
+	<title>The program on dbPager language</title>
+	<p>Let's examine an example of the simple program generating words of the song
+		"<link to="http://99-bottles-of-beer.net">99 bottles of beer on the wall</link>":</p>
+	<code>&lt;?xml version="1.0" encoding="utf-8"?>
+
+&lt;dbp:module
+    xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+    xmlns:usr="http://dbpager.org.ru/schemas/dbp/3.0/custom"
+>
+
+&lt;dbp:tag name="sing">
+    {$number} bottles of beer on the wall, {$number} bottles of beer.{$crlf}
+    Take one down, pass it around, {$number - 1} bottles of beer on the wall.{$crlf}{$crlf}
+    &lt;dbp:switch test="{($number - 1) = 0}">
+        &lt;dbp:case match="1">
+            Go to the store and buy some more,{$crlf}
+            99 bottles of beer on the wall.{$crlf}
+        &lt;/dbp:case>
+        &lt;dbp:case match="0">
+            &lt;usr:sing number="{$number - 1}"/>
+        &lt;/dbp:case>
+    &lt;/dbp:switch>
+&lt;/dbp:tag>
+
+&lt;dbp:var name="crlf" value="{byte(13)}{byte(10)}">
+    &lt;usr:sing number="99"/>
+&lt;/dbp:var>
+
+&lt;/dbp:module></code>
+	<p>The program code consists, at least, of heading:</p>
+	<code>&lt;?xml version="1.0" encoding="utf-8"?></code>
+	<p>In heading it is possible to set encoding of symbols used in
+	  program text (<term>encoding</term> parameter). За заголовком обязательно
+		должен следовать один корневой тег
+		&mdash; <term>module</term>, который содержит прочие теги и/или текст,
+		составляющий код программы. В корневом теге удобно определить все
+		пространства имён, которые будут использоваться в программе:</p>
+	<code>&lt;dbp:module
+    xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+    xmlns:usr="http://dbpager.org.ru/schemas/dbp/3.0/custom"
+>
+[program code]
+&lt;/dbp:module></code>
+	<p>В данном случае мы определяем имена <term>dbp</term> и <term>usr</term>
+		для простраств имён тегов ядра и пользовательских тегов соответственно.</p>
+	  <p>Тег <term>dbp:tag</term> при выполнении программы просто объявляет
+		пользовательскую функцию с именем <term>sing</term> в пространстве имён
+		<term>http://dbpager.org.ru/schemas/dbp/3.0/custom</term>,
+		вложенные в него теги при этом не выполняются.
+		Следующий за ним тег, <term>dbp:var</term>, инициализирует
+		переменную с именем <term>crlf</term> значением перевода строки (CRLF).</p>
+	<p>После того, как переменная инициализирована, происходит выполнение
+		функции пользователя <term>usr:sing</term>, объявленной ранее. Перед
+		выполнением этой функции инициализируется её параметр <term>number</term>
+		значением <term>99</term>. При выполнении функции <term>usr:sing</term>
+		выполняются все теги, вложенные в тег <term>dbp:tag name="user"</term>.
+		Рассмотрим, что при этом происходит.</p>
+	<p>В первую очередь, в выходной поток выводится текст:</p>
+	<code highlight="off">99 bottles of beer on the wall, 99 bottles of beer.
+Take one down, pass it around, 98 bottles of beer on the wall.</code>
+	<p>При выводе текста происходит подстановка значения параметра функции и
+		заданные вычисления.</p>
+	<p>Далее, посредством тега <term>dbp:switch</term> происходит сравнение
+		значение параметра, уменьшенного на единицу, с нулём. В случае,
+		если это так, (<term>dbp:case match="1"</term>), происходит
+		вывод фразы:</p>
+	<code highlight="off">Go to the store and buy some more,
+99 bottles of beer on the wall.</code>
+	<p>В противном случае (<term>dbp:case match="0"</term>), происходит
+		рекурсивный вызов функции <term>usr:sing</term>
+		с уменьшенным на единицу значением параметра <term>number</term>.</p>
+	<p>Таким образом реализуется циклическое выполнение функции
+		<term>usr:sing</term>, при этом 99 раз происходит вывод текста песни о пиве
+		и при вызове функции в сотый раз выводится финальный куплет песни и выполнение
+		программы прекращается.</p>
+</section>
+
+</manualpage>
+

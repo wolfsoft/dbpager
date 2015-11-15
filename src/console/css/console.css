@@ -1,0 +1,191 @@
+body {
+	margin: 0;
+	font: normal 12px Verdana, Sans, sans-serif;
+}
+
+a {
+	color: RoyalBlue;
+}
+
+a:hover {
+	color: FireBrick;
+}
+
+p {
+	line-height: 1.5em;
+}
+
+p.desc {
+	margin: 0;
+	color: SlateGray;
+	font-size: 83%;
+}
+
+h1 {
+	color: SlateGray;
+	font-size: 200%;
+}
+
+h2 {
+	color: SlateGray;
+	font-size: 150%;
+}
+
+h3 {
+	color: SlateGray;
+	font-size: 120%;
+}
+
+h3 {
+	clear: both;
+	color: black;
+	font-size: 100%;
+}
+
+img {
+	border: 0;
+	padding: 4px;
+}
+
+hr {
+	width: 90%;
+	color: SlateGray;
+}
+
+/* header */
+
+#title {
+	clear: both;
+	background: #5eaec5 url('../images/title.png') no-repeat top right;
+	height: 60px;
+}
+
+#title p {
+	font: bold 34px "Tahoma", Arial, Sans, sans-serif;
+	margin: 0;
+	padding: 8px;
+	letter-spacing: -1px;
+	color: LightBlue;
+}
+
+/* main menu */
+
+#menu-line {
+	background: rgb(21,129,159);
+	height: 24px;
+}
+
+#menu, #status {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	height: 24px;
+}
+
+#menu {
+	float: left;
+	margin-left: 275px;
+}
+
+#status {
+	float: right;
+}
+
+#menu li, #status li {
+	margin-top: 6px;
+	padding-left: 8px;
+	padding-right: 8px;
+	float: left;
+	font: bold 91% "Tahoma", Arial, Sans, sans-serif;
+	color: white;
+	background: url('../images/line.png') no-repeat;
+}
+
+#menu li a {
+	color: white;
+	text-decoration: none;
+}
+
+#menu li a:hover {
+	color: FireBrick;
+	text-decoration: none;
+}
+
+span.name {
+	color: yellow;
+}
+
+/* left summary */
+
+#summary {
+	float: left;
+}
+
+/* left summary block elements */
+
+div.block {
+	margin: 16px;
+	width: 245px;
+	border: solid 1px SlateGray;
+	padding: 1px;
+	background: AliceBlue;
+}
+
+div.block .title {
+	margin: 0px;
+	background: rgb(21,129,159);
+	color: white;
+	padding: 4px 8px 4px 8px;
+	font: bold 120% "Tahoma", Arial, Sans, sans-serif;
+}
+
+div.block .body {
+	padding: 8px;
+}
+
+/* main area */
+
+#main {
+	margin-left: 280px;
+	padding: 0px 16px 0px 8px;
+}
+
+/* group box */
+
+div.group {
+	float: left;
+	margin-top: 1.5em;
+	padding: 0px 8px 8px 8px;
+	border: solid 1px SlateGray;
+}
+
+div.group * {
+	margin: 0;
+}
+
+div.group-element {
+	float: left;
+	padding: 8px;
+	width: 280px;
+}
+
+div.group .group-title {
+	margin: 0;
+	padding-left: 2px;
+	padding-right: 2px;
+	position: relative;
+	top: -8px;
+	left: 0px;
+	background: white;
+	font-weight: bold;
+}
+
+/* footer */
+
+#footer {
+	clear: both;
+	padding-top: 8px;
+	text-align: center;
+	font-size: 75%;
+	color: SlateGray;
+}

@@ -1,0 +1,7 @@
+etc/dbpager/dbpager.conf
+etc/dbpager/services-available/mod_logger_file.conf
+usr/lib/libdbpager*.so.*
+usr/lib/libdbpager*.so
+usr/lib/dbpager/libmod_logger_file*.so.*
+usr/lib/dbpager/libmod_logger_file*.so
+usr/share/locale/*

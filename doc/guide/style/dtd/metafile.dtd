@@ -1,0 +1,16 @@
+<!ENTITY % common SYSTEM "common.dtd">
+%common;
+
+<!ELEMENT metafile (basename, relpath, variants, parentdocument, followdocument)>
+
+<!ELEMENT basename (#PCDATA)>
+
+<!ELEMENT relpath (#PCDATA)>
+
+<!ELEMENT variants (variant+)>
+
+<!ELEMENT variant (#PCDATA)>
+
+<!ELEMENT parentdocument (#PCDATA)>
+
+<!ELEMENT followdocument (#PCDATA)>

@@ -1,0 +1,3 @@
+usr/lib/dbpager/libdbp_xslt*.so.*
+usr/lib/dbpager/libdbp_xslt*.so
+etc/dbpager/modules-available/dbp_xslt.conf

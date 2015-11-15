@@ -1,0 +1,146 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>dbPager Server Console</title>
+		<link href="css/console.css" rel="stylesheet"
+			type="text/css" media="all" title="main stylesheet"/>
+	</head>
+	<body>
+		<div id="title">
+			<p>dbPager Server Console</p>
+		</div>
+		<div id="menu-line">
+			<ul id="menu">
+				<li><a href="#" title="Visit home page">Home</a></li>
+				<li><a href="#" title="Logging out from the system">Logout</a></li>
+				<li><a href="#" title="Read the documentation">Help</a></li>
+			</ul>
+			<ul id="status">
+				<li>Logged in: <span class="name">admin</span></li>
+				<li>Server: <span class="name">localhost</span></li>
+			</ul>
+		</div>
+		<div id="summary">
+			<div class="block">
+				<p class="title">Tasks</p>
+				<div class="body">
+					<h3>Recent tasks</h3>
+					<p><a href="#">View server logs</a></p>
+				</div>
+			</div>
+			<div class="block">
+				<p class="title">Information</p>
+				<div class="body">
+					<h3>Version</h3>
+					<p>
+						Software: dbPager Server<br/>
+						Version: 3.0.0
+					</p>
+					<hr/>
+					<h3>Environment</h3>
+					<p>
+						OS: Ubuntu Linux 9.04<br/>
+						Host: localhost
+					</p>
+					<hr/>
+					<h3>Statistics</h3>
+					<p>
+						Uptime: 4 days<br/>
+						Average load: 24%<br/>
+						Current open sessions: 17<br/>
+						Peak load:<br/>286 sessions at 08/04/2009 18:03
+					</p>
+					<p><a href="#">More statistics...</a></p>
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<h1>Welcome!</h1>
+			<p>Welcome to the dbPager Server web administration console. This site helps you to configure
+				and manage dbPager Server and its applications. To perform the task, select the
+				action from the tasks list.</p>
+			<div class="group">
+				<span class="group-title">Tasks</span>
+				<h3>Monitor</h3>
+				<div class="group-element">
+					<img style="float: left;" src="images/logs.png" alt="Server logs"/>
+					<div style="margin-left: 40px;">
+					<p><a href="#">Server logs</a></p>
+					<p class="desc">Search and view server logs for error, failure or success events.</p>
+					</div>
+				</div>
+				<div class="group-element">
+					<img style="float: left;" src="images/chart.png" alt="Statistics information"/>
+					<div style="margin-left: 40px;">
+					<p><a href="#">Statistics information</a></p>
+					<p class="desc">View graphs with the dynamic statistics information.</p>
+					</div>
+				</div>
+				<div class="group-element">
+					<img style="float: left;" src="images/monitor.png" alt="Performance counters"/>
+					<div style="margin-left: 40px;">
+					<p><a href="#">Performance counters</a></p>
+					<p class="desc">Create and view graphs with performance data.</p>
+					</div>
+				</div>
+				<h3>Manage</h3>
+				<div class="group-element">
+					<img style="float: left;" src="images/restart.png" alt="Start/Stop/Restart"/>
+					<div style="margin-left: 40px;">
+					<p><a href="#">Start/Stop/Restart</a></p>
+					<p class="desc">Start, stop, pause, resume or reload the server and web applications.</p>
+					</div>
+				</div>
+				<div class="group-element">
+					<img style="float: left;" src="images/backup.png" alt="Backups"/>
+					<div style="margin-left: 40px;">
+					<p><a href="#">Backups</a></p>
+					<p class="desc">Make the copy of the server configuration or restore the configuration.</p>
+					</div>
+				</div>
+				<div class="group-element">
+					<img style="float: left;" src="images/security.png" alt="Security"/>
+					<div style="margin-left: 40px;">
+					<p><a href="#">Security</a></p>
+					<p class="desc">Manage system accounts and access rights.</p>
+					</div>
+				</div>
+				<h3>Configure</h3>
+				<div class="group-element">
+					<img style="float: left;" src="images/configure.png" alt="The dbPager Server"/>
+					<div style="margin-left: 40px;">
+					<p><a href="#">The dbPager Server</a></p>
+					<p class="desc">Setup server own parameters.</p>
+					</div>
+				</div>
+				<div class="group-element">
+					<img style="float: left;" src="images/sheduler.png" alt="The tasks sheduler"/>
+					<div style="margin-left: 40px;">
+					<p><a href="#">The tasks sheduler</a></p>
+					<p class="desc">Setup tasks sheduler parameters.</p>
+					</div>
+				</div>
+				<div class="group-element">
+					<img style="float: left;" src="images/apps-config.png" alt="Web applications"/>
+					<div style="margin-left: 40px;">
+					<p><a href="#">Web applications</a></p>
+					<p class="desc">Setup web applications parameters.</p>
+					</div>
+				</div>
+				<div class="group-element">
+					<img style="float: left;" src="images/databases.png" alt="Databases"/>
+					<div style="margin-left: 40px;">
+					<p><a href="#">Databases</a></p>
+					<p class="desc">Setup ODBC data sources.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Copyright (c) 2009 Dennis Prochko &lt;wolfsoft@mail.ru&gt;</p>
+		</div>
+	</body>
+</html>

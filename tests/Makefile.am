@@ -8,7 +8,6 @@ libdbpcore_la_CPPFLAGS = \
 	-fPIC \
 	-I@top_builddir@/src/dbpager \
 	-I@top_builddir@/src/dbpager/../mimetic-0.9.7 \
-	-I@top_builddir@/src/dbpager/../libmemcached-0.44 \
 	@libdclbase_CFLAGS@ \
 	@libdclnet_CFLAGS@ \
 	@libxml2_CFLAGS@ \
@@ -19,7 +18,6 @@ libdbpcore_la_SOURCES = \
 	@top_builddir@/src/dbpager/optimizer/optimizer.cpp \
 	@top_builddir@/src/dbpager/interpreter/environment.cpp \
 	@top_builddir@/src/dbpager/interpreter/interpreter.cpp \
-	@top_builddir@/src/dbpager/pool/memcached_cache.cpp \
 	@top_builddir@/src/dbpager/tag/tag_factory.cpp \
 	@top_builddir@/src/dbpager/tag/tag_execute.cpp \
 	@top_builddir@/src/dbpager/tag/tag_unknown.cpp \
@@ -47,7 +45,6 @@ libdbpcore_la_SOURCES = \
 libdbpcore_la_LIBADD = \
 	@top_builddir@/src/dbpager/../libdbpager/libdbpager.la \
 	@top_builddir@/src/dbpager/../mimetic-0.9.7/mimetic/libmimetic.la \
-	@top_builddir@/src/dbpager/../libmemcached-0.44/libmemcached/libmemcached.la \
 	@libdclbase_LIBS@ \
 	@libdclnet_LIBS@ \
 	@libxml2_LIBS@ \

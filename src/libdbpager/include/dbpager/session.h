@@ -33,7 +33,7 @@ namespace dbpager {
 class session: public dbp::disposable {
 public:
 	virtual ~session() { };
-	virtual const std::string& get(const std::string &key) = 0;
+	virtual std::string get(const std::string &key) = 0;
 	virtual void put(const std::string &key, const std::string &value) = 0;
 };
 

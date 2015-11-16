@@ -139,6 +139,13 @@ AC_ARG_ENABLE(dbp_odbc,
 	[use_odbc=auto]
 )
 
+AC_ARG_ENABLE(memcached,
+	AS_HELP_STRING([--enable-memcached={yes|no|auto}],
+	[build memcached plugins (default=auto)]),
+	[use_memcached=$enableval],
+	[use_memcached=auto]
+)
+
 AC_ARG_ENABLE(dbp_pgsql,
 	AS_HELP_STRING([--enable-dbp_pgsql={yes|no|auto}],
 	[build dbp_pgsql plugin (default=auto)]),
@@ -204,6 +211,23 @@ PKG_CHECK_MODULES(libdclbase, [libdclbase >= 0.2.0])
 
 PKG_CHECK_MODULES(libdclnet, [libdclnet >= 0.2.0])
 
+PKG_CHECK_MODULES(libmemcached, [libmemcached >= 1.0.0],
+[
+	if test "$use_memcached" != "no"; then
+		AC_DEFINE([HAVE_MEMCACHED], [1], [enable memcached usage])
+		use_memcached="yes"
+	fi
+],
+[
+	if test "$use_memcached" = "yes"; then
+		AC_MSG_ERROR([libmemcached library is required but not found.])
+	fi
+	use_memcached="no"
+])
+
+AM_CONDITIONAL(WITH_MEMCACHED, test "$use_memcached" = "yes")
+
+
 PKG_CHECK_MODULES(libdclodbc, [libdclodbc >= 0.2.0],
 [
 	if test "$use_odbc" != "no"; then
@@ -221,7 +245,9 @@ PKG_CHECK_MODULES(libdclodbc, [libdclodbc >= 0.2.0],
 
 AM_CONDITIONAL(WITH_ODBC, test "$use_odbc" = "yes")
 
+
 PKG_CHECK_MODULES(libxml2, [libxml-2.0 >= 2.6.0])
+
 
 PKG_CHECK_MODULES(libxslt, [libxslt >= 1.1.0],
 [
@@ -238,6 +264,7 @@ PKG_CHECK_MODULES(libxslt, [libxslt >= 1.1.0],
 ])
 
 AM_CONDITIONAL(WITH_XSLT, test "$use_xslt" = "yes")
+
 
 AC_CHECK_LIB(db_cxx, db_env_create,
 [
@@ -270,6 +297,7 @@ AC_SUBST(DB_CXX_CFLAGS)
 AC_SUBST(DB_CXX_LIBS)
 
 AM_CONDITIONAL(WITH_BDB, test "$use_bdb" = "yes")
+
 
 # check for mod_gearman option
 PKG_CHECK_MODULES(libgearman, [gearmand >= 0.10],
@@ -405,7 +433,6 @@ AC_TYPE_UINT32_T
 AC_FUNC_MMAP
 AC_CONFIG_SUBDIRS([src/mimetic-0.9.7])
 AC_CONFIG_SUBDIRS([src/fcgi-2.4.1-SNAP-0311112127])
-AC_CONFIG_SUBDIRS([src/libmemcached-0.44])
 
 # Generate makefiles
 AC_CONFIG_FILES([
@@ -455,6 +482,7 @@ echo ISAPI module..........................................$use_isapi
 echo Apache module.........................................$use_apache
 echo Summary of dbPager modules \(plugins\) to build:
 echo ODBC module...........................................$use_odbc
+echo Memcached module......................................$use_memcached
 echo PostgreSQL module.....................................$use_pgsql
 echo XSLT module...........................................$use_xslt
 echo Berkeley DB module....................................$use_bdb

@@ -21,6 +21,7 @@
 
 #include <string.h>
 
+#include <dcl/app_config.h>
 #include <dcl/plugin.h>
 
 #include "mod_session_memcached.h"
@@ -33,16 +34,23 @@ using namespace std;
 // Export two functions for creating/destroying object, as required by
 // dbp::plugin class
 
+std::string servers;
+int ttl = 0;
+
 extern "C" {
 
-void init(void *config) {
-	// nothing to do
+void init(dbp::app_config *config) {
+	servers = config->value("services.session.memcached", "servers", "localhost:11211");
+	ttl = config->value("services.session.memcached", "ttl", 0);
 };
 
 disposable* create_object(const char *object_name) {
-	if (strcmp(object_name, "memcached") == 0)
-		return new mod_session_memcached();
-	else
+	if (strcmp(object_name, "memcached") == 0) {
+		mod_session_memcached *msc = new mod_session_memcached();
+		msc->set_servers(servers);
+		msc->set_ttl(ttl);
+		return msc;
+	} else
 		return NULL;
 };
 

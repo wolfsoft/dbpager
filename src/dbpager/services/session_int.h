@@ -40,13 +40,13 @@ class session_int: public session {
 public:
 	session_int() { };
 	virtual ~session_int() { };
-	virtual const std::string& get(const std::string &key) {
+	virtual std::string get(const std::string &key) {
 		dbp::rwlock_guard_read cs(m);
 		const app_cache::const_iterator it = buffer.find(key);
 		if (it == buffer.end())
-			return empty;
+			return std::string("");
 		else
-			return it->second;	
+			return it->second;
 	};
 	virtual void put(const std::string &key, const std::string &value) {
 		dbp::rwlock_guard_write cs(m);
@@ -60,7 +60,6 @@ private:
 #endif
 	dbp::rwlock m;
 	app_cache buffer;
-	std::string empty;
 };
 
 }

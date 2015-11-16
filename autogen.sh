@@ -69,29 +69,6 @@ autoreconf -f -i
 
 cd ../..
 
-echo libmemcached...
-cd src/libmemcached-0.44
-
-if [ -f /usr/local/share/aclocal/libtool.m4 ]; then
-cp /usr/local/share/aclocal/libtool.m4 ./aclocal.m4
-else
-if [ -f /usr/share/aclocal/libtool.m4 ]; then
-cp /usr/share/aclocal/libtool.m4 ./aclocal.m4
-else
-echo "You should have libtool package installed."
-exit
-fi
-fi
-
-libtoolize -c -f
-aclocal -I m4
-autoheader &&
-automake --gnu -c -a &&
-autoconf &&
-autoheader
-
-cd ../..
-
 echo fcgi...
 cd src/fcgi-2.4.1-SNAP-0311112127
 
@@ -115,3 +92,4 @@ autoheader &&
 autoreconf -f -i
 
 cd ../..
+

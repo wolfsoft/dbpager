@@ -38,10 +38,18 @@ public:
 
 class mod_session_memcached: public session {
 public:
-	virtual const std::string& get(const std::string &key);
+	virtual std::string get(const std::string &key);
 	virtual void put(const std::string &key, const std::string &value);
+	void set_servers(const std::string &servers) {
+		this->servers = servers;
+	}
+	void set_ttl(int ttl) {
+		this->ttl = ttl;
+	};
 private:
 	std::string empty;
+	std::string servers;
+	int ttl;
 };
 
 }

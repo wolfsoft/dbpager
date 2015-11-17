@@ -18,7 +18,7 @@ libmod_session_memcached_la_LIBADD = \
 
 AM_CXXFLAGS += \
 	-I../../libdbpager/include \
-	@libmemcached_CFLAGS@ \ 
+	@libmemcached_CFLAGS@ \
 	@libdclbase_CFLAGS@
 
 confdir = $(sysconfdir)/dbpager/services-available

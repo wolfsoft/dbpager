@@ -139,6 +139,13 @@ AC_ARG_ENABLE(dbp_odbc,
 	[use_odbc=auto]
 )
 
+AC_ARG_ENABLE(dbp_sqlite,
+	AS_HELP_STRING([--enable-dbp_sqlite={yes|no|auto}],
+	[build dbp_sqlite plugin (default=auto)]),
+	[use_sqlite=$enableval],
+	[use_sqlite=auto]
+)
+
 AC_ARG_ENABLE(memcached,
 	AS_HELP_STRING([--enable-memcached={yes|no|auto}],
 	[build memcached plugins (default=auto)]),
@@ -244,6 +251,24 @@ PKG_CHECK_MODULES(libdclodbc, [libdclodbc >= 0.2.0],
 ])
 
 AM_CONDITIONAL(WITH_ODBC, test "$use_odbc" = "yes")
+
+
+PKG_CHECK_MODULES(sqlite3, [sqlite3 >= 3.8.0],
+[
+	if test "$use_sqlite" != "no"; then
+		AC_DEFINE([HAVE_SQLITE], [1], [enable sqlite usage])
+		use_sqlite="yes"
+	fi
+],
+[
+	if test "$use_sqlite" = "yes"; then
+		AC_MSG_ERROR([sqlite3 library is required to dbp_sqlite plugin,\
+ but not found.])
+	fi
+	use_sqlite="no"
+])
+
+AM_CONDITIONAL(WITH_SQLITE, test "$use_sqlite" = "yes")
 
 
 PKG_CHECK_MODULES(libxml2, [libxml-2.0 >= 2.6.0])
@@ -453,6 +478,8 @@ AC_CONFIG_FILES([
    src/modules/Makefile
    src/modules/dbp_odbc/Makefile
    src/modules/dbp_odbc/dbp_odbc.conf
+   src/modules/dbp_sqlite/Makefile
+   src/modules/dbp_sqlite/dbp_sqlite.conf
    src/modules/dbp_pgsql/Makefile
    src/modules/dbp_pgsql/dbp_pgsql.conf
    src/modules/dbp_xslt/Makefile
@@ -482,6 +509,7 @@ echo ISAPI module..........................................$use_isapi
 echo Apache module.........................................$use_apache
 echo Summary of dbPager modules \(plugins\) to build:
 echo ODBC module...........................................$use_odbc
+echo Sqlite module.........................................$use_sqlite
 echo Memcached module......................................$use_memcached
 echo PostgreSQL module.....................................$use_pgsql
 echo XSLT module...........................................$use_xslt

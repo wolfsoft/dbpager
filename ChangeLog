@@ -1,3 +1,7 @@
+2015-11-18  Dennis Prochko <wolfsoft@mail.ru>
+
+	* Sqlite native support
+
 2015-11-15  Dennis Prochko <wolfsoft@mail.ru>
 
 	* Source files are imported to GitHub

@@ -1,0 +1,15 @@
+#
+# This directive assigns the XML namespace to the dbPager dbp_sqlite module.
+# The module provides support of Sqlite data sources (databases).
+#
+[modules]
+http://dbpager.org.ru/schemas/dbp/3.0/sqlite = @PLUGINSDIR@/libdbp_sqlite.so
+
+#
+# Module parameters
+#
+[modules.sqlite]
+#
+# Maximum number of persistent database connections (0 - unlimited).
+#
+# pool_connections = 0

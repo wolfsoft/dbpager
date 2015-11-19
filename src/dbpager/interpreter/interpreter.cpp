@@ -75,7 +75,7 @@ void interpreter::load() {
 			loaded_logger = NULL;
 		}
 
-		string log_type = options->value("services", "log", "internal");
+		const string &log_type = options->value("services", "log", "internal");
 		if (log_type != string("internal")) {
 			string module = options->value("services", string("logger.backend.") + log_type, string(""));
 			if (!module.empty()) {
@@ -96,9 +96,9 @@ void interpreter::load() {
 			session = NULL;
 		}
 
-		string session_type = options->value("services", "session", "internal");
+		const string &session_type = options->value("services", "session", "internal");
 		if (log_type != string("internal")) {
-			string module = options->value("services", string("session.backend.") + log_type, string(""));
+			const string &module = options->value("services", string("session.backend.") + log_type, string(""));
 			if (!module.empty()) {
 				if (session_plugin) {
 					delete session_plugin;

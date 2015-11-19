@@ -33,24 +33,25 @@ using namespace dbp;
 
 void tag_transaction::execute(context &ctx, std::ostream &out,
   const tag *caller) const {
-	string db_ptr = ctx.get_value(string("@SQLITE:DATABASE@") +
-	  get_parameter(ctx, "database"));
+	string db_ptr = ctx.get_value(string("@SQLITE:DATABASE@") + get_parameter(ctx, "database"));
 	if (db_ptr.empty()) {
 		string id = get_parameter(ctx, "database");
 		if (id.empty()) {
 			id = _("(default)");
 		}
 		throw tag_transaction_exception(
-		  (format(_("database (id='{0}') is not defined in the current "
-		    "context")) % id).str());
+		  (format(_("database (id='{0}') is not defined in the current context")) % id).str());
 	}
-	char *err_msg = NULL;
+
 	sqlite3 *conn = (sqlite3*)from_string<void*>(db_ptr);
+
+	char *err_msg = NULL;
 	if (sqlite3_exec(conn, "BEGIN", NULL, NULL, &err_msg) != SQLITE_OK) {
 		string err_msg_str(err_msg);
 		sqlite3_free(err_msg);
 		throw tag_transaction_exception(err_msg_str);
 	}
+
 	try {
 		tag_impl::execute(ctx, out, caller);
 		if (sqlite3_exec(conn, "COMMIT", NULL, NULL, &err_msg) != SQLITE_OK) {
@@ -58,8 +59,7 @@ void tag_transaction::execute(context &ctx, std::ostream &out,
 			sqlite3_free(err_msg);
 			throw tag_transaction_exception(err_msg_str);
 		}
-	}
-	catch (...) {
+	} catch (...) {
 		if (sqlite3_exec(conn, "ROLLBACK", NULL, NULL, &err_msg) != SQLITE_OK) {
 			string err_msg_str(err_msg);
 			sqlite3_free(err_msg);

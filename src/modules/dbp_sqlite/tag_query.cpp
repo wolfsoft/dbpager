@@ -34,16 +34,14 @@ using namespace dbp;
 void tag_query::execute(context &ctx, std::ostream &out,
   const tag *caller) const {
 	// obtain the current database of current context
-	string db_ptr = ctx.get_value(string("@ODBC:DATABASE@") +
-	  get_parameter(ctx, "database"));
+	string db_ptr = ctx.get_value(string("@SQLITE:DATABASE@") + get_parameter(ctx, "database"));
 	if (db_ptr.empty()) {
 		string id = get_parameter(ctx, "database");
 		if (id.empty()) {
 			id = _("(default)");
 		}
 		throw tag_query_exception(
-		  (format(_("database (id='{0}') is not defined in the current "
-		    "context")) % id).str());
+		  (format(_("database (id='{0}') is not defined in the current context")) % id).str());
 	}
 
 	sqlite3 *conn = (sqlite3*)from_string<void*>(db_ptr);
@@ -67,26 +65,30 @@ void tag_query::execute(context &ctx, std::ostream &out,
 			if (n == NULL) {
 				// initialize unnamed parameter
 				if (j != params.end()) {
-					if (int code = sqlite3_bind_text(stmt, i, (*j).c_str(), -1, SQLITE_TRANSIENT) != SQLITE_OK) {
+					const string &v = *j;
+					if (int code = sqlite3_bind_text(stmt, i, v.c_str(), v.length(), SQLITE_TRANSIENT) != SQLITE_OK) {
 						throw tag_query_exception(sqlite3_errstr(code));
 					}
 					++j;
 				}
 			} else {
-				if (int code = sqlite3_bind_text(stmt, i, ctx.get_value(n).c_str(), -1, SQLITE_TRANSIENT) != SQLITE_OK) {
+				// cut out first char from parameter name (colon)
+				n++;
+				// process as desired
+				const string &v = ctx.get_value(n);
+				if (int code = sqlite3_bind_text(stmt, i, v.c_str(), v.length(), SQLITE_TRANSIENT) != SQLITE_OK) {
 					throw tag_query_exception(sqlite3_errstr(code));
 				}
 			}
 		}
 
 		// execute the query
+		int code = sqlite3_step(stmt);
 		while (true) {
 			ctx.enter();
 			try {
-				int code = sqlite3_step(stmt);
-
 				if (code == SQLITE_DONE) {
-					// when query doesn't return any results
+					// the query doesn't return any results (insert statements, etc)
 					tag_impl::execute(ctx, out, caller);
 					ctx.leave();
 					break;
@@ -107,7 +109,12 @@ void tag_query::execute(context &ctx, std::ostream &out,
 
 					tag_impl::execute(ctx, out, caller);
 					ctx.leave();
-					continue;
+
+					code = sqlite3_step(stmt);
+					if (code == SQLITE_DONE)
+						break;
+					if (code == SQLITE_ROW)
+						continue;
 				}
 
 				throw tag_query_exception(sqlite3_errstr(code));

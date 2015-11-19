@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-19 04:06+0300\n"
+"POT-Creation-Date: 2015-11-19 04:19+0300\n"
 "PO-Revision-Date: 2015-11-19 04:08+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -252,8 +252,8 @@ msgstr "имя ключа (name) не определено"
 #: src/modules/dbp_odbc/tag_transaction.cpp:40
 #: src/modules/dbp_pgsql/tag_query.cpp:44
 #: src/modules/dbp_pgsql/tag_transaction.cpp:41
-#: src/modules/dbp_sqlite/tag_query.cpp:42
-#: src/modules/dbp_sqlite/tag_transaction.cpp:41
+#: src/modules/dbp_sqlite/tag_query.cpp:41
+#: src/modules/dbp_sqlite/tag_transaction.cpp:40
 msgid "(default)"
 msgstr "(по умолчанию)"
 
@@ -330,13 +330,13 @@ msgstr "имя источника данных (dsn) не определено"
 #: src/modules/dbp_odbc/tag_transaction.cpp:43
 #: src/modules/dbp_pgsql/tag_query.cpp:47
 #: src/modules/dbp_pgsql/tag_transaction.cpp:44
-#: src/modules/dbp_sqlite/tag_query.cpp:45
-#: src/modules/dbp_sqlite/tag_transaction.cpp:44
+#: src/modules/dbp_sqlite/tag_query.cpp:44
+#: src/modules/dbp_sqlite/tag_transaction.cpp:43
 msgid "database (id='{0}') is not defined in the current context"
 msgstr "база данных (id='{0}') не определена в текущем контексте"
 
-#: src/modules/dbp_sqlite/tag_query.cpp:101
-#: src/modules/dbp_sqlite/tag_query.cpp:104
+#: src/modules/dbp_sqlite/tag_query.cpp:99
+#: src/modules/dbp_sqlite/tag_query.cpp:102
 msgid "Can't allocate memory to fetch query results"
 msgstr ""
 "Невозможно выделить память для получения результатов выполнения запроса"

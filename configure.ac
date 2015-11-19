@@ -21,7 +21,7 @@
 
 # initialization
 AC_INIT([dbpager], [3.1.0], [wolfsoft@mail.ru])
-AC_PREREQ([2.61])
+AC_PREREQ([2.70])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
@@ -451,7 +451,7 @@ fi
 AC_SUBST(VARDIR)
 
 # Setup dbpagerd unix socket path
-AS_AC_EXPAND(UNIX_SOCKET_PATH, "\${localstatedir}/run/dbpagerd.sock")
+AS_AC_EXPAND(UNIX_SOCKET_PATH, "\${runstatedir}/dbpagerd.sock")
 
 # Subprojects
 AC_TYPE_UINT32_T

@@ -22,6 +22,8 @@
 #include <dcl/connection.h>
 #include <dcl/strutils.h>
 
+#include <sqlite3.h>
+
 #include "tag_transaction.h"
 
 namespace dbpager {
@@ -31,7 +33,7 @@ using namespace dbp;
 
 void tag_transaction::execute(context &ctx, std::ostream &out,
   const tag *caller) const {
-/*	string db_ptr = ctx.get_value(string("@ODBC:DATABASE@") +
+	string db_ptr = ctx.get_value(string("@SQLITE:DATABASE@") +
 	  get_parameter(ctx, "database"));
 	if (db_ptr.empty()) {
 		string id = get_parameter(ctx, "database");
@@ -42,16 +44,29 @@ void tag_transaction::execute(context &ctx, std::ostream &out,
 		  (format(_("database (id='{0}') is not defined in the current "
 		    "context")) % id).str());
 	}
-	connection *conn = (connection*)from_string<void*>(db_ptr);
-	conn->begin_transaction();
+	char *err_msg = NULL;
+	sqlite3 *conn = (sqlite3*)from_string<void*>(db_ptr);
+	if (sqlite3_exec(conn, "BEGIN", NULL, NULL, &err_msg) != SQLITE_OK) {
+		string err_msg_str(err_msg);
+		sqlite3_free(err_msg);
+		throw tag_transaction_exception(err_msg_str);
+	}
 	try {
 		tag_impl::execute(ctx, out, caller);
-		conn->commit();
+		if (sqlite3_exec(conn, "COMMIT", NULL, NULL, &err_msg) != SQLITE_OK) {
+			string err_msg_str(err_msg);
+			sqlite3_free(err_msg);
+			throw tag_transaction_exception(err_msg_str);
+		}
 	}
 	catch (...) {
-		conn->rollback();
+		if (sqlite3_exec(conn, "ROLLBACK", NULL, NULL, &err_msg) != SQLITE_OK) {
+			string err_msg_str(err_msg);
+			sqlite3_free(err_msg);
+			throw tag_transaction_exception(err_msg_str);
+		}
 		throw;
-	}*/
+	}
 }
 
 } // namespace

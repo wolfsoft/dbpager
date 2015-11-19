@@ -20,10 +20,9 @@
  */
 
 #include <vector>
-
-#include <dcl/connection.h>
-#include <dcl/query.h>
 #include <dcl/strutils.h>
+
+#include <sqlite3.h>
 
 #include "tag_query.h"
 
@@ -34,7 +33,7 @@ using namespace dbp;
 
 void tag_query::execute(context &ctx, std::ostream &out,
   const tag *caller) const {
-/*	// obtain the current database of current context
+	// obtain the current database of current context
 	string db_ptr = ctx.get_value(string("@ODBC:DATABASE@") +
 	  get_parameter(ctx, "database"));
 	if (db_ptr.empty()) {
@@ -46,43 +45,87 @@ void tag_query::execute(context &ctx, std::ostream &out,
 		  (format(_("database (id='{0}') is not defined in the current "
 		    "context")) % id).str());
 	}
-	connection *db = (connection*)from_string<void*>(db_ptr);
+
+	sqlite3 *conn = (sqlite3*)from_string<void*>(db_ptr);
+
 	// intitialize the query
-	query q(*db);
-	query::parameters &p = q.prepare(get_parameter(ctx, "statement"));
-	// process parameters
-	vector<string> params = tokenize()(get_parameter(ctx, "parameters"));
-	vector<string>::const_iterator j = params.begin();
-	for (query::parameters::iterator i = p.begin(); i != p.end(); ++i) {
-		if (i->name.empty()) {
-			// initialize unnamed parameter
-			if (j != params.end()) {
-				i->value = *j;
-				++j;
-			}
-		} else {
-			// initialize named parameter
-			i->value = ctx.get_value(i->name);
-		}
+	const string &statement = get_parameter(ctx, "statement");
+	sqlite3_stmt *stmt = NULL;
+	const char *tail = NULL;
+	if (int code = sqlite3_prepare_v2(conn, statement.c_str(), statement.length(), &stmt, &tail) != SQLITE_OK) {
+		throw tag_query_exception(sqlite3_errstr(code));
 	}
-	// execute the query
-	const query::fields &f = q.execute();
-	// for each row execute the subnodes
-	while (q.next()) {
-		ctx.enter();
-		try {
-			for (query::fields::const_iterator i = f.begin(); i != f.end(); ++i) {
-				ctx.add_value(i->name, i->get_value());
+
+	try {
+		// process parameters
+		vector<string> params = tokenize()(get_parameter(ctx, "parameters"));
+		vector<string>::const_iterator j = params.begin();
+
+		int c = sqlite3_bind_parameter_count(stmt);
+		for (int i = 1; i <= c; i++) {
+			const char *n = sqlite3_bind_parameter_name(stmt, i);
+			if (n == NULL) {
+				// initialize unnamed parameter
+				if (j != params.end()) {
+					if (int code = sqlite3_bind_text(stmt, i, (*j).c_str(), -1, SQLITE_TRANSIENT) != SQLITE_OK) {
+						throw tag_query_exception(sqlite3_errstr(code));
+					}
+					++j;
+				}
+			} else {
+				if (int code = sqlite3_bind_text(stmt, i, ctx.get_value(n).c_str(), -1, SQLITE_TRANSIENT) != SQLITE_OK) {
+					throw tag_query_exception(sqlite3_errstr(code));
+				}
 			}
-			// call inherited method
-			tag_impl::execute(ctx, out, caller);
 		}
-		catch (...) {
-			ctx.leave();
-			throw;
+
+		// execute the query
+		while (true) {
+			ctx.enter();
+			try {
+				int code = sqlite3_step(stmt);
+
+				if (code == SQLITE_DONE) {
+					// when query doesn't return any results
+					tag_impl::execute(ctx, out, caller);
+					ctx.leave();
+					break;
+				}
+
+				if (code == SQLITE_ROW) {
+					// fetch the results
+					int c = sqlite3_column_count(stmt);
+					for (int i = 0; i < c; i++) {
+						const char *n = sqlite3_column_name(stmt, i);
+						if (n == NULL)
+							throw tag_query_exception(_("Can't allocate memory to fetch query results"));
+						const char *v = (const char*)sqlite3_column_text(stmt, i);
+						if (v == NULL)
+							throw tag_query_exception(_("Can't allocate memory to fetch query results"));
+						ctx.add_value(n, v);
+					}
+
+					tag_impl::execute(ctx, out, caller);
+					ctx.leave();
+					continue;
+				}
+
+				throw tag_query_exception(sqlite3_errstr(code));
+
+			} catch (...) {
+				ctx.leave();
+				throw;
+			}
 		}
-		ctx.leave();
-	}*/
+
+		// clean up
+		sqlite3_finalize(stmt);
+
+	} catch (...) {
+		sqlite3_finalize(stmt);
+		throw;
+	}
+
 }
 
 } // namespace

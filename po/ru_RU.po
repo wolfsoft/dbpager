@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-15 04:43+0300\n"
-"PO-Revision-Date: 2015-08-29 23:47+0300\n"
+"POT-Creation-Date: 2015-11-19 04:06+0300\n"
+"PO-Revision-Date: 2015-11-19 04:08+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
 "Language: ru_RU\n"
@@ -54,9 +54,8 @@ msgstr "URL или имя файла не определено"
 
 #: src/dbpager/application/dbpager.cpp:104
 #: src/dbpager/application/dbpagerd.cpp:82
-#, fuzzy
 msgid "Copyright (c) 2008-2015 Dennis Prochko <wolfsoft@mail.ru>"
-msgstr "Авторские права (c) 2008-2011 Прочко Денис <wolfsoft@mail.ru>"
+msgstr "Авторские права (c) 2008-2015 Прочко Денис <wolfsoft@mail.ru>"
 
 #: src/dbpager/application/dbpagerd.cpp:54
 msgid "dbPager FastCGI Server"
@@ -91,7 +90,7 @@ msgstr "Нет такого пользователя {0}"
 
 #: src/dbpager/application/dbpagerd.cpp:164
 msgid "Unknown error"
-msgstr ""
+msgstr "Неизвестная ошибка"
 
 #: src/dbpager/interpreter/dbpager_application.cpp:36
 msgid "Fatal error: can't parse file {0}"
@@ -110,7 +109,7 @@ msgstr ""
 
 #: src/dbpager/interpreter/interpreter.cpp:136
 msgid "Configuration realoaded"
-msgstr ""
+msgstr "Конфигурация перезагружена"
 
 #: src/dbpager/parser/dbpx_parser.cpp:43
 msgid "Validity warning at line {0}: {1}"
@@ -253,6 +252,8 @@ msgstr "имя ключа (name) не определено"
 #: src/modules/dbp_odbc/tag_transaction.cpp:40
 #: src/modules/dbp_pgsql/tag_query.cpp:44
 #: src/modules/dbp_pgsql/tag_transaction.cpp:41
+#: src/modules/dbp_sqlite/tag_query.cpp:42
+#: src/modules/dbp_sqlite/tag_transaction.cpp:41
 msgid "(default)"
 msgstr "(по умолчанию)"
 
@@ -321,6 +322,7 @@ msgstr "имя параметра (name) не определено"
 
 #: src/modules/dbp_odbc/tag_database.cpp:41
 #: src/modules/dbp_pgsql/tag_database.cpp:37
+#: src/modules/dbp_sqlite/tag_database.cpp:93
 msgid "data source name (dsn) is not defined"
 msgstr "имя источника данных (dsn) не определено"
 
@@ -328,8 +330,16 @@ msgstr "имя источника данных (dsn) не определено"
 #: src/modules/dbp_odbc/tag_transaction.cpp:43
 #: src/modules/dbp_pgsql/tag_query.cpp:47
 #: src/modules/dbp_pgsql/tag_transaction.cpp:44
+#: src/modules/dbp_sqlite/tag_query.cpp:45
+#: src/modules/dbp_sqlite/tag_transaction.cpp:44
 msgid "database (id='{0}') is not defined in the current context"
 msgstr "база данных (id='{0}') не определена в текущем контексте"
+
+#: src/modules/dbp_sqlite/tag_query.cpp:101
+#: src/modules/dbp_sqlite/tag_query.cpp:104
+msgid "Can't allocate memory to fetch query results"
+msgstr ""
+"Невозможно выделить память для получения результатов выполнения запроса"
 
 #: src/modules/dbp_xslt/tag_transform.cpp:50
 msgid "can't parse stylesheet file '{0}'"

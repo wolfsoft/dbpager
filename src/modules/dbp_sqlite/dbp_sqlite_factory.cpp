@@ -24,6 +24,8 @@
 #include <dcl/plugin.h>
 #include <dcl/app_config.h>
 
+#include <sqlite3.h>
+
 #include "tag_database.h"
 #include "tag_transaction.h"
 #include "tag_query.h"
@@ -37,7 +39,9 @@ using namespace std;
 
 extern "C" {
 
-void init(app_config *config) { };
+void init(app_config *config) {
+	sqlite3_initialize();
+};
 
 disposable* create_object(const char *object_name) {
 	if (strcmp(object_name, "database") == 0)
@@ -56,7 +60,9 @@ void destroy_object(disposable *object) {
 	delete object;
 };
 
-void finalize() { };
+void finalize() {
+	sqlite3_shutdown();
+};
 
 } // extern
 

@@ -2,7 +2,7 @@
  * tag_database.cpp
  * This file is part of dbPager Server
  *
- * Copyright (C) 2008-2014 - Dennis Prochko <wolfsoft@mail.ru>
+ * Copyright (C) 2015 - Dennis Prochko <wolfsoft@mail.ru>
  *
  * dbPager Server is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,27 +32,45 @@ namespace dbpager {
 using namespace std;
 using namespace dbp;
 
-/*
+
 class sqlite_connection {
 public:
-	sqlite_connection() {
-		sqlite3_open_v2();
-	}
+	sqlite_connection(): ppDb(NULL) { }
+
 	virtual ~sqlite_connection() {
-		sqlite3_close_v2(ppDb);
+		if (ppDb != NULL)
+			sqlite3_close_v2(ppDb);
 	}
+
+	bool is_open() {
+		return (ppDb != NULL);
+	}
+
+	void open(const std::string &dsn) {
+		if (int code = sqlite3_open_v2(dsn.c_str(), &ppDb,
+		  SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX,
+		  NULL) != SQLITE_OK) {
+			throw tag_database_exception(string(sqlite3_errstr(code)));
+		}
+	}
+
+	sqlite3 *get_ptr() {
+		return ppDb;
+	}
+
 private:
 	sqlite3 *ppDb;
-}
+};
+
 
 class database_pool: public dbp::singleton<database_pool> {
 	friend class dbp::singleton<database_pool>;
 public:
 	void reset(std::auto_ptr<dbp::pool_size_policy> ps) {
 		delete pool;
-		pool = new dbp::pool<dbp::odbc::connection>(ps);
+		pool = new dbp::pool<sqlite_connection>(ps);
 	}
-	dbp::pool_ptr<dbp::odbc::connection> acquire(const std::string &arg) {
+	dbp::pool_ptr<sqlite_connection> acquire(const std::string &arg) {
 		return pool->acquire(arg);
 	}
 	virtual ~database_pool() {
@@ -60,15 +78,14 @@ public:
 	}
 private:
 	database_pool() {
-		pool = new dbp::pool<dbp::odbc::connection>();
+		pool = new dbp::pool<sqlite_connection>();
 	}
-	dbp::pool<dbp::odbc::connection> *pool;
+	dbp::pool<sqlite_connection> *pool;
 };
 
-*/
+
 void tag_database::execute(context &ctx, std::ostream &out,
   const tag *caller) const {
-/*  
 	const string &dsn = get_parameter(ctx, "dsn");
 	const string &database = get_parameter(ctx, "id");
 	if (dsn.empty()) {
@@ -84,12 +101,12 @@ void tag_database::execute(context &ctx, std::ostream &out,
 
 	ctx.enter();
 	try {
-		pool_ptr<connection> c = database_pool::instance().acquire(dsn + user + password);
+		pool_ptr<sqlite_connection> c = database_pool::instance().acquire(dsn);
 		if (!c->is_open())
-			c->open(dsn, user, password);
+			c->open(dsn);
 		// save the pointer to database for nested tags
 		ctx.add_value(string("@SQLITE:DATABASE@") + get_parameter(ctx, "id"),
-		  to_string<connection*>(&*c));
+		  to_string<sqlite3*>(c->get_ptr()));
 		tag_impl::execute(ctx, out, caller);
 		ctx.leave();
 	}
@@ -97,7 +114,7 @@ void tag_database::execute(context &ctx, std::ostream &out,
 		ctx.leave();
 		throw;
 	}
-*/
+
 }
 
 } // namespace

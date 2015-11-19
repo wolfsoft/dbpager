@@ -54,7 +54,7 @@ public:
 			dbp::url u(string(TEST_FILE_PATH) + (format("/test{0}.dbpx") % file_num).str());
 			u.scheme = "file";
 			ostringstream out(ostringstream::out | ostringstream::binary);
-			console_environment env(dbpager->get_config());
+			console_environment env(*dbpager);
 			dbpager->get_app(u)->execute(env, out);
 			assert(!out.str().empty());
 		}
@@ -64,8 +64,8 @@ public:
 private:
 	class console_environment: public environment {
 	public:
-		console_environment(const dbp::app_config& config):
-		  environment(config) { };
+		console_environment(dbpager::interpreter &interpreter):
+		  environment(interpreter) { };
 		virtual void init_custom_params() { };
 	};
 	mutex cs;

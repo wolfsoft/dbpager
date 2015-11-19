@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), autotools-dev, xsltproc, p
  libaprutil1-dev | libapr1-dev, libmemcached-dev,
  libgearman-dev | gearmand, libevent-dev, uuid-dev,
  scons, libboost-thread-dev, libboost-filesystem-dev, libboost-system-dev,
- libpqxx-dev, libv8-dev
+ libpqxx-dev | libpqxx3-dev, libv8-dev
 Standards-Version: 3.9.5
 Homepage: http://dbpager.com
 

@@ -39,7 +39,7 @@ public:
 	}
 
 	virtual ~memcached_connection() {
-		if (mc) delete mc;
+		if (mc) memcached_free(mc);
 	}
 
 	bool is_configured() {

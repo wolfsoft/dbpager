@@ -146,11 +146,18 @@ AC_ARG_ENABLE(dbp_sqlite,
 	[use_sqlite=auto]
 )
 
-AC_ARG_ENABLE(memcached,
+AC_ARG_ENABLE(mod_memcached,
 	AS_HELP_STRING([--enable-memcached={yes|no|auto}],
 	[build memcached plugins (default=auto)]),
 	[use_memcached=$enableval],
 	[use_memcached=auto]
+)
+
+AC_ARG_ENABLE(mod_redis,
+	AS_HELP_STRING([--enable-redis={yes|no|auto}],
+	[build redis plugins (default=auto)]),
+	[use_redis=$enableval],
+	[use_redis=auto]
 )
 
 AC_ARG_ENABLE(dbp_pgsql,
@@ -233,6 +240,23 @@ PKG_CHECK_MODULES(libmemcached, [libmemcached >= 1.0.0],
 ])
 
 AM_CONDITIONAL(WITH_MEMCACHED, test "$use_memcached" = "yes")
+
+
+PKG_CHECK_MODULES(libhiredis, [hiredis >= 0.10.0],
+[
+	if test "$use_redis" != "no"; then
+		AC_DEFINE([HAVE_REDIS], [1], [enable redis usage])
+		use_redis="yes"
+	fi
+],
+[
+	if test "$use_redis" = "yes"; then
+		AC_MSG_ERROR([libhiredis library is required but not found.])
+	fi
+	use_redis="no"
+])
+
+AM_CONDITIONAL(WITH_REDIS, test "$use_redis" = "yes")
 
 
 PKG_CHECK_MODULES(libdclodbc, [libdclodbc >= 0.2.0],
@@ -496,6 +520,8 @@ AC_CONFIG_FILES([
    src/modules/mod_logger_file/mod_logger_file.conf
    src/modules/mod_session_memcached/Makefile
    src/modules/mod_session_memcached/mod_session_memcached.conf
+   src/modules/mod_session_redis/Makefile
+   src/modules/mod_session_redis/mod_session_redis.conf
    src/data/Makefile
    tests/Makefile
 ])
@@ -511,6 +537,7 @@ echo Summary of dbPager modules \(plugins\) to build:
 echo ODBC module...........................................$use_odbc
 echo Sqlite module.........................................$use_sqlite
 echo Memcached module......................................$use_memcached
+echo Redis module..........................................$use_redis
 echo PostgreSQL module.....................................$use_pgsql
 echo XSLT module...........................................$use_xslt
 echo Berkeley DB module....................................$use_bdb

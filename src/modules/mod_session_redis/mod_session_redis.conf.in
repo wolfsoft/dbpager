@@ -1,0 +1,28 @@
+#
+# This directive assigns the default session storage subsystem to the mod_session_redis module.
+# The module provides session storage service by using Redis database.
+#
+[services]
+session.backend.redis = @PLUGINSDIR@/mod_session_redis.so
+
+### services.session.redis: backend-specific parameters
+# 
+[services.session.redis]
+# server directive
+#
+# The address of redis server to retrieve/store user session data.
+# Network interface address should be separated from port number
+# with semicolon(':'). If port number is omitted, default port (6379) is used.
+# For example: localhost, 192.168.0.1:555, www2:555
+#
+# server = localhost:6379
+
+#
+# ttl directive
+#
+# Specifies the session time-to-live in the cache (in seconds). This is a time
+# of the user inactivity - each user request resets the timer and the session
+# is closed when timer is out. Zero is the infinity.
+#
+# ttl = 0
+

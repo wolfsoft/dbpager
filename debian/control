@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), autotools-dev, xsltproc, p
  unixodbc-dev | libiodbc2-dev, libdcl-dev (>= 0.2.0), libdb++-dev, libsqlite3-dev,
  libxml2-dev, libxslt1-dev | libxslt-dev, libpcre3-dev, libcurl4-openssl-dev,
  apache2-dev | apache2-threaded-dev | apache2-prefork-dev,
- libaprutil1-dev | libapr1-dev, libmemcached-dev,
+ libaprutil1-dev | libapr1-dev, libmemcached-dev, libhiredis-dev,
  libgearman-dev | gearmand, libevent-dev, uuid-dev,
  scons, libboost-thread-dev, libboost-filesystem-dev, libboost-system-dev,
  libpqxx-dev | libpqxx3-dev, libv8-dev
@@ -135,6 +135,13 @@ Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: dbPager Server extensions - Memcached database interface
  This is a dbPager Language interpretators extension. It provides database
  access features to dbPager applications via native Memcached interface.
+
+Package: dbpager-redis
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: dbPager Server extensions - Redis database interface
+ This is a dbPager Language interpretators extension. It provides database
+ access features to dbPager applications via native Redis interface.
 
 Package: dbpager-bdb
 Architecture: any

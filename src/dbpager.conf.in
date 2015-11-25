@@ -23,14 +23,14 @@
 # session directive
 #
 # Specifies what session data storage system backend to use.
-# Available values: pgsql, odbc, memcached, internal
+# Available values: pgsql, odbc, memcached, redis, internal
 #
 # session = internal
 
 # cache directive
 #
 # Specifies what cache data storage system backend to use.
-# Available values: pgsql, odbc, memcached, internal
+# Available values: pgsql, odbc, memcached, redis, internal
 #
 # cache = internal
 

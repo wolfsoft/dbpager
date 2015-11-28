@@ -106,12 +106,13 @@ private:
 	// Main application code
 	int execute() {
 
-		FCGX_Init();
-
-		dbpager = new interpreter(_config_file, app.get_logger());
-		const dbp::app_config &config = dbpager->get_config();
-
 		try {
+			dbpager = new interpreter(_config_file, app.get_logger());
+			const dbp::app_config &config = dbpager->get_config();
+
+			if (FCGX_Init() != 0)
+				throw std::runtime_error(_("Initialization failed"));
+
 			string socket_path = config.value("dbpagerd", "bind", fcgi_unix_socket_path);
 
 			mode_t old_umask = umask(0);
@@ -158,10 +159,9 @@ private:
 			}
 
 		} catch(const std::exception &e) {
-			dbpager->get_logger().error(
-				(format(_("Internal error: {0}")) % e.what()).str());
+			cerr << format(_("Internal error: {0}")) % e.what() << endl;
 		} catch(...) {
-			dbpager->get_logger().error(_("Unknown error"));
+			cerr << _("Unknown error") << endl;
 		}
 
 		// clean up

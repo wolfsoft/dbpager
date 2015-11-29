@@ -53,26 +53,34 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 
 	string method = get_parameter(ctx, "method");
 	if (method.empty()) {
-		method = "get";
+		method = "GET";
+	} else {
+		transform(method.begin(), method.end(), method.begin(), ::toupper);
 	}
-
-	string content = get_parameter(ctx, "content");
 
 	struct curl_slist *list = NULL;
 	CURLcode res;
 
-	ostringstream sout(ostringstream::out | ostringstream::binary);
+	ostringstream content(ostringstream::out | ostringstream::binary);
+	tag_impl::execute(ctx, content, caller);
+	string content_str = content.str();
 
 	try {
 
-		if (method == "post") {
+		curl_easy_setopt(curl, CURLOPT_URL, href.str().c_str());
+		curl_easy_setopt(curl, CURLOPT_USERAGENT, "Mozilla/5.0 dbpager/3.1.0");
+		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &out);
+
+		if (!content_str.empty()) {
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content_str.c_str());
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, content_str.length());
+		}
+
+		if (method == "POST")
 			curl_easy_setopt(curl, CURLOPT_POST, true);
-			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, content.length());
-			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content.c_str());
-		} else if (method == "put") {
-			curl_easy_setopt(curl, CURLOPT_UPLOAD, true);
-		} else if (method != "get") {
-			transform(method.begin(), method.end(), method.begin(), ::toupper);
+		else if (method != "GET") {
 			curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, method.c_str());
 		}
 
@@ -80,19 +88,17 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 		for (parameters::const_iterator i = params.begin(); i != params.end(); ++i) {
 			if (i->first == "href") continue;
 			if (i->first == "method") continue;
-			if (i->first == "content") continue;
 			list = curl_slist_append(list, string(i->first + string(": ") + i->second->get_text()).c_str());
 		}
 
-		curl_easy_setopt(curl, CURLOPT_URL, href.str().c_str());
-		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
 		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &sout);
 
 		res = curl_easy_perform(curl);
-		if (res != CURLE_OK)
-			throw tag_exception((format(_("Http error: {0}")) % string(curl_easy_strerror(res))).str());
+
+		long http_code = 0;
+		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+		if (http_code >= 400 || res != CURLE_OK)
+			throw tag_exception((format(_("http request failed: {0}")) % string(curl_easy_strerror(res))).str());
 
 		curl_slist_free_all(list);
 		curl_easy_cleanup(curl);
@@ -102,17 +108,6 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 		curl_easy_cleanup(curl);
 		throw;
 	}
-
-	ctx.enter();
-	try {
-		ctx.add_value("content", sout.str());
-		tag_impl::execute(ctx, out, caller);
-	}
-	catch (...) {
-		ctx.leave();
-		throw;
-	}
-	ctx.leave();
 
 }
 

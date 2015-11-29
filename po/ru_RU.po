@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-29 08:13+0300\n"
-"PO-Revision-Date: 2015-11-29 08:14+0300\n"
+"POT-Creation-Date: 2015-11-29 22:46+0300\n"
+"PO-Revision-Date: 2015-11-29 22:34+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
 "Language: ru_RU\n"
@@ -197,9 +197,9 @@ msgstr "неверное выражение: ожидалось число"
 msgid "unknown tag found ({0})"
 msgstr "обнаружен неизвестный тег ({0})"
 
-#: src/dbpager/tag/tag_http.cpp:95
-msgid "Http error: {0}"
-msgstr "Ошибка HTTP: {0}"
+#: src/dbpager/tag/tag_http.cpp:101
+msgid "http request failed: {0}"
+msgstr "не удалось выполнить http запрос: {0}"
 
 #: src/dbpager/tag/tag_locale.cpp:38
 msgid "message domain (domain) is not defined"
@@ -356,6 +356,9 @@ msgstr "входной поток не содержит корректных XML
 #: src/modules/dbp_xslt/tag_transform.cpp:65
 msgid "can't transform XML data"
 msgstr "невозможно преобразовать данные XML"
+
+#~ msgid "Http error: {0}"
+#~ msgstr "Ошибка HTTP: {0}"
 
 #~ msgid "read error ({0})"
 #~ msgstr "ошибка чтения: {0}"

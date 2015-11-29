@@ -42,6 +42,7 @@ libdbpcore_la_SOURCES = \
 	../src/dbpager/tag/tag_delete.cpp \
 	../src/dbpager/tag/tag_rename.cpp \
 	../src/dbpager/tag/tag_log.cpp \
+	../src/dbpager/tag/tag_http.cpp \
 	../src/dbpager/tag/functions.cpp
 
 libdbpcore_la_LIBADD = \

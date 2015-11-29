@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-28 04:53+0300\n"
-"PO-Revision-Date: 2015-11-28 04:58+0300\n"
+"POT-Creation-Date: 2015-11-29 08:13+0300\n"
+"PO-Revision-Date: 2015-11-29 08:14+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
 "Language: ru_RU\n"
@@ -193,9 +193,13 @@ msgstr "невозможно преобразовать строку в числ
 msgid "invalid expression: primary expected"
 msgstr "неверное выражение: ожидалось число"
 
-#: src/dbpager/tag/tag_factory.cpp:123 src/dbpager/tag/tag_factory.cpp:135
+#: src/dbpager/tag/tag_factory.cpp:125 src/dbpager/tag/tag_factory.cpp:137
 msgid "unknown tag found ({0})"
 msgstr "обнаружен неизвестный тег ({0})"
+
+#: src/dbpager/tag/tag_http.cpp:95
+msgid "Http error: {0}"
+msgstr "Ошибка HTTP: {0}"
 
 #: src/dbpager/tag/tag_locale.cpp:38
 msgid "message domain (domain) is not defined"
@@ -207,10 +211,6 @@ msgid ""
 "defined"
 msgstr ""
 "основной каталог иерархии, содержащий файлы сообщений (path) не определен"
-
-#: src/dbpager/tag/tag_read (cURL).cpp:64
-msgid "read error ({0})"
-msgstr "ошибка чтения: {0}"
 
 #: src/dbpager/tag/tag_read.cpp:49
 msgid "file {0} not found or read error"
@@ -357,15 +357,14 @@ msgstr "входной поток не содержит корректных XML
 msgid "can't transform XML data"
 msgstr "невозможно преобразовать данные XML"
 
+#~ msgid "read error ({0})"
+#~ msgstr "ошибка чтения: {0}"
+
 #~ msgid "Internal error"
 #~ msgstr "Внутренняя ошибка"
 
 #~ msgid "Copyright (c) 2014 Dennis Prochko <wolfsoft@mail.ru>"
 #~ msgstr "Авторские права (c) 2014 Прочко Денис <wolfsoft@mail.ru>"
-
-#, fuzzy
-#~ msgid "cURL error: {0}"
-#~ msgstr "Внутренняя ошибка: {0}"
 
 #~ msgid "dbPager Server daemon"
 #~ msgstr "Служба dbPager Server"

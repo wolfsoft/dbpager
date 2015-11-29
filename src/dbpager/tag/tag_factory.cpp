@@ -43,6 +43,7 @@
 #include "tag/tag_execute.h"
 #include "tag/tag_read.h"
 #include "tag/tag_write.h"
+#include "tag/tag_http.h"
 #include "tag/tag_locale.h"
 #include "tag/tag_system.h"
 #include "tag/tag_delete.h"
@@ -79,6 +80,7 @@ tag_factory::tag_factory() {
 	register_tag<tag_delete>(dbpager_uri, "delete");
 	register_tag<tag_rename>(dbpager_uri, "rename");
 	register_tag<tag_log>(dbpager_uri, "log");
+	register_tag<tag_http>(dbpager_uri, "http");
 	// register builtin functions
 	register_tag<function_byte>(dbpager_uri, "@byte");
 	register_tag<function_length>(dbpager_uri, "@len");

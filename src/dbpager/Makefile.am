@@ -41,6 +41,7 @@ libdbpcore_la_SOURCES = \
 	tag/tag_delete.cpp \
 	tag/tag_rename.cpp \
 	tag/tag_log.cpp \
+	tag/tag_http.cpp \
 	tag/functions.cpp
 
 libdbpcore_la_LIBADD = \

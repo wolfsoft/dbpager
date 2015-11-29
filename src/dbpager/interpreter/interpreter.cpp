@@ -37,7 +37,7 @@ using namespace dbp;
 
 interpreter::interpreter(const std::string config_filename, dbp::logger &logger):
   config_filename(config_filename), options(NULL), session(NULL), loaded_logger(NULL), logger_plugin(NULL),
-  session_plugin(NULL), logger(logger) {
+  session_plugin(NULL), logger(logger), use_cache(false) {
 	xmlInitParser();
 	load();
 }
@@ -68,6 +68,10 @@ void interpreter::load() {
 			delete options;
 		options = new app_config();
 		options->load_from_file(config_filename);
+
+		if (options->value("application", "pool", "unlimited") != string("0")) {
+			use_cache = true;
+		}
 
 		// initialize logger service
 		if (loaded_logger) {
@@ -137,6 +141,11 @@ void interpreter::reload() {
 }
 
 interpreter::dbpager_application_ptr interpreter::get_app(const dbp::url &u) {
+	if (!use_cache) {
+		dbpager_application_ptr app(new dbpager_application(u));
+		return app;
+	}
+	
 	app_cache::const_iterator it = apps.find(u.str());
 	if (it != apps.end())
 		return it->second;

@@ -86,6 +86,7 @@ private:
 	dbp::plugin *logger_plugin;
 	dbp::plugin *session_plugin;
 	dbp::logger &logger;
+	bool use_cache;
 	dbp::mutex m;
 	app_cache apps;
 

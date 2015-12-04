@@ -77,6 +77,7 @@ private:
 			} else {
 				resp.set_status(http_error::internal_server_error);
 				resp.set_content(e.what());
+				resp.set_content_type("text/plain; charset=utf-8");
 				cout << e.what() << endl;
 			}
 		} catch (app_exception &e) {
@@ -89,6 +90,7 @@ private:
 					break;
 				default:
 					resp.set_content(e.what());
+					resp.set_content_type("text/plain; charset=utf-8");
 					break;
 			}
 		}

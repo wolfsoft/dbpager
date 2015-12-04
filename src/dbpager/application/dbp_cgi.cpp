@@ -87,9 +87,11 @@ private:
 			if (e.code == 1) {
 				resp.set_status(http_error::not_found);
 				resp.set_content(e.what());
+				resp.set_content_type("text/plain; charset=utf-8");
 			} else {
 				resp.set_status(http_error::internal_server_error);
 				resp.set_content(e.what());
+				resp.set_content_type("text/plain; charset=utf-8");
 			}
 		} catch (app_exception &e) {
 			env.init_response(resp);
@@ -101,12 +103,14 @@ private:
 					break;
 				default:
 					resp.set_content(e.what());
+					resp.set_content_type("text/plain; charset=utf-8");
 					break;
 			}
 		} catch (dbp::exception &e) {
 			env.init_response(resp);
 			resp.set_status(http_error::internal_server_error);
 			resp.set_content(e.what());
+			resp.set_content_type("text/plain; charset=utf-8");
 			cerr << (format(_("Internal error: {0}")) % e.what()).str() << endl;
 		}
 		// send the response to the client

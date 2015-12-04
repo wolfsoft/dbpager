@@ -210,6 +210,7 @@ void http_environment::init_custom_params() {
 		replace(s.begin(), s.end(), '-', '_');
 		session->add_value(string("HTTP_") + s, i->second);
 	}
+	session->add_value("PATH_INFO", req.get_path_info());
 	session->add_value("HTTP_METHOD", req.method());
 	session->add_value("HTTP_REMOTE_ADDR", req.get_remote_addr());
 	// parse request parameters

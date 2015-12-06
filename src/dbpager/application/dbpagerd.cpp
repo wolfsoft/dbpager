@@ -205,7 +205,10 @@ private:
 		stringstream out;
 		out << response;
 
-		FCGX_SetExitStatus(response.get_status_code(), stream);
+		string status = string("Status: ") + response.get_status();
+		FCGX_PutStr(status.c_str(), status.length(), stream);
+		FCGX_PutS("\r\n", stream);
+
 		FCGX_PutStr(out.str().c_str(), out.str().length(), stream);
 		FCGX_PutS("\r\n", stream);
 		FCGX_FFlush(stream);
@@ -226,7 +229,8 @@ private:
 			// generate response
 			env.init_response(resp);
 			resp.set_content(out.str());
-		} catch (parser_exception &e) {
+
+		} catch (const parser_exception &e) {
 			env.init_response(resp);
 			if (e.code == 1) {
 				resp.set_status(http_error::not_found);
@@ -237,7 +241,8 @@ private:
 				resp.set_content(e.what());
 				resp.set_content_type("text/plain; charset=utf-8");
 			}
-		} catch (app_exception &e) {
+
+		} catch (const dbpager::app_exception &e) {
 			env.init_response(resp);
 			resp.set_status(static_cast<http_error::http_error>(e.get_code()));
 			switch (e.get_code()) {
@@ -247,10 +252,12 @@ private:
 					break;
 				default:
 					resp.set_content(e.what());
-					resp.set_content_type("text/plain; charset=utf-8");
+					if (resp.get_content_type().empty())
+						resp.set_content_type("text/plain; charset=utf-8");
 					break;
 			}
-		} catch (dbp::exception &e) {
+
+		} catch (const dbp::exception &e) {
 			env.init_response(resp);
 			resp.set_status(http_error::internal_server_error);
 			resp.set_content(e.what());

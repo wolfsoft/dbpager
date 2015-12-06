@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-05 02:11+0300\n"
+"POT-Creation-Date: 2015-12-07 02:18+0300\n"
 "PO-Revision-Date: 2015-11-29 22:34+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -19,9 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: src/dbpager/application/dbp_cgi.cpp:110
+#: src/dbpager/application/dbp_cgi.cpp:114
 #: src/dbpager/application/dbpagerd.cpp:162
-#: src/dbpager/application/dbpagerd.cpp:257
+#: src/dbpager/application/dbpagerd.cpp:265
 msgid "Internal error: {0}"
 msgstr "Внутренняя ошибка: {0}"
 

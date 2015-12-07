@@ -56,21 +56,12 @@ environment::~environment() {
 
 http_environment::http_environment(interpreter &in, const dbp::http_request &r):
   environment(in), is_session_new(false), req(r) {
-	// read http cookie and initialize the environment variables
+
 	const http_cookies &c = r.get_cookies();
 	for (http_cookies::const_iterator i = c.begin(); i != c.end(); ++i) {
-		if (i->name == "session")
+		if (i->name == "session") {
 			session_id = i->value;
-		else
-		if (i->name == "globals") {
-			// put variable from cookie into global context
-			strings s = tokenize()(i->value, "|");
-			for (strings::const_iterator it = s.begin(); it != s.end(); ++it) {
-				string p, v;
-				tokenize()(*it, p, v, ":");
-				if (!p.empty())
-					global->add_value(p, v);
-			}
+			break;
 		}
 	}
 
@@ -117,29 +108,14 @@ void http_environment::init_response(dbp::http_response &resp) {
 	}
 
 	// setup cookies
-	http_cookies cs;
-	if (is_session_new && (!user->empty() || !global->empty())) {
+	if (is_session_new && !user->empty()) {
+		http_cookies cs;
 		http_cookie c("session", session_id);
 		c.path = "/";
 		cs.push_back(c);
+		resp.set_cookies(cs);
 	}
 
-	// save global context into cookie
-	context::variables v = global->get_values();
-	string s;
-	for (context::variables::const_iterator i = v.begin(); i != v.end(); ++i) {
-		s += i->first + ":" + i->second + "|";
-	}
-	if (!s.empty()) {
-		http_cookie c("globals", s);
-		c.path = "/";
-		datetime d = datetime().now();
-		d.year(d.year() + 1);
-		c.expires = d;
-		cs.push_back(c);
-	}
-
-	resp.set_cookies(cs);
 };
 
 context* environment::get_context() {

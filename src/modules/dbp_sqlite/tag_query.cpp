@@ -87,12 +87,15 @@ void tag_query::execute(context &ctx, std::ostream &out,
 		while (true) {
 			ctx.enter();
 			try {
-				if (code == SQLITE_DONE) {
+				if (code == SQLITE_DONE && sqlite3_changes(conn) > 0) {
 					// the query doesn't return any results (insert statements, etc)
 					tag_impl::execute(ctx, out, caller);
 					ctx.leave();
 					break;
 				}
+
+				if (code == SQLITE_DONE)
+					break;
 
 				if (code == SQLITE_ROW) {
 					// fetch the results

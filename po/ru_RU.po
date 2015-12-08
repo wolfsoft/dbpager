@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-07 20:51+0300\n"
+"POT-Creation-Date: 2015-12-08 03:22+0300\n"
 "PO-Revision-Date: 2015-11-29 22:34+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/dbpager/application/dbp_cgi.cpp:114
 #: src/dbpager/application/dbpagerd.cpp:162
-#: src/dbpager/application/dbpagerd.cpp:265
+#: src/dbpager/application/dbpagerd.cpp:261
 msgid "Internal error: {0}"
 msgstr "Внутренняя ошибка: {0}"
 
@@ -100,7 +100,7 @@ msgstr "Неизвестная ошибка"
 msgid "Fatal error: can't parse file {0}"
 msgstr "Ошибка при разборе файла '{0}' - продолжение невозможно"
 
-#: src/dbpager/interpreter/environment.cpp:256
+#: src/dbpager/interpreter/environment.cpp:255
 msgid "invalid XML structure of the request"
 msgstr "некорректная XML структура запроса"
 

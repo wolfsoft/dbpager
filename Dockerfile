@@ -38,7 +38,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 	&& cd libdcl && ./autogen.sh && ./configure --disable-gtk --disable-qt --disable-winapi --disable-doxygen-doc --without-apache && make -j4 && make install && cd .. \
 	\
 	&& apt-get -y install libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libcurl4-openssl-dev libmemcached-dev libgearman-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libpqxx-dev libv8-dev libhiredis-dev \
-	&& cd dbpager && ./autogen.sh && ./configure --disable-dbp_cgi --disable-mod_dbp --disable-dbp_odbc--disable-dbp_isapi && make -j4 && make install && cd .. \
+	&& cd dbpager && ./autogen.sh && ./configure --disable-dbp_cgi --disable-mod_dbp --disable-dbp_odbc --disable-dbp_isapi && make -j4 && make install && cd .. \
 	\
 	&& find /usr/local/ -type f -exec strip -s '{}' 2>/dev/null ';' \
 	\

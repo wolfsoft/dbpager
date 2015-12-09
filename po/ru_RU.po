@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-08 05:42+0300\n"
+"POT-Creation-Date: 2015-12-10 02:03+0300\n"
 "PO-Revision-Date: 2015-11-29 22:34+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -339,8 +339,8 @@ msgstr "имя источника данных (dsn) не определено"
 msgid "database (id='{0}') is not defined in the current context"
 msgstr "база данных (id='{0}') не определена в текущем контексте"
 
-#: src/modules/dbp_sqlite/tag_query.cpp:103
 #: src/modules/dbp_sqlite/tag_query.cpp:106
+#: src/modules/dbp_sqlite/tag_query.cpp:109
 msgid "Can't allocate memory to fetch query results"
 msgstr ""
 "Невозможно выделить память для получения результатов выполнения запроса"

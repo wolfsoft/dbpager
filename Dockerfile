@@ -26,7 +26,6 @@ MAINTAINER Dennis Prochko <wolfsoft@mail.ru>
 WORKDIR /root
 
 # Copy full source code
-# (alternative to `git clone https://github.com/wolfsoft/dbpager.git`)
 COPY . dbpager/
 
 # Install dependencies, compile from sources, cleaning up
@@ -39,15 +38,16 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 	&& cd libdcl && ./autogen.sh && ./configure --disable-gtk --disable-qt --disable-winapi --disable-doxygen-doc --without-apache && make -j4 && make install && cd .. \
 	\
 	&& apt-get -y install libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libcurl4-openssl-dev libmemcached-dev libgearman-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libpqxx-dev libv8-dev libhiredis-dev \
-	&& cd dbpager && ./autogen.sh && ./configure --disable-dbp_cgi --disable-mod_dbp --disable-dbp_isapi && make -j4 && make install && cd .. \
+	&& cd dbpager && ./autogen.sh && ./configure --disable-dbp_cgi --disable-mod_dbp --disable-dbp_odbc--disable-dbp_isapi && make -j4 && make install && cd .. \
 	\
 	&& find /usr/local/ -type f -exec strip -s '{}' 2>/dev/null ';' \
 	\
 	&& apt-get -y purge git autopoint libtool automake pkg-config gettext autoconf autotools-dev xsltproc scons build-essential \
-	&& apt-get -y purge manpages perl-modules libpqxx-dev \
+	&& apt-get -y purge manpages perl-modules unixodbc-dev \
 	&& apt-get -y autoremove --purge \
+	&& apt-get -y install `dpkg-query -f '${binary:Package}\n' -W|grep -e '^lib'|grep -v dev` \
 	&& apt-get -y purge .\*-dev \
-	&& apt-get -y install libpqxx-4.0 \
+	&& apt-get -y autoremove --purge \
 	&& apt-get -y clean \
 	&& rm -rf /root/* \
 	&& rm -rf /var/lib/apt/lists/* \

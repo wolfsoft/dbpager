@@ -286,54 +286,40 @@ private:
 			// analyze PARAM
 			if (left == "AUTH_TYPE")
 				req.set_auth_type(right);
-			else
-			if (left == "CONTENT_LENGTH")
+			else if (left == "CONTENT_LENGTH")
 				c_len = from_string<int>(right);
-			else
-			if (left == "CONTENT_TYPE")
+			else if (left == "CONTENT_TYPE")
 				req.set_content_type(right);
-			else
-			if (left == "GATEWAY_INTERFACE")
+			else if (left == "GATEWAY_INTERFACE")
 				req.set_gateway_interface(right);
-			else
-			if (left == "PATH_INFO")
+			else if (left == "PATH_INFO")
 				req.set_path_info(right);
-			else
-			if (left == "PATH_TRANSLATED")
+			else if (left == "PATH_TRANSLATED")
 				req.set_path_translated(right);
-			else
-			if (left == "QUERY_STRING")
+			else if (left == "QUERY_STRING")
 				req.set_query_string(right);
-			else
-			if (left == "REMOTE_ADDR")
+			else if (left == "REMOTE_ADDR")
 				req.set_remote_addr(right);
-			else
-			if (left == "REMOTE_HOST")
+			else if (left == "REMOTE_HOST")
 				req.set_remote_host(right);
-			else
-			if (left == "REMOTE_IDENT")
+			else if (left == "REMOTE_IDENT")
 				req.set_remote_ident(right);
-			else
-			if (left == "REMOTE_USER")
+			else if (left == "REMOTE_USER")
 				req.set_remote_user(right);
-			else
-			if (left == "REQUEST_METHOD")
+			else if (left == "REQUEST_METHOD")
 				req.set_method(right);
-			else
-			if (left == "SCRIPT_NAME")
+			else if (left == "SCRIPT_NAME")
 				req.set_script_name(right);
-			else
-			if (left == "SERVER_NAME")
+			else if (left == "SERVER_NAME")
 				req.set_server_name(right);
-			else
-			if (left == "SERVER_PORT")
+			else if (left == "SERVER_PORT")
 				req.set_server_port(from_string<int>(right));
-			else
-			if (left == "SERVER_PROTOCOL")
+			else if (left == "SERVER_PROTOCOL")
 				req.set_server_protocol(right);
-			else
-			if (left == "SERVER_SOFTWARE")
+			else if (left == "SERVER_SOFTWARE")
 				req.set_server_software(right);
+			else if (left == "HTTPS")
+				req.set_https(right == "on");
 			else {
 				// is it a HTTP header?
 				if (left.compare(0, 5, "HTTP_") == 0) {

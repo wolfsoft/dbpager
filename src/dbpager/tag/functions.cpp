@@ -33,7 +33,7 @@
 #include <dcl/url.h>
 
 #include "tag/functions.h"
-
+#include <iostream>
 namespace dbpager {
 
 using namespace std;
@@ -47,23 +47,13 @@ void function_iif::execute(context &ctx, std::ostream &out,
 		  (format(_("wrong number of arguments ({0} instead {1} expected)")) %
 		    params.size() % 3).str());
 
-	string what;
-	parameters::const_iterator i = params.begin();
-	{
-		ostringstream s(ostringstream::out | ostringstream::binary);
-		(i->second)->execute(ctx, s, this);
-		what = s.str();
-		++i;
-	}
-	if (what.empty()) {
-		// skip second parameter
-		++i;
-		// execute 3-rd parameter
-		(i->second)->execute(ctx, out, this);
-	} else {
-		// execute 2-nd parameter
-		(i->second)->execute(ctx, out, this);
-	}
+	string what = get_parameter(ctx, "arg1");
+
+	if (what.empty())
+		out << get_parameter(ctx, "arg3");
+	else
+		out << get_parameter(ctx, "arg2");
+
 }
 
 void function_byte::execute(context &ctx, std::ostream &out,
@@ -102,19 +92,8 @@ void function_pos::execute(context &ctx, std::ostream &out,
 		throw function_exception(
 		  (format(_("wrong number of arguments ({0} instead {1} expected)")) %
 		    params.size() % 2).str());
-	string what, where;
-	parameters::const_iterator i = params.begin();
-	{
-		ostringstream s(ostringstream::out | ostringstream::binary);
-		(i->second)->execute(ctx, s, this);
-		what = s.str();
-		++i;
-	}
-	{
-		ostringstream s(ostringstream::out | ostringstream::binary);
-		(i->second)->execute(ctx, s, this);
-		where = s.str();
-	}
+	string what = get_parameter(ctx, "arg1");
+	string where = get_parameter(ctx, "arg2");
 	out << where.find(what);
 }
 

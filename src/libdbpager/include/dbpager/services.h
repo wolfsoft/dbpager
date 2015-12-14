@@ -1,8 +1,8 @@
 /*
- * dbpager_application.h
+ * services.h
  * This file is part of dbPager Server
  *
- * Copyright (C) 2015 - Dennis Prochko <wolfsoft@mail.ru>
+ * Copyright (C) 2015 - Dennis Prochko
  *
  * dbPager Server is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,41 +15,32 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor,
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, 
  * Boston, MA  02110-1301  USA
  */
 
-#ifndef _DBPAGER_APPLICATION_H_
-#define _DBPAGER_APPLICATION_H_
-
-#include <ostream>
+#ifndef _SERVICES_H_
+#define _SERVICES_H_
 
 #include <dcl/dclbase.h>
 
-#include <dbpager/services.h>
-
-#include <interpreter/environment.h>
+#include <dbpager/session.h>
 
 namespace dbpager {
 
-//!	dbPager application class.
-/*!
-	Executes the given program.
-*/
-class dbpager_application: private dbp::noncopyable {
+class services {
 public:
-	explicit dbpager_application(services *svc, const dbp::url &u);
-	void execute(dbpager::environment &env, std::ostream &out) const;
-private:
-#ifdef HAVE_CXX11
-	std::unique_ptr<tag> t;
-#else
-	std::auto_ptr<tag> t;
-#endif
-	services *_services;
+	//! Obtain the options from the config file
+	virtual dbp::app_config& get_config() = 0;
+
+	//! Obtain the session service
+	virtual dbpager::session& get_session() = 0;
+
+	//! Obtain the logger service
+	virtual dbp::logger& get_logger() = 0;
 };
 
-} // namespace
+}
 
-#endif /*_DBPAGER_APPLICATION_H_*/
+#endif /*_SERVICES_H_*/
 

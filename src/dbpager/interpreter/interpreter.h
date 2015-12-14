@@ -32,7 +32,8 @@
 
 #include <dcl/dclbase.h>
 
-#include <dbpager/session.h>
+#include <dbpager/services.h>
+
 #include <interpreter/dbpager_application.h>
 
 namespace dbpager {
@@ -41,7 +42,7 @@ namespace dbpager {
 /*!
 	Holds global application objects: options, caches, etc.
 */
-class interpreter: private dbp::noncopyable {
+class interpreter: public dbpager::services, private dbp::noncopyable {
 public:
 	typedef dbp::shared_ptr<dbpager_application> dbpager_application_ptr;
 

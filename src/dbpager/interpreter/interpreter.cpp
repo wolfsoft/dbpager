@@ -142,7 +142,7 @@ void interpreter::reload() {
 
 interpreter::dbpager_application_ptr interpreter::get_app(const dbp::url &u) {
 	if (!use_cache) {
-		dbpager_application_ptr app(new dbpager_application(u));
+		dbpager_application_ptr app(new dbpager_application(this, u));
 		return app;
 	}
 	
@@ -155,7 +155,7 @@ interpreter::dbpager_application_ptr interpreter::get_app(const dbp::url &u) {
 	if (it != apps.end())
 		return it->second;
 
-	dbpager_application_ptr app(new dbpager_application(u));
+	dbpager_application_ptr app(new dbpager_application(this, u));
 	apps.insert(pair<string, dbpager_application_ptr >(u.str(), app));
 
 	return app;

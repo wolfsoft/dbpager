@@ -19,7 +19,6 @@
  * Boston, MA  02110-1301  USA
  */
 
-#include <iostream>
 #include <sstream>
 #include <dcl/strutils.h>
 
@@ -33,7 +32,7 @@ using namespace dbp;
 void tag_log::execute(context &ctx, std::ostream &out, const tag *caller) const {
 	stringstream s;
 	tag_impl::execute(ctx, s, caller);
-	cerr << s.str() << endl;
+	ctx.get_services_provider()->get_logger().info(s.str());
 }
 
 } // namespace

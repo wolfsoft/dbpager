@@ -37,6 +37,7 @@
 #include <dcl/exception.h>
 #include <dcl/mutex.h>
 
+#include <dbpager/services.h>
 #include <dbpager/tag.h>
 
 namespace dbpager {
@@ -53,7 +54,7 @@ public:
 #else
 	typedef std::tr1::unordered_map<std::string, std::string> variables;
 #endif
-	context(context *parent = NULL): _parent(parent) {
+	context(context *parent = NULL): _parent(parent), _services(NULL) {
 		enter();
 	}
 	virtual ~context();
@@ -64,6 +65,12 @@ public:
 	virtual void set_value(const std::string &name, const std::string &value);
 	virtual void add_value(const std::string &name, const std::string &value,
 	  const std::string &type = "");
+	virtual services* get_services_provider() const {
+		return _services;
+	}
+	virtual void set_services_provider(services* services) {
+		_services = services;
+	}
 	bool empty();
 	void push(const tag *t);
 	const tag* pop();
@@ -74,6 +81,7 @@ private:
 	vars_stack stack;
 	call_stack exec;
 	context *_parent;
+	services *_services;
 protected:
 	std::string _type;
 };

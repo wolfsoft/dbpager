@@ -28,7 +28,7 @@ namespace dbpager {
 using namespace std;
 using namespace dbp;
 
-dbpager_application::dbpager_application(const dbp::url &u) {
+dbpager_application::dbpager_application(services *svc, const dbp::url &u): _services(svc) {
 	// load and parse the script
 	t.reset(dbpx_parser(u).parse());
 	if (!t.get()) {
@@ -40,6 +40,7 @@ dbpager_application::dbpager_application(const dbp::url &u) {
 void dbpager_application::execute(dbpager::environment &env, std::ostream &out) const {
 	env.init_custom_params();
 	local_context local(env.get_context());
+	local.set_services_provider(_services);
 	// if parsed ok, execute it
 	t->execute(local, out, NULL);
 }

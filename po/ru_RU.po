@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-14 02:17+0300\n"
+"POT-Creation-Date: 2015-12-14 05:29+0300\n"
 "PO-Revision-Date: 2015-11-29 22:34+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -148,11 +148,12 @@ msgstr "неверная вложенность тегов ({0})"
 msgid "href parameter missing for tag include"
 msgstr "у тега include отсутствует параметр href"
 
-#: src/dbpager/tag/functions.cpp:47 src/dbpager/tag/functions.cpp:58
-#: src/dbpager/tag/functions.cpp:77 src/dbpager/tag/functions.cpp:99
-#: src/dbpager/tag/functions.cpp:111 src/dbpager/tag/functions.cpp:123
-#: src/dbpager/tag/functions.cpp:140 src/dbpager/tag/functions.cpp:152
-#: src/dbpager/tag/functions.cpp:164 src/dbpager/tag/functions.cpp:186
+#: src/dbpager/tag/functions.cpp:47 src/dbpager/tag/functions.cpp:73
+#: src/dbpager/tag/functions.cpp:84 src/dbpager/tag/functions.cpp:103
+#: src/dbpager/tag/functions.cpp:125 src/dbpager/tag/functions.cpp:137
+#: src/dbpager/tag/functions.cpp:149 src/dbpager/tag/functions.cpp:166
+#: src/dbpager/tag/functions.cpp:178 src/dbpager/tag/functions.cpp:190
+#: src/dbpager/tag/functions.cpp:212
 msgid "wrong number of arguments ({0} instead {1} expected)"
 msgstr "неверное число аргументов ({0} вместо ожидаемых {1})"
 
@@ -193,7 +194,7 @@ msgstr "невозможно преобразовать строку в числ
 msgid "invalid expression: primary expected"
 msgstr "неверное выражение: ожидалось число"
 
-#: src/dbpager/tag/tag_factory.cpp:125 src/dbpager/tag/tag_factory.cpp:137
+#: src/dbpager/tag/tag_factory.cpp:126 src/dbpager/tag/tag_factory.cpp:138
 msgid "unknown tag found ({0})"
 msgstr "обнаружен неизвестный тег ({0})"
 

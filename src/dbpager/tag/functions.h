@@ -36,6 +36,12 @@ public:
 	function_exception(const std::string &msg): dbp::exception(msg) { }
 };
 
+class function_iif: public tag_impl {
+public:
+	function_iif(const std::string &tag_name = ""): tag_impl(tag_name) { };
+	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
+};
+
 class function_byte: public tag_impl {
 public:
 	function_byte(const std::string &tag_name = ""): tag_impl(tag_name) { };

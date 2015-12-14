@@ -82,6 +82,7 @@ tag_factory::tag_factory() {
 	register_tag<tag_log>(dbpager_uri, "log");
 	register_tag<tag_http>(dbpager_uri, "http");
 	// register builtin functions
+	register_tag<function_iif>(dbpager_uri, "@iif");
 	register_tag<function_byte>(dbpager_uri, "@byte");
 	register_tag<function_length>(dbpager_uri, "@len");
 	register_tag<function_concatenate>(dbpager_uri, "@concat");

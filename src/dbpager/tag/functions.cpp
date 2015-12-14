@@ -40,6 +40,32 @@ using namespace std;
 using namespace dbp;
 using namespace dbp::codec;
 
+void function_iif::execute(context &ctx, std::ostream &out,
+  const tag*) const {
+	if (params.size() != 3)
+		throw function_exception(
+		  (format(_("wrong number of arguments ({0} instead {1} expected)")) %
+		    params.size() % 3).str());
+
+	string what;
+	parameters::const_iterator i = params.begin();
+	{
+		ostringstream s(ostringstream::out | ostringstream::binary);
+		(i->second)->execute(ctx, s, this);
+		what = s.str();
+		++i;
+	}
+	if (what.empty()) {
+		// skip second parameter
+		++i;
+		// execute 3-rd parameter
+		(i->second)->execute(ctx, out, this);
+	} else {
+		// execute 2-nd parameter
+		(i->second)->execute(ctx, out, this);
+	}
+}
+
 void function_byte::execute(context &ctx, std::ostream &out,
   const tag*) const {
 	if (params.size() != 1)

@@ -66,8 +66,14 @@ void tag_query::execute(context &ctx, std::ostream &out,
 				// initialize unnamed parameter
 				if (j != params.end()) {
 					const string &v = *j;
-					if (int code = sqlite3_bind_text(stmt, i, v.c_str(), v.length(), SQLITE_TRANSIENT) != SQLITE_OK) {
-						throw tag_query_exception(sqlite3_errstr(code));
+					if (v.empty()) {
+						if (int code = sqlite3_bind_null(stmt, i) != SQLITE_OK) {
+							throw tag_query_exception(sqlite3_errstr(code));
+						}
+					} else {
+						if (int code = sqlite3_bind_text(stmt, i, v.c_str(), v.length(), SQLITE_TRANSIENT) != SQLITE_OK) {
+							throw tag_query_exception(sqlite3_errstr(code));
+						}
 					}
 					++j;
 				}
@@ -76,11 +82,17 @@ void tag_query::execute(context &ctx, std::ostream &out,
 				n++;
 				// process as desired
 				const string &v = ctx.get_value(n);
-				if (int code = sqlite3_bind_text(stmt, i, v.c_str(), v.length(), SQLITE_TRANSIENT) != SQLITE_OK) {
-					throw tag_query_exception(sqlite3_errstr(code));
+				if (v.empty()) {
+					if (int code = sqlite3_bind_null(stmt, i) != SQLITE_OK) {
+						throw tag_query_exception(sqlite3_errstr(code));
+					}
+				} else {
+					if (int code = sqlite3_bind_text(stmt, i, v.c_str(), v.length(), SQLITE_TRANSIENT) != SQLITE_OK) {
+						throw tag_query_exception(sqlite3_errstr(code));
+					}
 				}
 			}
-		}
+		} // for
 
 		// execute the query
 		int code = sqlite3_step(stmt);
@@ -106,8 +118,9 @@ void tag_query::execute(context &ctx, std::ostream &out,
 							throw tag_query_exception(_("Can't allocate memory to fetch query results"));
 						const char *v = (const char*)sqlite3_column_text(stmt, i);
 						if (v == NULL)
-							throw tag_query_exception(_("Can't allocate memory to fetch query results"));
-						ctx.add_value(n, v);
+							ctx.add_value(n, string());
+						else
+							ctx.add_value(n, v);
 					}
 
 					tag_impl::execute(ctx, out, caller);

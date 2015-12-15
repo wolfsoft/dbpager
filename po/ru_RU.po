@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-14 05:45+0300\n"
+"POT-Creation-Date: 2015-12-15 06:35+0300\n"
 "PO-Revision-Date: 2015-11-29 22:34+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -148,12 +148,12 @@ msgstr "неверная вложенность тегов ({0})"
 msgid "href parameter missing for tag include"
 msgstr "у тега include отсутствует параметр href"
 
-#: src/dbpager/tag/functions.cpp:47 src/dbpager/tag/functions.cpp:73
-#: src/dbpager/tag/functions.cpp:84 src/dbpager/tag/functions.cpp:103
-#: src/dbpager/tag/functions.cpp:125 src/dbpager/tag/functions.cpp:137
-#: src/dbpager/tag/functions.cpp:149 src/dbpager/tag/functions.cpp:166
-#: src/dbpager/tag/functions.cpp:178 src/dbpager/tag/functions.cpp:190
-#: src/dbpager/tag/functions.cpp:212
+#: src/dbpager/tag/functions.cpp:47 src/dbpager/tag/functions.cpp:63
+#: src/dbpager/tag/functions.cpp:74 src/dbpager/tag/functions.cpp:93
+#: src/dbpager/tag/functions.cpp:104 src/dbpager/tag/functions.cpp:116
+#: src/dbpager/tag/functions.cpp:128 src/dbpager/tag/functions.cpp:145
+#: src/dbpager/tag/functions.cpp:157 src/dbpager/tag/functions.cpp:169
+#: src/dbpager/tag/functions.cpp:191
 msgid "wrong number of arguments ({0} instead {1} expected)"
 msgstr "неверное число аргументов ({0} вместо ожидаемых {1})"
 
@@ -340,7 +340,7 @@ msgstr "имя источника данных (dsn) не определено"
 msgid "database (id='{0}') is not defined in the current context"
 msgstr "база данных (id='{0}') не определена в текущем контексте"
 
-#: src/modules/dbp_sqlite/tag_query.cpp:118
+#: src/modules/dbp_sqlite/tag_query.cpp:120
 msgid "Can't allocate memory to fetch query results"
 msgstr ""
 "Невозможно выделить память для получения результатов выполнения запроса"

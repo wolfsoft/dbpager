@@ -96,49 +96,50 @@ void tag_query::execute(context &ctx, std::ostream &out,
 
 		// execute the query
 		int code = sqlite3_step(stmt);
-		while (true) {
+		if (code == SQLITE_DONE && sqlite3_changes(conn) > 0) {
 			ctx.enter();
 			try {
-				if (code == SQLITE_DONE && sqlite3_changes(conn) > 0) {
-					// the query doesn't return any results (insert statements, etc)
-					tag_impl::execute(ctx, out, caller);
-					ctx.leave();
-					break;
-				}
-
-				if (code == SQLITE_DONE)
-					break;
-
-				if (code == SQLITE_ROW) {
-					// fetch the results
-					int c = sqlite3_column_count(stmt);
-					for (int i = 0; i < c; i++) {
-						const char *n = sqlite3_column_name(stmt, i);
-						if (n == NULL)
-							throw tag_query_exception(_("Can't allocate memory to fetch query results"));
-						const char *v = (const char*)sqlite3_column_text(stmt, i);
-						if (v == NULL)
-							ctx.add_value(n, string());
-						else
-							ctx.add_value(n, v);
-					}
-
-					tag_impl::execute(ctx, out, caller);
-					ctx.leave();
-
-					code = sqlite3_step(stmt);
-					if (code == SQLITE_DONE)
-						break;
-					if (code == SQLITE_ROW)
-						continue;
-				}
-
-				throw tag_query_exception(sqlite3_errstr(code));
-
+				tag_impl::execute(ctx, out, caller);
+				ctx.leave();
 			} catch (...) {
 				ctx.leave();
 				throw;
 			}
+		} else {
+			while (true) {
+				ctx.enter();
+				try {
+					if (code == SQLITE_DONE) {
+						ctx.leave();
+						break;
+					} else if (code == SQLITE_ROW) {
+						// fetch the results
+						int c = sqlite3_column_count(stmt);
+						for (int i = 0; i < c; i++) {
+							const char *n = sqlite3_column_name(stmt, i);
+							if (n == NULL)
+								throw tag_query_exception(_("Can't allocate memory to fetch query results"));
+							const char *v = (const char*)sqlite3_column_text(stmt, i);
+							if (v == NULL)
+								ctx.add_value(n, string());
+							else
+								ctx.add_value(n, v);
+						}
+
+						tag_impl::execute(ctx, out, caller);
+
+					} else {
+						throw tag_query_exception(sqlite3_errstr(code));
+					}
+
+					code = sqlite3_step(stmt);
+					ctx.leave();
+
+				} catch (...) {
+					ctx.leave();
+					throw;
+				}
+			} // while
 		}
 
 		// clean up

@@ -21,6 +21,7 @@
 
 #include <dcl/strutils.h>
 
+#include <dbpager/consts.h>
 #include <dbpager/context.h>
 #include <dbpager/tag_usr.h>
 
@@ -67,16 +68,20 @@ tag* dbpx_parser::parse() const {
 		xmlTextReaderSetErrorHandler(reader, error_callback, (void*)this);
 		// read one more tag
 		int ret = xmlTextReaderRead(reader);
-		tag *root_node = NULL, *current_node = NULL;
+		tag *node = NULL, *root_node = NULL, *current_node = NULL;
 		while (ret == 1) {
 			// if a root node detected, save a pointer for future
 			if (!root_node) {
-				root_node = process_node(_url, reader, current_node);
-				current_node = root_node;
-			}
-			else {
+				node = process_node(_url, reader, current_node);
+				if (node) {
+					root_node = node;
+					current_node = root_node;
+				}
+			} else {
 				// create tag object from node found
-				current_node = process_node(_url, reader, current_node);
+				node = process_node(_url, reader, current_node);
+				if (node)
+					current_node = node;
 			}
 			// read one more tag
 			ret = xmlTextReaderRead(reader);
@@ -135,20 +140,27 @@ tag* dbpx_parser::process_node(const url &current_url, xmlTextReaderPtr reader,
 	// if node type is a tag, try to create a tag object
 	switch (xmlTextReaderNodeType(reader)) {
 		case XML_READER_TYPE_ELEMENT:
-			// create tag with tag factory
-			rslt = _factory.create(
-			  to_string<const char*>(
-			    (const char*)xmlTextReaderConstNamespaceUri(reader)),
-			  to_string<const char*>(
-			    (const char*)xmlTextReaderConstPrefix(reader)),
-			  to_string<const char*>(
-			    (const char*)xmlTextReaderConstLocalName(reader)));
-			if (!rslt) {
-				// if namespace is unknown - create unknown tag
-				rslt = new tag_unknown(
-				  to_string<const char*>(
-				    (const char*)xmlTextReaderConstName(reader)));
+			{
+				string object = to_string<const char*>((const char*)xmlTextReaderConstLocalName(reader));
+				string namespace_uri = to_string<const char*>((const char*)xmlTextReaderConstNamespaceUri(reader));
+				string namespace_prefix = to_string<const char*>((const char*)xmlTextReaderConstPrefix(reader));
+			
+				if (namespace_uri.compare(0, dbpager_custom_uri.length(), dbpager_custom_uri) == 0) {
+					// custom tag processing
+					rslt = new tag_usr(object);
+				} else if (namespace_uri == xhtml_uri) {
+					// html tags processing
+					rslt = new tag_unknown(to_string<const char*>((const char*)xmlTextReaderConstName(reader)));
+				} else if (namespace_uri.compare(0, dbpager_uri.length(), dbpager_uri) == 0) {
+					// create tag with tag factory
+					rslt = _factory.create(namespace_uri, namespace_prefix, object);
+				} else
+					return NULL;
+
+				if (!rslt)
+					throw parser_exception(0, (dbp::format(_("unknown tag found ({0})")) % object).str());
 			}
+
 			rslt->set_depth(xmlTextReaderDepth(reader));
 			// fill tag parameters
 			process_attributes(reader, *rslt);
@@ -218,8 +230,10 @@ void dbpx_parser::process_attributes(xmlTextReaderPtr reader, tag &node) const {
 		param->set_parent(&node);
 		param->set_text(to_string<const char*>(
 		  (const char*)xmlTextReaderConstValue(reader)));
-		node.add_parameter(to_string<const char*>(
-		  (const char*)xmlTextReaderConstName(reader)), param);
+		// only attrs without ns: prefix
+		if (!xmlTextReaderConstPrefix(reader))
+			node.add_parameter(to_string<const char*>(
+			  (const char*)xmlTextReaderConstName(reader)), param);
 	}
 }
 

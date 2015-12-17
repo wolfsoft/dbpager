@@ -41,6 +41,10 @@ static const std::string dbpager_uri =
   "http://dbpager.org.ru/schemas/dbp/3.0";
 static const std::string dbpager_custom_uri =
   "http://dbpager.org.ru/schemas/dbp/3.0/custom";
+static const std::string xhtml_uri =
+  "http://www.w3.org/1999/xhtml";
+static const std::string its_uri =
+  "http://www.w3.org/2005/11/its";
 
 static const std::string dbpager_mime_type("application/x-httpd-dbpager");
 

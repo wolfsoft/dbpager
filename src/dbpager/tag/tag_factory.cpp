@@ -112,35 +112,27 @@ void tag_factory::register_tag(const std::string &namespace_uri,
 tag* tag_factory::create(const std::string &namespace_uri,
   const std::string &namespace_prefix, const std::string &object) {
 	tag *t = NULL;
-	if (namespace_uri.compare(0, namespace_uri.length(), dbpager_custom_uri) == 0) {
-		// create custom tag
-		t = new tag_usr(object);
-	} else
 	// search in the builtin tags
 	if (_factories.find(namespace_uri) != _factories.end()) {
 		if (_factories[namespace_uri].is_registered(object)) {
 			t = _factories[namespace_uri].create(object);
-		}
-		else
-			throw parser_exception(0,
-			  (dbp::format(_("unknown tag found ({0})")) % object).str());
-	} else
-	// if is not a builtin tag, search in plugins
-	if (_plugins.find(namespace_uri) != _plugins.end()) {
-		for (plugins_list::const_iterator i = _plugins[namespace_uri].begin();
-		  i != _plugins[namespace_uri].end(); ++i) {
-			t = static_cast<tag*>((*i)->create_object(object));
-			if (t)
-				break;
-		}
-		if (!t) {
-			throw parser_exception(0,
-			  (dbp::format(_("unknown tag found ({0})")) % object).str());
+		} else
+			throw parser_exception(0, (dbp::format(_("unknown tag found ({0})")) % object).str());
+	} else {
+		// if is not a builtin tag, search in plugins
+		if (_plugins.find(namespace_uri) != _plugins.end()) {
+			for (plugins_list::const_iterator i = _plugins[namespace_uri].begin();
+			  i != _plugins[namespace_uri].end(); ++i) {
+				t = static_cast<tag*>((*i)->create_object(object));
+				if (t)
+					break;
+			}
+			if (!t) {
+				throw parser_exception(0, (dbp::format(_("unknown tag found ({0})")) % object).str());
+			}
 		}
 	}
-	if (t) {
-		t->set_name(object);
-	}
+	t->set_name(object);
 	return t;
 }
 

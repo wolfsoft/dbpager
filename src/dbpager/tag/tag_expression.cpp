@@ -458,7 +458,7 @@ string tag_expression::evaluator::execute_function(context &ctx, string &name,
 		rslt = _factory.create(dbpager_uri, "", "@" + name);
 	} else {
 		// if it starts with @ - its declared in the script as dbp:tag
-		rslt = _factory.create(dbpager_custom_uri, "", name.substr(1));
+		rslt = new tag_usr(name.substr(1));
 	}
 	try {
 		rslt->set_parent(_parent);

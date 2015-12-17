@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-15 06:35+0300\n"
+"POT-Creation-Date: 2015-12-17 18:36+0300\n"
 "PO-Revision-Date: 2015-11-29 22:34+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -115,36 +115,36 @@ msgstr ""
 msgid "Configuration realoaded"
 msgstr "Конфигурация перезагружена"
 
-#: src/dbpager/parser/dbpx_parser.cpp:43
+#: src/dbpager/parser/dbpx_parser.cpp:44
 msgid "Validity warning at line {0}: {1}"
 msgstr "Предупреждение валидации на строке {0}: {1}"
 
-#: src/dbpager/parser/dbpx_parser.cpp:45
+#: src/dbpager/parser/dbpx_parser.cpp:46
 msgid "Validity error at line {0}: {1}"
 msgstr "Ошибка валидации на строке {0}: {1}"
 
-#: src/dbpager/parser/dbpx_parser.cpp:47
+#: src/dbpager/parser/dbpx_parser.cpp:48
 msgid "Warning at line {0}: {1}"
 msgstr "Предупреждение на строке {0}: {1}"
 
-#: src/dbpager/parser/dbpx_parser.cpp:49
+#: src/dbpager/parser/dbpx_parser.cpp:50
 msgid "Error at line {0}: {1}"
 msgstr "Ошибка на строке {0}: {1}"
 
-#: src/dbpager/parser/dbpx_parser.cpp:61
+#: src/dbpager/parser/dbpx_parser.cpp:62
 msgid "unable to open file '{0}'. {1}"
 msgstr "невозможно открыть файл '{0}'. {1}"
 
-#: src/dbpager/parser/dbpx_parser.cpp:87
+#: src/dbpager/parser/dbpx_parser.cpp:92
 msgid "failed to parse file '{0}'. {1}"
 msgstr "ошибка при разборе файла '{0}'. {1}"
 
-#: src/dbpager/parser/dbpx_parser.cpp:108
-#: src/dbpager/parser/dbpx_parser.cpp:123
+#: src/dbpager/parser/dbpx_parser.cpp:113
+#: src/dbpager/parser/dbpx_parser.cpp:128
 msgid "invalid nested tags ({0})"
 msgstr "неверная вложенность тегов ({0})"
 
-#: src/dbpager/parser/dbpx_parser.cpp:165
+#: src/dbpager/parser/dbpx_parser.cpp:173
 msgid "href parameter missing for tag include"
 msgstr "у тега include отсутствует параметр href"
 
@@ -194,7 +194,7 @@ msgstr "невозможно преобразовать строку в числ
 msgid "invalid expression: primary expected"
 msgstr "неверное выражение: ожидалось число"
 
-#: src/dbpager/tag/tag_factory.cpp:126 src/dbpager/tag/tag_factory.cpp:138
+#: src/dbpager/tag/tag_factory.cpp:120 src/dbpager/tag/tag_factory.cpp:131
 msgid "unknown tag found ({0})"
 msgstr "обнаружен неизвестный тег ({0})"
 
@@ -340,7 +340,7 @@ msgstr "имя источника данных (dsn) не определено"
 msgid "database (id='{0}') is not defined in the current context"
 msgstr "база данных (id='{0}') не определена в текущем контексте"
 
-#: src/modules/dbp_sqlite/tag_query.cpp:120
+#: src/modules/dbp_sqlite/tag_query.cpp:121
 msgid "Can't allocate memory to fetch query results"
 msgstr ""
 "Невозможно выделить память для получения результатов выполнения запроса"

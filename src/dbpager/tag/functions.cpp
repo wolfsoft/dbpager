@@ -171,10 +171,9 @@ void function_translate::execute(context &ctx, std::ostream &out,
 	stringstream s(stringstream::in | stringstream::out | stringstream::binary);
 	(params.begin()->second)->execute(ctx, s, this);
 	s.seekg(0);
-	char* old_locale = setlocale(LC_ALL,
-	  ctx.get_value("@LANG_LOCALE@").c_str());
+	locale_t old_locale = i18n::locale(ctx.get_value("@LANG_LOCALE@").c_str());
 	out << i18n::translate(ctx.get_value("@LANG_DOMAIN@"), s.str());
-	setlocale(LC_ALL, old_locale);
+	i18n::locale(old_locale);
 }
 
 struct uppercase {

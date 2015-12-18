@@ -30,6 +30,7 @@ COPY . dbpager/
 
 # Install dependencies, compile from sources, cleaning up
 RUN export DEBIAN_FRONTEND=noninteractive \
+	&& export CXXFLAGS="-O3" \
 	&& apt-get update && apt-get -y dist-upgrade \
 	&& apt-get -y install git autopoint libtool automake pkg-config gettext autoconf autotools-dev xsltproc scons build-essential \
 	\

@@ -20,6 +20,7 @@
  */
 
 #include <ostream>
+#include <sstream>
 
 #include <dcl/strutils.h>
 
@@ -44,12 +45,19 @@ tag_impl::~tag_impl() {
 }
 
 void tag_impl::set_text(const std::string &value) {
-	std::vector<std::string> s = tokenize()(value, "\n");
-	_text.clear();
-	for (std::vector<std::string>::const_iterator i = s.begin();
-	  i != s.end(); ++i) {
-		_text += trim()(*i);
-	}
+	stringstream out;
+	bool was_space = false;
+	std::for_each(value.begin(), value.end(), [&out, &was_space](unsigned char c) {
+		if (c <= 32) {
+			if (!was_space)
+				out << ' ';
+			was_space = true;
+		} else {
+			was_space = false;
+			out << c;
+		}
+	});
+	_text = out.str();
 }
 
 const std::string& tag_impl::get_text() const {

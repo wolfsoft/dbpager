@@ -35,7 +35,9 @@ void tag_unknown::execute(context &ctx, std::ostream &out, const tag *caller) co
 	  	if ((i->first).length() > 0) {
 			ostringstream s(stringstream::out | ostringstream::binary);
 			(i->second)->execute(ctx, s, this);
-			out << " " << i->first << "=\"" << s.str() << "\"";
+			const string &v = s.str();
+			if (!v.empty())
+				out << " " << i->first << "=\"" << v << "\"";
 		}
 	}
 

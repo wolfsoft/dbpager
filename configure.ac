@@ -69,7 +69,7 @@ AM_GNU_GETTEXT_VERSION([0.18])
 # check for programs
 AC_ISC_POSIX
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX_11([noext],[optional])
+AX_CXX_COMPILE_STDCXX_11([noext],[mandatory])
 AC_PROG_SED
 LT_PROG_RC
 

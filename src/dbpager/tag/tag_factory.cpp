@@ -95,6 +95,9 @@ tag_factory::tag_factory() {
 	register_tag<function_upper>(dbpager_uri, "@upper");
 	register_tag<function_urlencode>(dbpager_uri, "@encode_url");
 	register_tag<function_urldecode>(dbpager_uri, "@decode_url");
+	register_tag<function_date_utc>(dbpager_uri, "@date_utc");
+	register_tag<function_date_from>(dbpager_uri, "@date_from");
+	register_tag<function_date_fmt>(dbpager_uri, "@date_fmt");
 	register_tag<function_translate>(dbpager_uri, "@_");
 };
 

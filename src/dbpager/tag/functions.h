@@ -131,6 +131,27 @@ public:
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
+class function_date_utc: public tag_impl {
+public:
+	function_date_utc(const std::string &tag_name = ""):
+	  tag_impl(tag_name) { };
+	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
+};
+
+class function_date_from: public tag_impl {
+public:
+	function_date_from(const std::string &tag_name = ""):
+	  tag_impl(tag_name) { };
+	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
+};
+
+class function_date_fmt: public tag_impl {
+public:
+	function_date_fmt(const std::string &tag_name = ""):
+	  tag_impl(tag_name) { };
+	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
+};
+
 } // namespace
 
 #endif /*FUNCTIONS_H_*/

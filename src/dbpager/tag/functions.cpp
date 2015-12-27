@@ -27,6 +27,7 @@
 #include <iostream>
 
 #include <dcl/codec_base64.h>
+#include <dcl/datetime.h>
 #include <dcl/encoder_md5.h>
 #include <dcl/strutils.h>
 #include <dcl/uuid.h>
@@ -183,8 +184,7 @@ private:
     const locale &loc;
 };
 
-void function_upper::execute(context &ctx, std::ostream &out,
-  const tag*) const {
+void function_upper::execute(context &ctx, std::ostream &out, const tag*) const {
 	if (params.size() != 1)
 		throw function_exception(
 		  (format(_("wrong number of arguments ({0} instead {1} expected)")) %
@@ -203,8 +203,7 @@ function_rnd::function_rnd(const std::string &tag_name):
 	srand(time(NULL));
 }
 
-void function_rnd::execute(context &ctx, std::ostream &out,
-  const tag*) const {
+void function_rnd::execute(context &ctx, std::ostream &out, const tag*) const {
 	int base = 0;
 	if (params.size() == 1) {
 		stringstream s(stringstream::in | stringstream::out | stringstream::binary);
@@ -213,6 +212,34 @@ void function_rnd::execute(context &ctx, std::ostream &out,
 		out << rand() % base;
 	} else
 		out << rand();
+}
+
+void function_date_utc::execute(context &ctx, std::ostream &out, const tag*) const {
+	if (params.size() != 1)
+		throw function_exception(
+		  (format(_("wrong number of arguments ({0} instead {1} expected)")) %
+		    params.size() % 1).str());
+	datetime d(get_parameter(ctx, "arg1"), "%s");
+	out << d.as_gmt();
+}
+
+void function_date_from::execute(context &ctx, std::ostream &out, const tag*) const {
+	if (params.size() != 2)
+		throw function_exception(
+		  (format(_("wrong number of arguments ({0} instead {1} expected)")) %
+		    params.size() % 2).str());
+
+	datetime d(get_parameter(ctx, "arg1"), get_parameter(ctx, "arg2"));
+	out << d.str("%s");
+}
+
+void function_date_fmt::execute(context &ctx, std::ostream &out, const tag*) const {
+	if (params.size() != 2)
+		throw function_exception(
+		  (format(_("wrong number of arguments ({0} instead {1} expected)")) %
+		    params.size() % 2).str());
+	datetime d(get_parameter(ctx, "arg2"), "%s");
+	out << d.str(get_parameter(ctx, "arg1"));
 }
 
 } // namespace

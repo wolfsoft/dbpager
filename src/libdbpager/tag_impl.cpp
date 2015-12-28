@@ -45,7 +45,7 @@ tag_impl::~tag_impl() {
 }
 
 void tag_impl::set_text(const std::string &value) {
-	stringstream out;
+	ostringstream out;
 	bool was_space = false;
 	std::for_each(value.begin(), value.end(), [&out, &was_space](unsigned char c) {
 		if (c <= 32) {

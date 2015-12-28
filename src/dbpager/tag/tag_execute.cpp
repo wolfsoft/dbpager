@@ -39,9 +39,17 @@ void tag_execute::execute(context &ctx, std::ostream &out, const tag *caller) co
 	if (c) {
 		const string &name = get_parameter(ctx, "name");
 		if (!name.empty()) {
-			//TODO: execute custom tag included into this
-		} else
+			tag_tag *t = static_cast<tag_tag*>(c->get_child(string("@") + name));
+			if (!t)
+				throw tag_exception(
+				  (format(_("custom tag '{0}' is not defined at this scope")) % name).str());
+
+			t->execute(ctx, out, c);
+			ctx.push(c);
+
+		} else {
 			static_cast<const tag_usr*>(c)->execute_direct(ctx, out, this);
+		}
 	}
 }
 

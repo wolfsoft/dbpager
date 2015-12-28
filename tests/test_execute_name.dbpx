@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+<dbp:module
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+	xmlns:usr="http://dbpager.org.ru/schemas/dbp/3.0/custom"
+>
+
+<dbp:tag name="block">
+	prologue
+	<dbp:execute name="header">
+		header shit
+	</dbp:execute>
+	<dbp:execute />
+	<dbp:execute name="footer" />
+	epilogue
+</dbp:tag>
+
+<dbp:tag name="block-template">
+	<usr:block>
+		<dbp:tag name="header">
+			header
+		</dbp:tag>
+		<dbp:tag name="footer">
+			footer
+		</dbp:tag>
+		body
+	</usr:block>
+</dbp:tag>
+
+<usr:block-template/>
+
+</dbp:module>

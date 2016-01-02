@@ -40,6 +40,7 @@
 #include "tag/tag_split.h"
 #include "tag/tag_substr.h"
 #include "tag/tag_regexp.h"
+#include "tag/tag_call.h"
 #include "tag/tag_execute.h"
 #include "tag/tag_read.h"
 #include "tag/tag_write.h"
@@ -72,6 +73,7 @@ tag_factory::tag_factory() {
 	register_tag<tag_substr>(dbpager_uri, "substr");
 	register_tag<tag_regexp>(dbpager_uri, "regexp");
 	register_tag<tag_tag>(dbpager_uri, "tag");
+	register_tag<tag_call>(dbpager_uri, "call");
 	register_tag<tag_execute>(dbpager_uri, "execute");
 	register_tag<tag_read>(dbpager_uri, "read");
 	register_tag<tag_write>(dbpager_uri, "write");

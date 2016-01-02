@@ -1,5 +1,5 @@
 /*
- * tag_tag.cpp
+ * tag_call.h
  * This file is part of dbPager Server
  *
  * Copyright (C) 2008 - Dennis Prochko
@@ -19,38 +19,22 @@
  * Boston, MA  02110-1301  USA
  */
 
+#ifndef TAG_CALL_H_
+#define TAG_CALL_H_
+
+#include <string>
 #include <ostream>
-#include <typeinfo>
 
-#include <dcl/strutils.h>
-
-#include <dbpager/context.h>
-#include <dbpager/tag_tag.h>
 #include <dbpager/tag_usr.h>
 
 namespace dbpager {
 
-using namespace std;
-using namespace dbp;
+class tag_call: public tag_usr {
+public:
+	tag_call(const std::string &tag_name = ""): tag_usr(tag_name) { };
+	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
+};
 
-void tag_tag::add_parameter(const std::string &p_name, tag *p_value) {
-	// call inherited method
-	tag_impl::add_parameter(p_name, p_value);
-	// setting up custom tag name
-	if (p_name == "name") {
-		ostringstream s;
-		context ctx(NULL);
-		p_value->execute(ctx, s, this);
-		name = "@" + s.str();
-	}
 }
 
-void tag_tag::execute(context &ctx, std::ostream &out, const tag *caller) const {
-	if (caller && dynamic_cast<const tag_usr*>(caller)) {
-//	if (caller && (typeid(*caller) == typeid(tag_usr))) {
-		tag_impl::execute(ctx, out, caller);
-	}
-}
-
-} // namespace
-
+#endif /*TAG_CALL_H_*/

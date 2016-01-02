@@ -20,6 +20,7 @@ libdbpcore_la_SOURCES = \
 	interpreter/dbpager_application.cpp \
 	interpreter/interpreter.cpp \
 	tag/tag_factory.cpp \
+	tag/tag_call.cpp \
 	tag/tag_execute.cpp \
 	tag/tag_unknown.cpp \
 	tag/tag_var.cpp \

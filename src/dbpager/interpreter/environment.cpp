@@ -202,6 +202,9 @@ void http_environment::init_custom_params() {
 	session->add_value("PATH_INFO", req.get_path_info());
 	session->add_value("HTTP_METHOD", req.method());
 	session->add_value("HTTP_REMOTE_ADDR", req.get_remote_addr());
+	session->add_value("SERVER_NAME", req.get_server_name());
+	session->add_value("SERVER_PORT", to_string<int>(req.get_server_port()));
+	session->add_value("HTTPS", req.get_https() ? "on" : string(""));
 	// parse request parameters
 	strings pairs;
 	switch (req.get_method()) {

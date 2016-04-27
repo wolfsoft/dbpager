@@ -101,8 +101,8 @@ void interpreter::load() {
 		}
 
 		const string &session_type = options->value("services", "session", "internal");
-		if (log_type != string("internal")) {
-			const string &module = options->value("services", string("session.backend.") + log_type, string(""));
+		if (session_type != string("internal")) {
+			const string &module = options->value("services", string("session.backend.") + session_type, string(""));
 			if (!module.empty()) {
 				if (session_plugin) {
 					delete session_plugin;

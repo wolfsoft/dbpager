@@ -27,6 +27,21 @@ and community support resources.
 Refer to INSTALL file to obtain installation instructions and doc directory
 for software documentation and examples.
 
+Installing
+
+Debian 8
+
+Add my gpg key:
+
+wget -qO - http://dbpager.com/dbpager.gpg | sudo apt-key add -
+
+Add dbpager repository to /etc/apt/sources.list
+
+deb https://dbpager.com/debian jessie main
+
+Update apt cache and install packages:
+
+apt-get update && apt-get install dbpager dbpagerd
 
 Downloading and building dbPager Server
 

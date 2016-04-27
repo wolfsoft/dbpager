@@ -4,7 +4,8 @@ Documentation=http://dbpager.com
 After=network.target auditd.service
 
 [Service]
-ExecStart=/usr/bin/dbpagerd ${DBPAGER_OPTS}
+ExecStart=/usr/bin/dbpagerd $DBPAGER_OPTS
+EnvironmentFile=-/etc/default/dbpagerd
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure

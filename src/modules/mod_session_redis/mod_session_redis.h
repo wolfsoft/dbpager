@@ -38,6 +38,7 @@ public:
 
 class mod_session_redis: public session {
 public:
+	mod_session_redis(): ttl(0) { };
 	virtual std::string get(const std::string &key);
 	virtual void put(const std::string &key, const std::string &value);
 	void set_server(const std::string &server) {

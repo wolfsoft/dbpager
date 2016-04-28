@@ -89,7 +89,7 @@ void interpreter::load() {
 				}
 				logger_plugin = new plugin();
 				logger_plugin->load(module);
-				logger_plugin->init(&options);
+				logger_plugin->init(options);
 				loaded_logger = (dbp::logger*)logger_plugin->create_object(log_type);
 			}
 		}
@@ -103,6 +103,7 @@ void interpreter::load() {
 		const string &session_type = options->value("services", "session", "internal");
 		if (session_type != string("internal")) {
 			const string &module = options->value("services", string("session.backend.") + session_type, string(""));
+
 			if (!module.empty()) {
 				if (session_plugin) {
 					delete session_plugin;
@@ -110,7 +111,7 @@ void interpreter::load() {
 				}
 				session_plugin = new plugin();
 				session_plugin->load(module);
-				session_plugin->init(&options);
+				session_plugin->init(options);
 				session = (dbpager::session*)session_plugin->create_object(session_type);
 			}
 		}

@@ -3,7 +3,7 @@
 # The module provides session storage service by using Memcached database.
 #
 [services]
-session.backend.memcached = @PLUGINSDIR@/mod_session_memcached.so
+session.backend.memcached = @PLUGINSDIR@/libmod_session_memcached.so
 
 ### services.session.memcached: backend-specific parameters
 # 

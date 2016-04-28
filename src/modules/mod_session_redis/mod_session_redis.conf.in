@@ -3,7 +3,7 @@
 # The module provides session storage service by using Redis database.
 #
 [services]
-session.backend.redis = @PLUGINSDIR@/mod_session_redis.so
+session.backend.redis = @PLUGINSDIR@/libmod_session_redis.so
 
 ### services.session.redis: backend-specific parameters
 # 

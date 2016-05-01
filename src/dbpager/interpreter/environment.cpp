@@ -83,6 +83,7 @@ http_environment::http_environment(interpreter &in, const dbp::http_request &r):
 
 	// add session id to variables
 	session->add_value("SESSION", session_id);
+	session->add_value("SESSION_PERSISTENT", "0");
 }
 
 void http_environment::init_response(dbp::http_response &resp) {
@@ -115,6 +116,11 @@ void http_environment::init_response(dbp::http_response &resp) {
 		c.http_only = true;
 		if (req.get_https())
 			c.secure = true;
+		if (session->get_value("SESSION_PERSISTENT") == string("1")) {
+			datetime d;
+			d.year(2038).month(1).day(1).hour(0).minute(0).second(0);
+			c.expires = d;
+		}
 		cs.push_back(c);
 		resp.set_cookies(cs);
 	}

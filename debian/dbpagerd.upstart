@@ -5,6 +5,7 @@ description "dbPager Server"
 start on runlevel [2345]
 stop on runlevel [016]
 
+expect fork
 respawn
 
 script
@@ -13,5 +14,10 @@ script
 	if [ -f /etc/default/$UPSTART_JOB ]; then
 		. /etc/default/$UPSTART_JOB
 	fi
-	exec "$DBPAGER" $DBPAGER_OPTS
+	exec $DBPAGER $DBPAGER_OPTS -p /var/run/$UPSTART_JOB.pid
+end script
+
+post-stop script
+	kill `cat /var/run/$UPSTART_JOB.pid`
+    rm -f /var/run/$UPSTART_JOB.pid
 end script

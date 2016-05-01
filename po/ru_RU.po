@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-09 10:52+0300\n"
-"PO-Revision-Date: 2015-11-29 22:34+0300\n"
+"POT-Creation-Date: 2016-05-01 00:57+0300\n"
+"PO-Revision-Date: 2016-05-01 01:04+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
 "Language: ru_RU\n"
@@ -20,8 +20,8 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #: src/dbpager/application/dbp_cgi.cpp:114
-#: src/dbpager/application/dbpagerd.cpp:162
-#: src/dbpager/application/dbpagerd.cpp:265
+#: src/dbpager/application/dbpagerd.cpp:178
+#: src/dbpager/application/dbpagerd.cpp:281
 msgid "Internal error: {0}"
 msgstr "Внутренняя ошибка: {0}"
 
@@ -36,6 +36,7 @@ msgstr "показать версию приложения"
 
 #: src/dbpager/application/dbpager.cpp:48
 #: src/dbpager/application/dbpagerd.cpp:60
+#: src/dbpager/application/dbpagerd.cpp:64
 msgid "name"
 msgstr "имя"
 
@@ -53,7 +54,7 @@ msgid "the URL or file name is not defined"
 msgstr "URL или имя файла не определено"
 
 #: src/dbpager/application/dbpager.cpp:104
-#: src/dbpager/application/dbpagerd.cpp:82
+#: src/dbpager/application/dbpagerd.cpp:87
 msgid "Copyright (c) 2008-2015 Dennis Prochko <wolfsoft@mail.ru>"
 msgstr "Авторские права (c) 2008-2015 Прочко Денис <wolfsoft@mail.ru>"
 
@@ -61,11 +62,15 @@ msgstr "Авторские права (c) 2008-2015 Прочко Денис <wol
 msgid "dbPager FastCGI Server"
 msgstr "Сервер dbPager FastCGI"
 
-#: src/dbpager/application/dbpagerd.cpp:114
+#: src/dbpager/application/dbpagerd.cpp:64
+msgid "store pid to this file"
+msgstr "сохранить идентификатор процесса в этот файл"
+
+#: src/dbpager/application/dbpagerd.cpp:130
 msgid "Initialization failed"
 msgstr "Проблема при инициализации"
 
-#: src/dbpager/application/dbpagerd.cpp:124
+#: src/dbpager/application/dbpagerd.cpp:140
 msgid ""
 "Can't bind to the {0}. Check your access rights or check for some other "
 "program using this resource"
@@ -73,26 +78,26 @@ msgstr ""
 "Невозможно привязаться к {0}. Проверьте ваши права доступа или наличие "
 "других программ, использующих этот ресурс"
 
-#: src/dbpager/application/dbpagerd.cpp:133
+#: src/dbpager/application/dbpagerd.cpp:149
 msgid "Can't switch current group to {0} - check your access rights"
 msgstr ""
 "Невозможно сменить текущую группу на {0} - проверьте ваши права доступа"
 
-#: src/dbpager/application/dbpagerd.cpp:136
+#: src/dbpager/application/dbpagerd.cpp:152
 msgid "No such group {0}"
 msgstr "Нет такой группы {0}"
 
-#: src/dbpager/application/dbpagerd.cpp:141
+#: src/dbpager/application/dbpagerd.cpp:157
 msgid "Can't switch current user to {0} - check your access rights"
 msgstr ""
 "Невозможно сменить текущего пользователя на {0} - проверьте ваши права "
 "доступа"
 
-#: src/dbpager/application/dbpagerd.cpp:144
+#: src/dbpager/application/dbpagerd.cpp:160
 msgid "No such user {0}"
 msgstr "Нет такого пользователя {0}"
 
-#: src/dbpager/application/dbpagerd.cpp:164
+#: src/dbpager/application/dbpagerd.cpp:180
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 
@@ -104,14 +109,14 @@ msgstr "Ошибка при разборе файла '{0}' - продолжен
 msgid "invalid XML structure of the request"
 msgstr "некорректная XML структура запроса"
 
-#: src/dbpager/interpreter/interpreter.cpp:134
+#: src/dbpager/interpreter/interpreter.cpp:135
 msgid ""
 "Configuration file \"{0}\" was not found; will use default values instead"
 msgstr ""
 "Конфигурационный файл \"{0}\" не найден; будут использованы значения по "
 "умолчанию"
 
-#: src/dbpager/interpreter/interpreter.cpp:140
+#: src/dbpager/interpreter/interpreter.cpp:141
 msgid "Configuration realoaded"
 msgstr "Конфигурация перезагружена"
 

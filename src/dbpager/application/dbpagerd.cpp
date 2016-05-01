@@ -27,6 +27,7 @@
  
 #include <stdexcept>
 #include <iostream>
+#include <fstream>
 #include <string>
 
 #include <dcl/daemon_application.h>
@@ -60,6 +61,10 @@ public:
 		  _("use an alternate configuration file"), _("name"),
 		  cmdline_parameter::OPTION_WITH_VALUE),
 		  create_delegate(this, &dbpagerd::on_alternate_config));
+		app.register_cmdline_parameter(cmdline_parameter('p', "pid-file",
+		  _("store pid to this file"), _("name"),
+		  cmdline_parameter::OPTION_WITH_VALUE),
+		  create_delegate(this, &dbpagerd::on_pid_file));
 		app.on_reload_configuration(create_delegate(this,
 		  &dbpagerd::reload_configuration));
 		app.on_execute(create_delegate(this, &dbpagerd::execute));
@@ -74,6 +79,7 @@ private:
 	int socket;
 	vector<thread*> threads;
 	string _config_file;
+	string _pid_file;
 	interpreter *dbpager;
 
 	// Show program version on -v command line parameter
@@ -86,6 +92,12 @@ private:
 	// Use the alternate configuration file on -f command line parameter
 	bool on_alternate_config(cmdline_parameter &param) {
 		_config_file = param.value;
+		return true;
+	}
+
+	// Use the alternate configuration file on -f command line parameter
+	bool on_pid_file(cmdline_parameter &param) {
+		_pid_file = param.value;
 		return true;
 	}
 
@@ -105,7 +117,12 @@ private:
 
 	// Main application code
 	int execute() {
-
+		if (!_pid_file.empty()) {
+			ofstream f;
+			f.open(_pid_file);
+			f << getpid();
+			f.close();
+		}
 		try {
 			dbpager = new interpreter(_config_file, app.get_logger());
 			const dbp::app_config &config = dbpager->get_config();

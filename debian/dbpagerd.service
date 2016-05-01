@@ -4,7 +4,10 @@ Documentation=http://dbpager.com
 After=network.target auditd.service
 
 [Service]
-ExecStart=/usr/bin/dbpagerd $DBPAGER_OPTS
+Type=forking
+PIDFile=/var/run/dbpagerd.pid
+ExecStart=/usr/bin/dbpagerd $DBPAGER_OPTS -p /var/run/dbpagerd.pid
+ExecStopPost=/bin/rm -f /var/run/dbpagerd.pid
 EnvironmentFile=-/etc/default/dbpagerd
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process

@@ -148,15 +148,15 @@ tag* dbpx_parser::process_node(const url &current_url, xmlTextReaderPtr reader,
 				if (namespace_uri.compare(0, dbpager_custom_uri.length(), dbpager_custom_uri) == 0) {
 					// custom tag processing
 					rslt = new tag_usr(object);
-				} else if (namespace_uri == xhtml_uri) {
-					// html tags processing
-					rslt = new tag_unknown(to_string<const char*>((const char*)xmlTextReaderConstName(reader)));
 				} else if (namespace_uri.compare(0, dbpager_uri.length(), dbpager_uri) == 0) {
 					// create tag with tag factory
 					rslt = _factory.create(namespace_uri, namespace_prefix, object);
-				} else
+				} else if (namespace_uri == its_uri) {
 					return NULL;
-
+				} else {
+					// html tags processing
+					rslt = new tag_unknown(to_string<const char*>((const char*)xmlTextReaderConstName(reader)));
+				}
 				if (!rslt)
 					throw parser_exception(0, (dbp::format(_("unknown tag found ({0})")) % object).str());
 			}

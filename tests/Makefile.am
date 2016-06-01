@@ -12,7 +12,8 @@ libdbpcore_la_CPPFLAGS = \
 	@libdclnet_CFLAGS@ \
 	@libxml2_CFLAGS@ \
 	@libpcrecpp_CFLAGS@ \
-	@libcurl_CFLAGS@
+	@libcurl_CFLAGS@ \
+	-lcrypt
 
 libdbpcore_la_SOURCES = \
 	../src/dbpager/parser/dbpx_parser.cpp \

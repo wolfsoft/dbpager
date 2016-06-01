@@ -22,8 +22,8 @@
 #include <locale.h>
 #include <cstdlib>
 
-#include <unistd.h>
 #define _GNU_SOURCE
+#include <unistd.h>
 #include <crypt.h>
 
 #include <algorithm>

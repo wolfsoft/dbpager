@@ -92,6 +92,7 @@ tag_factory::tag_factory() {
 	register_tag<function_encode_base64>(dbpager_uri, "@encode_base64");
 	register_tag<function_decode_base64>(dbpager_uri, "@decode_base64");
 	register_tag<function_md5>(dbpager_uri, "@md5");
+	register_tag<function_crypt>(dbpager_uri, "@crypt");
 	register_tag<function_uuid>(dbpager_uri, "@uuid");
 	register_tag<function_rnd>(dbpager_uri, "@rnd");
 	register_tag<function_upper>(dbpager_uri, "@upper");

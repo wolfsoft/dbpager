@@ -90,6 +90,18 @@ public:
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
+/*
+	function crypt(data, salt); salt can be in format $6$salt$, salt can be up to 16 chars.
+	Refer to: http://man7.org/linux/man-pages/man3/crypt.3.html
+
+*/
+class function_crypt: public tag_impl {
+public:
+	function_crypt(const std::string &tag_name = ""):
+	  tag_impl(tag_name) { };
+	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
+};
+
 class function_uuid: public tag_impl {
 public:
 	function_uuid(const std::string &tag_name = ""):

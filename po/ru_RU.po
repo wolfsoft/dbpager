@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-01 21:20+0300\n"
+"POT-Creation-Date: 2016-06-01 03:36+0300\n"
 "PO-Revision-Date: 2016-05-01 01:04+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -149,8 +149,8 @@ msgstr "ошибка при разборе файла '{0}'. {1}"
 msgid "invalid nested tags ({0})"
 msgstr "неверная вложенность тегов ({0})"
 
-#: src/dbpager/parser/dbpx_parser.cpp:161 src/dbpager/tag/tag_factory.cpp:125
-#: src/dbpager/tag/tag_factory.cpp:136
+#: src/dbpager/parser/dbpx_parser.cpp:161 src/dbpager/tag/tag_factory.cpp:126
+#: src/dbpager/tag/tag_factory.cpp:137
 msgid "unknown tag found ({0})"
 msgstr "обнаружен неизвестный тег ({0})"
 
@@ -158,13 +158,14 @@ msgstr "обнаружен неизвестный тег ({0})"
 msgid "href parameter missing for tag include"
 msgstr "у тега include отсутствует параметр href"
 
-#: src/dbpager/tag/functions.cpp:48 src/dbpager/tag/functions.cpp:64
-#: src/dbpager/tag/functions.cpp:75 src/dbpager/tag/functions.cpp:94
-#: src/dbpager/tag/functions.cpp:105 src/dbpager/tag/functions.cpp:117
-#: src/dbpager/tag/functions.cpp:129 src/dbpager/tag/functions.cpp:146
-#: src/dbpager/tag/functions.cpp:158 src/dbpager/tag/functions.cpp:170
-#: src/dbpager/tag/functions.cpp:190 src/dbpager/tag/functions.cpp:220
-#: src/dbpager/tag/functions.cpp:229 src/dbpager/tag/functions.cpp:239
+#: src/dbpager/tag/functions.cpp:52 src/dbpager/tag/functions.cpp:68
+#: src/dbpager/tag/functions.cpp:79 src/dbpager/tag/functions.cpp:98
+#: src/dbpager/tag/functions.cpp:109 src/dbpager/tag/functions.cpp:121
+#: src/dbpager/tag/functions.cpp:133 src/dbpager/tag/functions.cpp:145
+#: src/dbpager/tag/functions.cpp:161 src/dbpager/tag/functions.cpp:173
+#: src/dbpager/tag/functions.cpp:185 src/dbpager/tag/functions.cpp:205
+#: src/dbpager/tag/functions.cpp:235 src/dbpager/tag/functions.cpp:244
+#: src/dbpager/tag/functions.cpp:254
 msgid "wrong number of arguments ({0} instead {1} expected)"
 msgstr "неверное число аргументов ({0} вместо ожидаемых {1})"
 

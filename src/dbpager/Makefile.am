@@ -46,6 +46,7 @@ libdbpcore_la_SOURCES = \
 	tag/functions.cpp
 
 libdbpcore_la_LIBADD = \
+	-lcrypt \
 	../libdbpager/libdbpager.la \
 	../mimetic-0.9.7/mimetic/libmimetic.la \
 	@libdclbase_LIBS@ \

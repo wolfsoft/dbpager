@@ -22,6 +22,10 @@
 #include <locale.h>
 #include <cstdlib>
 
+#include <unistd.h>
+#define _GNU_SOURCE
+#include <crypt.h>
+
 #include <algorithm>
 #include <iterator>
 #include <iostream>
@@ -34,7 +38,7 @@
 #include <dcl/url.h>
 
 #include "tag/functions.h"
-#include <iostream>
+
 namespace dbpager {
 
 using namespace std;
@@ -132,6 +136,17 @@ void function_md5::execute(context &ctx, std::ostream &out,
 	(params.begin()->second)->execute(ctx, s, this);
 	s.seekg(0);
 	encoder_md5().encode(s, out);
+}
+
+void function_crypt::execute(context &ctx, std::ostream &out,
+  const tag*) const {
+	if (params.size() != 2)
+		throw function_exception(
+		  (format(_("wrong number of arguments ({0} instead {1} expected)")) %
+		    params.size() % 2).str());
+	struct crypt_data data;
+	data.initialized = 0;
+	out << crypt_r(get_parameter(ctx, "arg1").c_str(), get_parameter(ctx, "arg2").c_str(), &data);
 }
 
 void function_uuid::execute(context&, std::ostream &out,

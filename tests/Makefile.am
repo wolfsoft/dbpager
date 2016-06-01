@@ -12,8 +12,7 @@ libdbpcore_la_CPPFLAGS = \
 	@libdclnet_CFLAGS@ \
 	@libxml2_CFLAGS@ \
 	@libpcrecpp_CFLAGS@ \
-	@libcurl_CFLAGS@ \
-	-lcrypt
+	@libcurl_CFLAGS@
 
 libdbpcore_la_SOURCES = \
 	../src/dbpager/parser/dbpx_parser.cpp \
@@ -54,7 +53,8 @@ libdbpcore_la_LIBADD = \
 	@libdclnet_LIBS@ \
 	@libxml2_LIBS@ \
 	@libpcrecpp_LIBS@ \
-	@libcurl_LIBS@
+	@libcurl_LIBS@ \
+	-lcrypt
 
 check_PROGRAMS = \
 	test_functions \

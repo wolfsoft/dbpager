@@ -104,14 +104,12 @@ std::string mod_session_redis::get(const std::string &key) {
 	redisReply *reply = (redisReply*)redisCommand(c->get_ptr(), "GET %s", key.c_str());
 
 	if (reply) {
-		std::string rslt(reply->str);
+		std::string rslt = (reply->type == REDIS_REPLY_STRING && reply->str) ? string(reply->str) : string("");
 		freeReplyObject(reply);
 		return rslt;
 	} else {
 		throw mod_session_redis_exception(c->get_ptr()->errstr);
 	}
-
-	return string("");
 
 }
 

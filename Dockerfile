@@ -34,7 +34,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 	&& apt-get update && apt-get -y dist-upgrade \
 	&& apt-get -y install git autopoint libtool automake pkg-config gettext autoconf autotools-dev xsltproc scons build-essential \
 	\
-	&& apt-get -y install libssl-dev unixodbc-dev \
+	&& apt-get -y install libjsoncpp-dev libssl-dev unixodbc-dev \
 	&& git clone https://github.com/wolfsoft/libdcl.git \
 	&& cd libdcl && ./autogen.sh && ./configure --disable-gtk --disable-qt --disable-winapi --disable-doxygen-doc --without-apache && make -j4 && make install && cd .. \
 	\
@@ -44,7 +44,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 	&& find /usr/local/ -type f -exec strip -s '{}' 2>/dev/null ';' \
 	\
 	&& apt-get -y purge git autopoint libtool automake pkg-config gettext autoconf autotools-dev xsltproc scons build-essential \
-	&& apt-get -y purge manpages perl-modules unixodbc-dev \
+	&& apt-get -y purge manpages perl-modules libjsoncpp-dev unixodbc-dev \
 	&& apt-get -y autoremove --purge \
 	&& apt-get -y install `dpkg-query -f '${binary:Package}\n' -W|grep -e '^lib'|grep -v dev` \
 	&& apt-get -y purge .\*-dev \

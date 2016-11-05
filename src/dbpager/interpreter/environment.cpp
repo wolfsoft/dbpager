@@ -24,6 +24,7 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <mimetic/mimetic.h>
+#include <json/json.h>
 
 #include <dcl/filefs.h>
 
@@ -197,6 +198,19 @@ void http_environment::parse_plain(context &ctx, const dbp::http_request &req) {
 	}
 }
 
+void http_environment::parse_json(context &ctx, const dbp::http_request &req) {
+	Json::Value root;
+	Json::Reader reader;
+	if (!reader.parse(req.get_content(), root)) {
+		throw dbp::exception(_("invalid JSON structure of the request"));
+	}
+	// add entire content as a variable
+	Json::Value::Members members = root.getMemberNames();
+	for (Json::Value::Members::const_iterator i = members.begin(); i != members.end(); ++i) {
+		ctx.add_value(*i, root[*i].asString());
+	}
+}
+
 void http_environment::init_custom_params() {
 	// initialize default http request parameters
 	for (http_request::http_headers::const_iterator i = req.all_headers().begin();
@@ -241,9 +255,10 @@ void http_environment::init_custom_params() {
 			// select appropriate content parser method
 			if (compare()(ct, "application/x-www-form-urlencoded"))
 				parse_urlencoded(*session, req);
-			else
-			if (compare()(ct, "multipart/form-data"))
+			else if (compare()(ct, "multipart/form-data"))
 				parse_data(*session, req);
+			else if (compare()(ct, "application/json"))
+				parse_json(*session, req);
 			else
 				parse_plain(*session, req);
 			break;

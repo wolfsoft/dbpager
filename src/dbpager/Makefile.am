@@ -11,7 +11,8 @@ libdbpcore_la_CPPFLAGS = \
 	@libdclnet_CFLAGS@ \
 	@libxml2_CFLAGS@ \
 	@libpcrecpp_CFLAGS@ \
-	@libcurl_CFLAGS@
+	@libcurl_CFLAGS@ \
+	@jsoncpp_CFLAGS@
 
 libdbpcore_la_SOURCES = \
 	parser/dbpx_parser.cpp \
@@ -53,6 +54,7 @@ libdbpcore_la_LIBADD = \
 	@libxml2_LIBS@ \
 	@libpcrecpp_LIBS@ \
 	@libcurl_LIBS@ \
+	@jsoncpp_LIBS@ \
 	-lcrypt
 
 # Console application

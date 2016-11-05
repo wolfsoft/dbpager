@@ -64,6 +64,7 @@ private:
 	void parse_urlencoded(context&, const dbp::http_request&);
 	void parse_data(context&, const dbp::http_request&);
 	void parse_plain(context&, const dbp::http_request&);
+	void parse_json(context&, const dbp::http_request&);
 };
 
 } // namespace

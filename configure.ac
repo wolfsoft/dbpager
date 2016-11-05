@@ -20,7 +20,7 @@
 #
 
 # initialization
-AC_INIT([dbpager], [3.1.4], [wolfsoft@mail.ru])
+AC_INIT([dbpager], [3.1.5], [wolfsoft@mail.ru])
 AC_PREREQ([2.63])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])
@@ -221,6 +221,8 @@ if test -z $sed; then
 fi
 
 # Checks for libraries
+PKG_CHECK_MODULES(jsoncpp, [jsoncpp >= 0.6.0])
+
 PKG_CHECK_MODULES(libdclbase, [libdclbase >= 0.2.0])
 
 PKG_CHECK_MODULES(libdclnet, [libdclnet >= 0.2.0])

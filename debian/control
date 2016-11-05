@@ -3,6 +3,7 @@ Maintainer: Dennis Prochko <wolfsoft@mail.ru>
 Section: web
 Priority: optional
 Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), autotools-dev, xsltproc, pkg-config,
+ libjsoncpp-dev,
  unixodbc-dev | libiodbc2-dev, libdcl-dev (>= 0.2.0), libdb++-dev, libsqlite3-dev,
  libxml2-dev, libxslt1-dev | libxslt-dev, libpcre3-dev, libcurl4-openssl-dev,
  apache2-dev | apache2-threaded-dev | apache2-prefork-dev,

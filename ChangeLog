@@ -1,3 +1,7 @@
+2016-11-05  Dennis Prochko <wolfsoft@mail.ru>
+
+	* JSON object automatic parsing when posting content of type application/json
+
 2015-11-18  Dennis Prochko <wolfsoft@mail.ru>
 
 	* Sqlite native support

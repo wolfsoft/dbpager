@@ -38,6 +38,13 @@ void tag_try::execute(context &ctx, std::ostream &out, const tag *caller) const 
 		// call inherited method
 		tag_impl::execute(ctx, s, caller);
 		out << s.str();
+	} catch (app_exception &e) {
+		// find a catch tag
+		tag_catch *c = static_cast<tag_catch*>(get_child("catch"));
+		if (!c)
+		  throw;
+		// catch a program exception
+		c->process_exception(ctx, out, e, caller);
 	} catch (std::exception &e) {
 		// find a catch tag
 		tag_catch *c = static_cast<tag_catch*>(get_child("catch"));

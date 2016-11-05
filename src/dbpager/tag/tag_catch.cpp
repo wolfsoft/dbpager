@@ -46,4 +46,23 @@ void tag_catch::process_exception(context &ctx, std::ostream &out,
 	ctx.leave();
 }
 
+void tag_catch::process_exception(context &ctx, std::ostream &out,
+  const app_exception &e, const tag *caller) const {
+	// create new context layer
+	ctx.enter();
+	try {
+		ctx.add_value("error_code", to_string<int>(e.get_code()));
+		ctx.add_value("error_message", e.what());
+		// execute parent tags
+		tag_impl::execute(ctx, out, caller);
+	}
+	catch (...) {
+		// free context layer created
+		ctx.leave();
+		throw;
+	}
+	// free context layer created
+	ctx.leave();
+}
+
 } // namespace

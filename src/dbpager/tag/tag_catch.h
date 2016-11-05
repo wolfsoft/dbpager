@@ -29,6 +29,8 @@
 
 #include <dbpager/tag_impl.h>
 
+#include "tag_throw.h"
+
 namespace dbpager {
 
 class tag_catch: public tag_impl {
@@ -38,6 +40,8 @@ public:
 	  const tag *caller) const { };
 	void process_exception(context &ctx, std::ostream &out,
 	  const std::exception &e, const tag *caller) const;
+	void process_exception(context &ctx, std::ostream &out,
+	  const app_exception &e, const tag *caller) const;
 };
 
 }

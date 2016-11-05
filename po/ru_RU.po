@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-05 06:56+0300\n"
+"POT-Creation-Date: 2016-11-06 00:06+0300\n"
 "PO-Revision-Date: 2016-11-05 07:07+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -109,7 +109,7 @@ msgstr "Ошибка при разборе файла '{0}' - продолжен
 msgid "invalid JSON structure of the request"
 msgstr "некорректная JSON структура запроса"
 
-#: src/dbpager/interpreter/environment.cpp:284
+#: src/dbpager/interpreter/environment.cpp:290
 msgid "invalid XML structure of the request"
 msgstr "некорректная XML структура запроса"
 

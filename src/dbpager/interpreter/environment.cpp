@@ -204,10 +204,16 @@ void http_environment::parse_json(context &ctx, const dbp::http_request &req) {
 	if (!reader.parse(req.get_content(), root)) {
 		throw dbp::exception(_("invalid JSON structure of the request"));
 	}
-	// add entire content as a variable
-	Json::Value::Members members = root.getMemberNames();
-	for (Json::Value::Members::const_iterator i = members.begin(); i != members.end(); ++i) {
-		ctx.add_value(*i, root[*i].asString());
+	if (root.isObject()) {
+		// parse json object members
+		Json::Value::Members members = root.getMemberNames();
+		for (Json::Value::Members::const_iterator i = members.begin(); i != members.end(); ++i) {
+			if (root[*i].isConvertibleTo(Json::ValueType::stringValue))
+				ctx.add_value(*i, root[*i].asString());
+		}
+	} else {
+		Json::FastWriter writer;
+		ctx.add_value("content", writer.write(root));
 	}
 }
 

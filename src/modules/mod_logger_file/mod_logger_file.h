@@ -36,7 +36,7 @@ public:
 	mod_logger_file_exception(const std::string &msg): dbp::exception(msg) { }
 };
 
-class mod_logger_file: public dbp::logger, public dbp::disposable {
+class mod_logger_file: public dbp::logger {
 public:
 	virtual void log(dbp::log_level::log_level level, const std::string &message);
 };

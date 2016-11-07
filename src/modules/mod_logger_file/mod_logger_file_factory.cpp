@@ -21,6 +21,7 @@
 
 #include <string.h>
 
+#include <dcl/app_config.h>
 #include <dcl/plugin.h>
 
 #include "mod_logger_file.h"
@@ -30,19 +31,22 @@ namespace dbpager {
 using namespace dbp;
 using namespace std;
 
+string dest;
+bool async;
+
 // Export two functions for creating/destroying object, as required by
 // dbp::plugin class
 
 extern "C" {
 
-void init(void *config) {
-//	string dest = config->value("services.logger.file", "path", "/dev/null");
-//	bool async = config->value("services.logger.file", "async", false);
+void init(dbp::app_config *config) {
+	dest = config->value("services.logger.file", "path", "/dev/null");
+	async = config->value("services.logger.file", "async", false);
 };
 
 disposable* create_object(const char *object_name) {
 	if (strcmp(object_name, "file") == 0)
-		return new mod_logger_file();
+		return (dbp::disposable*)new mod_logger_file();
 	else
 		return NULL;
 };

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-06 00:06+0300\n"
+"POT-Creation-Date: 2016-11-07 20:05+0300\n"
 "PO-Revision-Date: 2016-11-05 07:07+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -215,7 +215,7 @@ msgstr "невозможно преобразовать строку в числ
 msgid "invalid expression: primary expected"
 msgstr "неверное выражение: ожидалось число"
 
-#: src/dbpager/tag/tag_http.cpp:101
+#: src/dbpager/tag/tag_http.cpp:106
 msgid "http request failed: {0}"
 msgstr "не удалось выполнить http запрос: {0}"
 

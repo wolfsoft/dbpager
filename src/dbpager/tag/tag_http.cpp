@@ -29,6 +29,8 @@
 
 #include <curl/curl.h>
 
+#include "dbpager/consts.h"
+
 namespace dbpager {
 
 using namespace std;
@@ -64,16 +66,19 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 	ostringstream content(ostringstream::out | ostringstream::binary);
 	tag_impl::execute(ctx, content, caller);
 	string content_str = content.str();
-
+	string http_agent = string("Mozilla/5.0 ") + app_full_name;
 	try {
 
 		curl_easy_setopt(curl, CURLOPT_URL, href.str().c_str());
-		curl_easy_setopt(curl, CURLOPT_USERAGENT, "Mozilla/5.0 dbpager/3.1.0");
+		curl_easy_setopt(curl, CURLOPT_USERAGENT, http_agent.c_str());
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &out);
 
 		if (!content_str.empty()) {
+#ifdef CURLOPT_SAFE_UPLOAD
+			curl_easy_setopt(curl, CURLOPT_SAFE_UPLOAD, true);
+#endif
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content_str.c_str());
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, content_str.length());
 		}

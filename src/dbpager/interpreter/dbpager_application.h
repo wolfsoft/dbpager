@@ -41,6 +41,7 @@ public:
 	explicit dbpager_application(services *svc, const dbp::url &u);
 	void execute(dbpager::environment &env, std::ostream &out) const;
 private:
+	dbpager_application() { };
 #ifdef HAVE_CXX11
 	std::unique_ptr<tag> t;
 #else

@@ -30,8 +30,16 @@ namespace dbpager {
 using namespace std;
 using namespace dbp;
 
+mod_logger_file::mod_logger_file(const std::string &path, bool async) {
+	out.open(path, std::ios::app);
+}
+
+mod_logger_file::~mod_logger_file() {
+	out.close();
+}
+
 void mod_logger_file::log(log_level::log_level level, const std::string &message) {
-	//TODO
+	out << message << endl << flush;
 }
 
 } // namespace

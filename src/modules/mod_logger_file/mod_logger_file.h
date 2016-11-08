@@ -24,6 +24,7 @@
 
 #include <string>
 #include <ostream>
+#include <fstream>
 
 #include <dcl/exception.h>
 #include <dcl/logger.h>
@@ -38,7 +39,11 @@ public:
 
 class mod_logger_file: public dbp::logger {
 public:
+	virtual ~mod_logger_file();
+	mod_logger_file(const std::string &path, bool async);
 	virtual void log(dbp::log_level::log_level level, const std::string &message);
+private:
+	std::ofstream out;
 };
 
 }

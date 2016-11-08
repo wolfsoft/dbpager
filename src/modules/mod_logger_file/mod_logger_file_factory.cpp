@@ -46,7 +46,7 @@ void init(dbp::app_config *config) {
 
 disposable* create_object(const char *object_name) {
 	if (strcmp(object_name, "file") == 0)
-		return (dbp::disposable*)new mod_logger_file();
+		return (dbp::disposable*)new mod_logger_file(dest, async);
 	else
 		return NULL;
 };

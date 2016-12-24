@@ -6,6 +6,7 @@ test ! -f Makefile || make distclean
 # delete all temporary and backup files
 find . -iname '*~'|xargs rm -f
 find . -iname '*.bak'|xargs rm -f
+find . -iname '*.la'|xargs rm -f
 find . -iname '*.lot'|xargs rm -f
 find . -iname ".deps"|xargs rm -rf
 find . -iname ".libs"|xargs rm -rf

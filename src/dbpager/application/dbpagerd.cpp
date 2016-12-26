@@ -227,7 +227,6 @@ private:
 		FCGX_PutS("\r\n", stream);
 
 		FCGX_PutStr(out.str().c_str(), out.str().length(), stream);
-		FCGX_PutS("\r\n", stream);
 		FCGX_FFlush(stream);
 	}
 

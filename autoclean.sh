@@ -10,6 +10,9 @@ find . -iname '*.la'|xargs rm -f
 find . -iname '*.lot'|xargs rm -f
 find . -iname ".deps"|xargs rm -rf
 find . -iname ".libs"|xargs rm -rf
+find . -iname "*.log"|xargs rm -f
+find . -iname "*.o"|xargs rm -f
+find . -iname "*.trs"|xargs rm -f
 
 # brought in by gettext
 rm -f gettext.h

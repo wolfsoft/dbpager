@@ -31,15 +31,16 @@ using namespace std;
 using namespace dbp;
 
 void tag_regexp::execute(context &ctx, std::ostream &out, const tag *caller) const {
-	string expression = string("(") + get_parameter(ctx, "expr") + string(")");
+	string expression = get_parameter(ctx, "expr");
+	if (expression.find('(') == string::npos)
+		expression = string("(") + expression + string(")");
 	string value = get_parameter(ctx, "value");
 	string variable = get_parameter(ctx, "name");
 	string with = get_parameter(ctx, "with");
 	if (variable.empty()) {
 		variable = "result";
 	}
-	pcrecpp::RE re(expression,
-	  pcrecpp::RE_Options(PCRE_CASELESS|PCRE_MULTILINE|PCRE_UTF8));
+	pcrecpp::RE re(expression, pcrecpp::RE_Options(PCRE_MULTILINE|PCRE_UTF8));
 	if (!with.empty()) {
 		// replace
 		if (re.GlobalReplace(with, &value) > 0) {

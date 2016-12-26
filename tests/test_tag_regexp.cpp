@@ -35,7 +35,7 @@ public:
 			t.add_parameter("name", name);
 			// expression
 			tag *expression = new tag_impl();
-			expression->set_text("is");
+			expression->set_text("(is)");
 			t.add_parameter("expr", expression);
 			// value
 			tag *value = new tag_impl();
@@ -88,7 +88,7 @@ public:
 			t.add_parameter("name", name);
 			// expression
 			tag *expression = new tag_impl();
-			expression->set_text("is");
+			expression->set_text("(is)");
 			t.add_parameter("expr", expression);
 			// value
 			tag *value = new tag_impl();

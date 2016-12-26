@@ -51,7 +51,7 @@
 # queue directive
 #
 # Specifies what task queue engine to use.
-# Available values: gearman, beanstalkd, sqs, rabbitmq, internal
+# Available values: redis, beanstalkd, sqs, rabbitmq, internal
 #
 # queue = internal
 

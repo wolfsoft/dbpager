@@ -1,0 +1,3 @@
+usr/lib/dbpager/libdbp_mqtt*.so.*
+usr/lib/dbpager/libdbp_mqtt*.so
+etc/dbpager/modules-available/dbp_mqtt.conf

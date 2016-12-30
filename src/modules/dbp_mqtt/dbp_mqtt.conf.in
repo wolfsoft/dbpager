@@ -1,0 +1,30 @@
+#
+# This directive assigns the XML namespace to the dbPager dbp_pgsql module.
+# The module provides support of native PostgreSQL data sources (databases).
+#
+[modules]
+http://dbpager.org.ru/schemas/dbp/3.0/mqtt = @PLUGINSDIR@/libdbp_mqtt.so
+
+#
+# Module parameters
+#
+[modules.mqtt]
+#
+# Mqtt server host name or IP address. Default is localhost.
+#
+# host = 127.0.0.1
+
+#
+# Mqtt server port number. Default is 1883.
+#
+# host = 1883
+
+#
+# User name. If not defined, no authentication will used on connection.
+#
+# user =
+
+#
+# Password. The password to use on authentication.
+#
+# password =

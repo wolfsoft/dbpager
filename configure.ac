@@ -2,7 +2,7 @@
 # configure.ac
 # This file is part of dbPager Server
 #
-# Copyright (c) 2008 Dennis Prochko <wolfsoft@mail.ru>
+# Copyright (c) 2008-2016 Dennis Prochko <wolfsoft@mail.ru>
 #
 # dbPager Server is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #
 
 # initialization
-AC_INIT([dbpager], [3.1.6], [wolfsoft@mail.ru])
+AC_INIT([dbpager], [3.2.0], [wolfsoft@mail.ru])
 AC_PREREQ([2.63])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])
@@ -51,9 +51,9 @@ AC_CONFIG_MACRO_DIR([m4])
 # 6. If any interfaces have been removed since the last public
 #    release, then set age to 0.
 #
-ABI_CUR=6
+ABI_CUR=7
 ABI_REV=0
-ABI_AGE=2
+ABI_AGE=3
 AC_SUBST(ABI_CUR)
 AC_SUBST(ABI_REV)
 AC_SUBST(ABI_AGE)
@@ -200,6 +200,13 @@ AC_ARG_ENABLE(dbp_script,
 	[build dbp_script plugin (default=auto)]),
 	[use_script=$enableval],
 	[use_script=auto]
+)
+
+AC_ARG_ENABLE(dbp_mqtt,
+	AS_HELP_STRING([--enable-dbp_mqtt={yes|no}],
+	[build dbp_mqtt plugin (default=auto)]),
+	[use_mqtt=$enableval],
+	[use_mqtt=auto]
 )
 
 # Checks for c++ features
@@ -441,6 +448,39 @@ AC_SUBST(LIBV8_LIBS)
 
 AM_CONDITIONAL(WITH_SCRIPT, test "$use_script" = "yes")
 
+#check mod_mqtt option
+AC_CHECK_LIB(mosquittopp, main,
+[
+	if test "$use_mqtt" != "no"; then
+		AC_LANG_PUSH([C++])
+		AC_CHECK_HEADERS([mosquittopp.h], [
+			use_mqtt="yes"
+			LIBMQTT_CFLAGS=""
+			LIBMQTT_LIBS="-lmosquittopp"
+		],
+		[
+			if test "$use_mqtt" = "yes"; then
+				AC_MSG_ERROR([development files of mosquittopp library\
+ are required to dbp_mqtt plugin, but not found.])
+			fi
+			use_mqtt="no"
+		])
+		AC_LANG_POP
+	fi
+],
+[
+	if test "$use_mqtt" = "yes"; then
+		AC_MSG_ERROR([libmosquittopp library is required to dbp_mqtt plugin,\
+ but not found.])
+	fi
+	use_mqtt="no"
+])
+
+AC_SUBST(LIBMQTT_CFLAGS)
+AC_SUBST(LIBMQTT_LIBS)
+
+AM_CONDITIONAL(WITH_MQTT, test "$use_mqtt" = "yes")
+
 AX_WITH_APACHE()
 
 AC_CHECK_HEADERS([windows.h],
@@ -518,6 +558,8 @@ AC_CONFIG_FILES([
    src/modules/dbp_mongo/dbp_mongo.conf
    src/modules/dbp_script/Makefile
    src/modules/dbp_script/dbp_script.conf
+   src/modules/dbp_mqtt/Makefile
+   src/modules/dbp_mqtt/dbp_mqtt.conf
    src/modules/mod_logger_file/Makefile
    src/modules/mod_logger_file/mod_logger_file.conf
    src/modules/mod_session_memcached/Makefile
@@ -546,6 +588,7 @@ echo Berkeley DB module....................................$use_bdb
 echo Gearman module........................................$use_gearman
 echo Mongo module..........................................$use_mongo
 echo Script module.........................................$use_script
+echo MQTT module...........................................$use_mqtt
 echo
 echo Type \`make\` to compile dbPager software with these features
 echo

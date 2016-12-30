@@ -1,3 +1,16 @@
+2016-12-30  Dennis Prochko <wolfsoft@mail.ru>
+
+	* version bump
+	* regexp expr automatic group "( )" if missed
+	* remove extra CRLF after response
+	* bugfix (empty json body)
+	* implemented base file logger
+	* pluggable logger bugfix
+	* better json input handling
+	* error_code available in the <dbp:catch>
+	* docker & travis update
+	* simple json content/type parsing on requests
+
 2016-11-05  Dennis Prochko <wolfsoft@mail.ru>
 
 	* JSON object automatic parsing when posting content of type application/json

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-30 21:03+0300\n"
-"PO-Revision-Date: 2016-11-05 07:07+0300\n"
+"POT-Creation-Date: 2016-12-31 14:30+0300\n"
+"PO-Revision-Date: 2016-12-31 17:36+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
 "Language: ru_RU\n"
@@ -338,13 +338,17 @@ msgstr "запрос не определен в текущем контекст�
 msgid "parameter name (name) is not defined"
 msgstr "имя параметра (name) не определено"
 
-#: src/modules/dbp_mqtt/tag_pub.cpp:54 src/modules/dbp_mqtt/tag_sub.cpp:41
+#: src/modules/dbp_mqtt/tag_pub.cpp:53 src/modules/dbp_mqtt/tag_sub.cpp:44
 msgid "MQTT connection is not established yet"
-msgstr ""
+msgstr "Соединение MQTT ещё не установлено"
 
-#: src/modules/dbp_mqtt/tag_pub.cpp:59
+#: src/modules/dbp_mqtt/tag_pub.cpp:57
 msgid "MQTT message publish failed"
-msgstr ""
+msgstr "Не удалось опубликовать сообщение MQTT"
+
+#: src/modules/dbp_mqtt/tag_sub.cpp:48
+msgid "Can't subscribe to MQTT topic"
+msgstr "Невозможно подписаться на тему MQTT"
 
 #: src/modules/dbp_odbc/tag_database.cpp:41
 #: src/modules/dbp_pgsql/tag_database.cpp:37

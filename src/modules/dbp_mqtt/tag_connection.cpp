@@ -23,6 +23,8 @@
 
 #include <dcl/strutils.h>
 
+#include <dbpager/consts.h>
+
 #include "tag_connection.h"
 
 namespace dbpager {
@@ -40,13 +42,13 @@ void tag_connection::execute(context &ctx, std::ostream &out,
 	}
 
 	ctx.enter();
-	mosquittopp::mosquittopp conn(NULL);
+	mosquittopp::mosquittopp conn(app_full_name.c_str());
 	try {
 		if (!user.empty())
 			if (conn.username_pw_set(user.c_str(), password.c_str()) != MOSQ_ERR_SUCCESS)
-				throw new tag_connection_exception("Can't authenticate on MQTT server");
+				throw tag_connection_exception("Can't authenticate on MQTT server");
 		if (conn.connect(host.c_str(), from_string<int>(port)) != MOSQ_ERR_SUCCESS)
-			throw new tag_connection_exception("Can't establish MQTT connection");
+			throw tag_connection_exception("Can't establish MQTT connection");
 		// save the pointer to connection for nested tags
 		ctx.add_value(string("@MOSQUITTO:CONNECTION@"),
 		  dbp::to_string<mosquittopp::mosquittopp*>(&conn));

@@ -46,8 +46,8 @@ void init(app_config *config) {
 	if (config) {
 		host = config->value("modules.mqtt", "host", "127.0.0.1");
 		port = config->value("modules.mqtt", "port", "1883");
-		host = config->value("modules.mqtt", "user", string());
-		port = config->value("modules.mqtt", "password", string());
+		user = config->value("modules.mqtt", "user", string());
+		password = config->value("modules.mqtt", "password", string());
 	}
 };
 

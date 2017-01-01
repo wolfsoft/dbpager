@@ -49,7 +49,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 	&& apt-get -y purge git autopoint libtool automake pkg-config gettext autoconf autotools-dev xsltproc scons build-essential \
 	&& apt-get -y purge manpages perl-modules unixodbc-dev \
 	&& apt-get -y autoremove --purge \
-	&& apt-get -y install `dpkg-query -f '${binary:Package}\n' -W|grep -e '^lib'|grep -v dev` \
+	&& apt-get -y install `dpkg-query -f '${binary:Package}\n' -W|grep -e '^lib'|grep -v dev` libpqxx-4.0 \
 	&& apt-get -y purge .\*-dev \
 	&& apt-get -y autoremove --purge \
 	&& apt-get -y clean \

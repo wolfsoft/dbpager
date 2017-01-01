@@ -20,6 +20,7 @@
  */
 
 #include <mosquittopp.h>
+#include <mosquitto.h>
 
 #include <dcl/strutils.h>
 
@@ -32,6 +33,14 @@ namespace dbpager {
 using namespace std;
 using namespace dbp;
 
+#if LIBMOSQUITTO_MAJOR==0
+using namespace mosquittopp;
+#define MQTT_NS mosquittopp
+#else
+using namespace mosqpp;
+#define MQTT_NS mosqpp
+#endif
+
 void tag_connection::execute(context &ctx, std::ostream &out,
   const tag *caller) const {
 
@@ -42,7 +51,7 @@ void tag_connection::execute(context &ctx, std::ostream &out,
 	}
 
 	ctx.enter();
-	mosquittopp::mosquittopp conn(app_full_name.c_str());
+	MQTT_NS::mosquittopp conn(app_full_name.c_str());
 	try {
 		if (!user.empty())
 			if (conn.username_pw_set(user.c_str(), password.c_str()) != MOSQ_ERR_SUCCESS)
@@ -51,7 +60,7 @@ void tag_connection::execute(context &ctx, std::ostream &out,
 			throw tag_connection_exception("Can't establish MQTT connection");
 		// save the pointer to connection for nested tags
 		ctx.add_value(string("@MOSQUITTO:CONNECTION@"),
-		  dbp::to_string<mosquittopp::mosquittopp*>(&conn));
+		  dbp::to_string<MQTT_NS::mosquittopp*>(&conn));
 		tag_impl::execute(ctx, out, caller);
 		ctx.leave();
 		conn.disconnect();

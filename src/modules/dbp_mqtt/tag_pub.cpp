@@ -20,6 +20,7 @@
  */
 
 #include <mosquittopp.h>
+#include <mosquitto.h>
 
 #include <vector>
 
@@ -31,6 +32,14 @@ namespace dbpager {
 
 using namespace std;
 using namespace dbp;
+
+#if LIBMOSQUITTO_MAJOR==0
+using namespace mosquittopp;
+#define MQTT_NS mosquittopp
+#else
+using namespace mosqpp;
+#define MQTT_NS mosqpp
+#endif
 
 void tag_pub::execute(context &ctx, std::ostream &out,
   const tag *caller) const {
@@ -51,7 +60,7 @@ void tag_pub::execute(context &ctx, std::ostream &out,
 	string m_ptr = ctx.get_value(string("@MOSQUITTO:CONNECTION@"));
 	if (m_ptr.empty())
 		throw tag_pub_exception(_("MQTT connection is not established yet"));
-	mosquittopp::mosquittopp *conn = (mosquittopp::mosquittopp*)from_string<void*>(m_ptr);
+	MQTT_NS::mosquittopp *conn = (MQTT_NS::mosquittopp*)from_string<void*>(m_ptr);
 
 	if (conn->publish(NULL, topic.c_str(), payload.length(), (const uint8_t*)payload.c_str(), from_string<int>(qos), from_string<bool>(retain)) != MOSQ_ERR_SUCCESS)
 		throw tag_pub_exception(_("MQTT message publish failed"));

@@ -31,6 +31,9 @@ COPY . dbpager/
 # Install dependencies, compile from sources, cleaning up
 RUN export DEBIAN_FRONTEND=noninteractive \
 	&& export CXXFLAGS="-O3" \
+	&& echo "deb http://mirror.yandex.ru/debian jessie main contrib non-free" > /etc/apt/sources.list \
+	&& echo "deb http://mirror.yandex.ru/debian jessie-updates main contrib non-free" >> /etc/apt/sources.list \
+	&& echo "deb http://security.debian.org jessie/updates main contrib non-free" >> /etc/apt/sources.list \
 	&& apt-get update && apt-get -y dist-upgrade \
 	&& apt-get -y install git autopoint libtool automake pkg-config gettext autoconf autotools-dev xsltproc scons build-essential \
 	\
@@ -38,7 +41,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 	&& git clone https://github.com/wolfsoft/libdcl.git \
 	&& cd libdcl && ./autogen.sh && ./configure --disable-gtk --disable-qt --disable-winapi --disable-doxygen-doc --without-apache && make -j4 && make install && cd .. \
 	\
-	&& apt-get -y install libjsoncpp-dev libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libcurl4-openssl-dev libmemcached-dev libgearman-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libpqxx-dev libv8-dev libhiredis-dev \
+	&& apt-get -y install libjsoncpp-dev libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libcurl4-openssl-dev libmemcached-dev libgearman-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libpqxx-dev libv8-dev libhiredis-dev libmosquitto-dev libmosquittopp-dev \
 	&& cd dbpager && ./autogen.sh && ./configure --disable-dbp_cgi --disable-mod_dbp --disable-dbp_odbc --disable-dbp_isapi && make -j4 && make install && cd .. \
 	\
 	&& find /usr/local/ -type f -exec strip -s '{}' 2>/dev/null ';' \

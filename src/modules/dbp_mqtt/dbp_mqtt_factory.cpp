@@ -20,6 +20,7 @@
  */
 
 #include <mosquittopp.h>
+#include <mosquitto.h>
 
 #include <string.h>
 
@@ -35,6 +36,14 @@ namespace dbpager {
 using namespace dbp;
 using namespace std;
 
+#if LIBMOSQUITTO_MAJOR==0
+using namespace mosquittopp;
+#define MQTT_NS mosquittopp
+#else
+using namespace mosqpp;
+#define MQTT_NS mosqpp
+#endif
+
 // Export functions as required by dbp::plugin class
 
 string host, port, user, password;
@@ -42,7 +51,11 @@ string host, port, user, password;
 extern "C" {
 
 void init(app_config *config) {
-	mosquittopp::mosquittopp::lib_init();
+#if LIBMOSQUITTO_MAJOR==0
+	MQTT_NS::mosquittopp::lib_init();
+#else
+	MQTT_NS::lib_init();
+#endif
 	if (config) {
 		host = config->value("modules.mqtt", "host", "127.0.0.1");
 		port = config->value("modules.mqtt", "port", "1883");
@@ -74,7 +87,11 @@ void destroy_object(disposable *object) {
 };
 
 void finalize() {
-	mosquittopp::mosquittopp::lib_cleanup();
+#if LIBMOSQUITTO_MAJOR==0
+	MQTT_NS::mosquittopp::lib_cleanup();
+#else
+	MQTT_NS::lib_cleanup();
+#endif
 };
 
 } // extern

@@ -11,6 +11,8 @@ Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), autotools-dev, xsltproc, p
  libgearman-dev | gearmand, libevent-dev, uuid-dev,
  scons, libboost-thread-dev, libboost-filesystem-dev, libboost-system-dev,
  libpqxx-dev | libpqxx3-dev, libv8-dev
+ libmosquitto-dev | libmosquitto0-dev, libmosquittopp-dev | libmosquittopp0-dev
+
 Standards-Version: 3.9.5
 Homepage: http://dbpager.com
 
@@ -183,6 +185,14 @@ Conflicts: libdbp-script
 Description: dbPager Server extension - JavaScript support
  This is a dbPager Language interpretators extension. It provides
  server-side JavaScript.
+
+Package: dbpager-mqtt
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libdbp-mqtt
+Description: dbPager Server extension - MQTT protocol support
+ This is a dbPager Language interpretators extension. It provides
+ MQTT protocol support.
 
 Package: dbpager-dbg
 Architecture: any

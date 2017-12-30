@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -30,6 +30,8 @@
 #include "parser/parser.h"
 
 #include "tag/tag_var.h"
+#include "tag/tag_map.h"
+#include "tag/tag_list.h"
 #include "tag/tag_set.h"
 #include "tag/tag_try.h"
 #include "tag/tag_catch.h"
@@ -63,6 +65,18 @@ tag_factory::tag_factory() {
 	register_tag<tag_impl>(dbpager_uri, "include");
 	register_tag<tag_var>(dbpager_uri, "var");
 	register_tag<tag_set>(dbpager_uri, "set");
+	register_tag<tag_map>(dbpager_uri, "map");
+	register_tag<tag_map_set>(dbpager_uri, "map-set");
+	register_tag<tag_map_unset>(dbpager_uri, "map-unset");
+	register_tag<tag_map_element>(dbpager_uri, "map-element");
+	register_tag<tag_map_elements>(dbpager_uri, "map-elements");
+	register_tag<tag_map_from_json>(dbpager_uri, "map-from-json");
+	register_tag<tag_map_to_json>(dbpager_uri, "map-to-json");
+	register_tag<tag_list>(dbpager_uri, "list");
+	register_tag<tag_list_add>(dbpager_uri, "list-add");
+	register_tag<tag_list_remove>(dbpager_uri, "list-remove");
+	register_tag<tag_list_element>(dbpager_uri, "list-element");
+	register_tag<tag_list_elements>(dbpager_uri, "list-elements");
 	register_tag<tag_try>(dbpager_uri, "try");
 	register_tag<tag_catch>(dbpager_uri, "catch");
 	register_tag<tag_throw>(dbpager_uri, "throw");

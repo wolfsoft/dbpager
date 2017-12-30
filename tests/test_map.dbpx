@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<dbp:module
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+>
+
+<dbp:map name="m1">
+<dbp:map-set name="m1" key="key1" value="value1" />
+<dbp:map-set name="m1" key="key2" value="value2" />
+<dbp:map-set name="m1" key="key3" value="value3" />
+<dbp:map-unset name="m1" key="key2" />
+<dbp:map-element name="m1" key="key1">$m1_key1={$m1_key1}</dbp:map-element>
+<dbp:map-elements name="m1">$m1_key={$m1_value}</dbp:map-elements>
+</dbp:map>
+
+</dbp:module>

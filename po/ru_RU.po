@@ -9,15 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-01 15:28+0300\n"
-"PO-Revision-Date: 2016-12-31 17:36+0300\n"
+"POT-Creation-Date: 2017-12-30 21:16+0300\n"
+"PO-Revision-Date: 2017-12-30 21:28+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: src/dbpager/application/dbp_cgi.cpp:114
 #: src/dbpager/application/dbpagerd.cpp:179
@@ -153,8 +153,8 @@ msgstr "ошибка при разборе файла '{0}'. {1}"
 msgid "invalid nested tags ({0})"
 msgstr "неверная вложенность тегов ({0})"
 
-#: src/dbpager/parser/dbpx_parser.cpp:161 src/dbpager/tag/tag_factory.cpp:126
-#: src/dbpager/tag/tag_factory.cpp:137
+#: src/dbpager/parser/dbpx_parser.cpp:161 src/dbpager/tag/tag_factory.cpp:140
+#: src/dbpager/tag/tag_factory.cpp:151
 msgid "unknown tag found ({0})"
 msgstr "обнаружен неизвестный тег ({0})"
 
@@ -219,6 +219,15 @@ msgstr "неверное выражение: ожидалось число"
 msgid "http request failed: {0}"
 msgstr "не удалось выполнить http запрос: {0}"
 
+#: src/dbpager/tag/tag_list.cpp:55 src/dbpager/tag/tag_list.cpp:68
+#: src/dbpager/tag/tag_list.cpp:81 src/dbpager/tag/tag_list.cpp:107
+msgid "list '{0}' was not defined in the current context"
+msgstr "список '{0}' не определен в текущем контексте"
+
+#: src/dbpager/tag/tag_list.cpp:88
+msgid "element '{0}' was not found on list '{1}'"
+msgstr "элемент '{0}' не найден в списке '{1}'"
+
 #: src/dbpager/tag/tag_locale.cpp:38
 msgid "message domain (domain) is not defined"
 msgstr "домен сообщений (domain) не определен"
@@ -229,6 +238,16 @@ msgid ""
 "defined"
 msgstr ""
 "основной каталог иерархии, содержащий файлы сообщений (path) не определен"
+
+#: src/dbpager/tag/tag_map.cpp:56 src/dbpager/tag/tag_map.cpp:69
+#: src/dbpager/tag/tag_map.cpp:82 src/dbpager/tag/tag_map.cpp:108
+#: src/dbpager/tag/tag_map.cpp:132 src/dbpager/tag/tag_map.cpp:143
+msgid "map '{0}' was not defined in the current context"
+msgstr "ассоциативный массив '{0}' не определен в текущем контексте"
+
+#: src/dbpager/tag/tag_map.cpp:89
+msgid "element '{0}' was not found on map '{1}'"
+msgstr "элемент '{0}' не найден в ассоциативном массиве '{1}'"
 
 #: src/dbpager/tag/tag_read.cpp:49
 msgid "file {0} not found or read error"
@@ -270,6 +289,7 @@ msgstr "имя ключа (name) не определено"
 #: src/modules/dbp_odbc/tag_transaction.cpp:40
 #: src/modules/dbp_pgsql/tag_query.cpp:44
 #: src/modules/dbp_pgsql/tag_transaction.cpp:41
+#: src/modules/dbp_redis/tag_query.cpp:41
 #: src/modules/dbp_sqlite/tag_query.cpp:41
 #: src/modules/dbp_sqlite/tag_transaction.cpp:40
 msgid "(default)"
@@ -360,6 +380,7 @@ msgstr "имя источника данных (dsn) не определено"
 #: src/modules/dbp_odbc/tag_transaction.cpp:43
 #: src/modules/dbp_pgsql/tag_query.cpp:47
 #: src/modules/dbp_pgsql/tag_transaction.cpp:44
+#: src/modules/dbp_redis/tag_query.cpp:44
 #: src/modules/dbp_sqlite/tag_query.cpp:44
 #: src/modules/dbp_sqlite/tag_transaction.cpp:43
 msgid "database (id='{0}') is not defined in the current context"

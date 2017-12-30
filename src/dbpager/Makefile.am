@@ -25,6 +25,8 @@ libdbpcore_la_SOURCES = \
 	tag/tag_execute.cpp \
 	tag/tag_unknown.cpp \
 	tag/tag_var.cpp \
+	tag/tag_map.cpp \
+	tag/tag_list.cpp \
 	tag/tag_set.cpp \
 	tag/tag_try.cpp \
 	tag/tag_catch.cpp \

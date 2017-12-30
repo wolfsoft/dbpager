@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -28,21 +28,12 @@ namespace dbpager {
 using namespace std;
 using namespace dbp;
 
-void replace_with(string &src, const string &what, const string &with) {    
-	if (what != with) {
-		string temp;
-		string::size_type prev_pos = 0, pos = src.find(what, 0);
-		while (string::npos != pos ) {
-			temp += string(src.begin() + prev_pos, src.begin() + pos) + with;
-			prev_pos = pos + what.size();
-			pos = src.find(what, prev_pos);
-		}
-		if (!temp.empty()) {
-			src = temp + string(src.begin() + prev_pos, src.end());
-			if (string::npos == with.find(what)) {
-				replace_with(src, what, with);
-			}
-		}
+void replace_with(string &source, const string &find, const string &replace) {
+	const string::size_type r_length = replace.length();
+	const string::size_type f_length = find.length();
+	for (string::size_type i = 0; (i = source.find(find, i)) != string::npos;) {
+		source.replace(i, f_length, replace);
+		i += r_length;
 	}
 }
 

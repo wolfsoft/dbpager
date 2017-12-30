@@ -19,5 +19,5 @@ end script
 
 post-stop script
 	kill `cat /var/run/$UPSTART_JOB.pid`
-    rm -f /var/run/$UPSTART_JOB.pid
+	rm -f /var/run/$UPSTART_JOB.pid
 end script

@@ -17,7 +17,7 @@ http://dbpager.org.ru/schemas/dbp/3.0/mqtt = @PLUGINSDIR@/libdbp_mqtt.so
 #
 # Mqtt server port number. Default is 1883.
 #
-# host = 1883
+# port = 1883
 
 #
 # User name. If not defined, no authentication will used on connection.

@@ -11,6 +11,12 @@
 <dbp:map-unset name="m1" key="key2" />
 <dbp:map-element name="m1" key="key1">$m1_key1={$m1_key1}</dbp:map-element>
 <dbp:map-elements name="m1">$m1_key={$m1_value}</dbp:map-elements>
+<dbp:map-to-json name="m1" />
+</dbp:map>
+
+<dbp:map name="m2">
+	<dbp:map-from-json name="m2">\{"key1":"value1"\}</dbp:map-from-json>
+	<dbp:map-element name="m2" key="key1">$m2_key1={$m2_key1}</dbp:map-element>
 </dbp:map>
 
 </dbp:module>

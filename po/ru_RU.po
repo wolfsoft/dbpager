@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-30 21:16+0300\n"
+"POT-Creation-Date: 2017-12-30 21:50+0300\n"
 "PO-Revision-Date: 2017-12-30 21:28+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -220,13 +220,9 @@ msgid "http request failed: {0}"
 msgstr "не удалось выполнить http запрос: {0}"
 
 #: src/dbpager/tag/tag_list.cpp:55 src/dbpager/tag/tag_list.cpp:68
-#: src/dbpager/tag/tag_list.cpp:81 src/dbpager/tag/tag_list.cpp:107
+#: src/dbpager/tag/tag_list.cpp:81 src/dbpager/tag/tag_list.cpp:102
 msgid "list '{0}' was not defined in the current context"
 msgstr "список '{0}' не определен в текущем контексте"
-
-#: src/dbpager/tag/tag_list.cpp:88
-msgid "element '{0}' was not found on list '{1}'"
-msgstr "элемент '{0}' не найден в списке '{1}'"
 
 #: src/dbpager/tag/tag_locale.cpp:38
 msgid "message domain (domain) is not defined"
@@ -402,6 +398,9 @@ msgstr "входной поток не содержит корректных XML
 #: src/modules/dbp_xslt/tag_transform.cpp:65
 msgid "can't transform XML data"
 msgstr "невозможно преобразовать данные XML"
+
+#~ msgid "element '{0}' was not found on list '{1}'"
+#~ msgstr "элемент '{0}' не найден в списке '{1}'"
 
 #~ msgid "Http error: {0}"
 #~ msgstr "Ошибка HTTP: {0}"

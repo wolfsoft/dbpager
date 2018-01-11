@@ -26,6 +26,8 @@ libdbpcore_la_SOURCES = \
 	../src/dbpager/tag/tag_execute.cpp \
 	../src/dbpager/tag/tag_unknown.cpp \
 	../src/dbpager/tag/tag_var.cpp \
+	../src/dbpager/tag/tag_map.cpp \
+	../src/dbpager/tag/tag_list.cpp \
 	../src/dbpager/tag/tag_set.cpp \
 	../src/dbpager/tag/tag_try.cpp \
 	../src/dbpager/tag/tag_catch.cpp \

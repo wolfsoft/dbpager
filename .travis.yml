@@ -11,6 +11,7 @@ addons:
     - g++-4.8
 before_install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+  - sudo rm -f /etc/apt/sources.list.d/mongodb*
   - sudo apt-get update
   - sudo apt-get install git autopoint libtool automake gettext autoconf autotools-dev
   - sudo apt-get install libjsoncpp-dev libssl-dev xsltproc doxygen graphviz libgtk2.0-dev libqt4-dev libapr1-dev apache2-threaded-dev unixodbc-dev

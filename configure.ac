@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with dbPager Server; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, 
+# Foundation, Inc., 51 Franklin St, Fifth Floor,
 # Boston, MA  02110-1301  USA
 #
 
@@ -29,14 +29,14 @@ AC_CONFIG_MACRO_DIR([m4])
 # version of the libdbpager and dbpager modules is current:revision:age
 #
 # current
-#  The most recent interface number that this library implements. 
+#  The most recent interface number that this library implements.
 # revision
-#  The implementation number of the current interface. 
+#  The implementation number of the current interface.
 # age
 #  The difference between the newest and oldest interfaces that
 #  this library implements. In other words, the library
 #  implements all the interface numbers in the range from
-#  number current - age to current. 
+#  number current - age to current.
 #
 # 1. Start with version information of 0:0:0 for each libtool library.
 # 2. Update the version information only immediately before a public

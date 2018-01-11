@@ -1,3 +1,6 @@
 usr/lib/dbpager/libmod_session_redis*.so.*
 usr/lib/dbpager/libmod_session_redis*.so
 etc/dbpager/services-available/mod_session_redis.conf
+usr/lib/dbpager/libdbp_redis*.so.*
+usr/lib/dbpager/libdbp_redis*.so
+etc/dbpager/modules-available/dbp_redis.conf

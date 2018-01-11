@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-30 21:50+0300\n"
+"POT-Creation-Date: 2018-01-10 16:31+0300\n"
 "PO-Revision-Date: 2017-12-30 21:28+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -105,7 +105,7 @@ msgstr "Неизвестная ошибка"
 msgid "Fatal error: can't parse file {0}"
 msgstr "Ошибка при разборе файла '{0}' - продолжение невозможно"
 
-#: src/dbpager/interpreter/environment.cpp:207
+#: src/dbpager/interpreter/environment.cpp:207 src/dbpager/tag/tag_map.cpp:143
 msgid "invalid JSON structure of the request"
 msgstr "некорректная JSON структура запроса"
 
@@ -235,13 +235,13 @@ msgid ""
 msgstr ""
 "основной каталог иерархии, содержащий файлы сообщений (path) не определен"
 
-#: src/dbpager/tag/tag_map.cpp:56 src/dbpager/tag/tag_map.cpp:69
-#: src/dbpager/tag/tag_map.cpp:82 src/dbpager/tag/tag_map.cpp:108
-#: src/dbpager/tag/tag_map.cpp:132 src/dbpager/tag/tag_map.cpp:143
+#: src/dbpager/tag/tag_map.cpp:57 src/dbpager/tag/tag_map.cpp:70
+#: src/dbpager/tag/tag_map.cpp:83 src/dbpager/tag/tag_map.cpp:109
+#: src/dbpager/tag/tag_map.cpp:133 src/dbpager/tag/tag_map.cpp:163
 msgid "map '{0}' was not defined in the current context"
 msgstr "ассоциативный массив '{0}' не определен в текущем контексте"
 
-#: src/dbpager/tag/tag_map.cpp:89
+#: src/dbpager/tag/tag_map.cpp:90
 msgid "element '{0}' was not found on map '{1}'"
 msgstr "элемент '{0}' не найден в ассоциативном массиве '{1}'"
 

@@ -1,3 +1,9 @@
+dbpager (3.2.1) stable; urgency=low
+
+  * Upstream update.
+
+ -- Dennis Prochko <wolfsoft@mail.ru>  Sat, 30 Dec 2017 21:40:00 +0300
+
 dbpager (3.2.0) stable; urgency=low
 
   * Upstream update.

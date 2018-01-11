@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<dbp:module
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+	xmlns:redis="http://dbpager.org.ru/schemas/dbp/3.0/redis"
+>
+
+<redis:connection>
+	<redis:query statement="LPUSH key value">
+		<dbp:log>{$value}</dbp:log>
+	</redis:query>
+	<redis:query statement="LPUSH key value">
+		<dbp:log>{$value}</dbp:log>
+	</redis:query>
+	<redis:query statement="LRANGE key 0 -1">
+		<dbp:log>{$value}</dbp:log>
+	</redis:query>
+</redis:connection>
+
+</dbp:module>

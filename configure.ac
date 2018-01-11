@@ -2,7 +2,7 @@
 # configure.ac
 # This file is part of dbPager Server
 #
-# Copyright (c) 2008-2016 Dennis Prochko <wolfsoft@mail.ru>
+# Copyright (c) 2008-2018 Dennis Prochko <wolfsoft@mail.ru>
 #
 # dbPager Server is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #
 
 # initialization
-AC_INIT([dbpager], [3.2.0], [wolfsoft@mail.ru])
+AC_INIT([dbpager], [3.2.1], [wolfsoft@mail.ru])
 AC_PREREQ([2.63])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])
@@ -566,6 +566,8 @@ AC_CONFIG_FILES([
    src/modules/mod_session_memcached/mod_session_memcached.conf
    src/modules/mod_session_redis/Makefile
    src/modules/mod_session_redis/mod_session_redis.conf
+   src/modules/dbp_redis/Makefile
+   src/modules/dbp_redis/dbp_redis.conf
    src/data/Makefile
    tests/Makefile
 ])

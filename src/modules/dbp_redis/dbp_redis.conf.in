@@ -1,14 +1,21 @@
 #
-# This directive assigns the default session storage subsystem to the mod_session_redis module.
-# The module provides session storage service by using Redis database.
+# This directive assigns the XML namespace to the dbPager dbp_redis module.
+# The module provides support of native Redis data sources (databases).
 #
-[services]
-session.backend.redis = @PLUGINSDIR@/libmod_session_redis.so
+[modules]
+http://dbpager.org.ru/schemas/dbp/3.0/redis = @PLUGINSDIR@/libdbp_redis.so
 
 #
 # Module parameters
 #
-[services.session.redis]
+[modules.redis]
+#
+# pool_connections directive
+#
+# Maximum number of persistent database connections (0 - unlimited).
+#
+# pool_connections = 0
+
 #
 # server directive
 #
@@ -37,12 +44,3 @@ session.backend.redis = @PLUGINSDIR@/libmod_session_redis.so
 # By default, a client is connected to database 0.
 #
 # database = 0
-
-#
-# ttl directive
-#
-# Specifies the session time-to-live in the cache (in seconds). This is a time
-# of the user inactivity - each user request resets the timer and the session
-# is closed when timer is out. Zero is the infinity.
-#
-# ttl = 0

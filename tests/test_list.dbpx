@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+
+<dbp:module
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+>
+
+<dbp:list name="m1">
+<dbp:list-add name="m1" value="value1" />
+<dbp:list-add name="m1" value="value2" />
+<dbp:list-remove name="m1" number="1" />
+<dbp:list-add name="m1" value="value3" />
+<dbp:list-elements name="m1">{$m1_value}</dbp:list-elements>
+</dbp:list>
+
+</dbp:module>

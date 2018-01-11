@@ -1,0 +1,16 @@
+{
+	"name": "strutils",
+	"description": "dbPager String Utils Library",
+	"version": "3.0.0",
+	"keywords": ["dbPager", "standard", "library"],
+	"homepage": "https://dbpager.com",
+	"license": "GPL-3.0",
+	"author": "Dennis Prochko <wolfsoft@mail.ru>",
+	"files": [
+		"strutils.dbpx"
+	],
+	"repository": {
+		"type" : "git",
+		"url" : "https://github.com/npm/npm.git"
+	}
+}

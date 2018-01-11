@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+
+<dbp:module
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+	xmlns:user="http://dbpager.org.ru/schemas/dbp/3.0/user"
+	xmlns:global="http://dbpager.org.ru/schemas/dbp/3.0/global"
+	xmlns:local="http://dbpager.org.ru/schemas/dbp/3.0/local"
+	xmlns:param="http://dbpager.org.ru/schemas/dbp/3.0/param"
+	xmlns:my1="http://dbpager.org.ru/schemas/dbp/3.0/custom/my1"
+	xmlns:my2="http://dbpager.org.ru/schemas/dbp/3.0/custom/my2"
+	xmlns:usr="http://dbpager.org.ru/schemas/dbp/3.0/custom"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+
+<!-- user namespace (cookie based session storage) -->
+{$user:user_id}
+
+<!-- global namespace (till end the script) -->
+{$global:root_path}
+
+<!-- local namespace (current level) -->
+<dbp:var name="v" value="pass">
+{$local:v}
+</dbp:var>
+
+<!-- param passed in GET or POST query -->
+{$param:user_id}
+
+<dbp:var name="my1:test" value="pass">
+<dbp:var name="ny1:test" value="pass">
+{$my1:test}{$my2:test}
+</dbp:var></dbp:var>
+
+
+</dbp:module>

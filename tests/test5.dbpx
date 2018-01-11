@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<dbp:module
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+	xmlns:usr="http://dbpager.org.ru/schemas/dbp/3.0/custom"
+	xmlns="http://unknown.com/custom/namespace"
+>
+
+<dbp:tag name="hello">
+	hello
+</dbp:tag>
+
+<dbp:tag name="world">
+	<world>world</world>
+</dbp:tag>
+
+<usr:hello />
+<usr:world />
+
+</dbp:module>

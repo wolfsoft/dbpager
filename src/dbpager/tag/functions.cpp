@@ -2,7 +2,7 @@
  * functions.cpp
  * This file is part of dbPager Server
  *
- * Copyright (C) 2008 - Dennis Prochko
+ * Copyright (C) 2008-2018 - Dennis Prochko
  *
  * dbPager Server is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -255,6 +255,18 @@ void function_date_fmt::execute(context &ctx, std::ostream &out, const tag*) con
 		    params.size() % 2).str());
 	datetime d(get_parameter(ctx, "arg2"), "%s");
 	out << d.str(get_parameter(ctx, "arg1"));
+}
+
+void function_env::execute(context &ctx, std::ostream &out, const tag*) const {
+	if (params.size() != 1) {
+		throw function_exception(
+		  (format(_("wrong number of arguments ({0} instead {1} expected)")) %
+		    params.size() % 1).str());
+	}
+
+	char *val = getenv(get_parameter(ctx, "arg1").c_str());
+	if (val)
+		out << val;
 }
 
 } // namespace

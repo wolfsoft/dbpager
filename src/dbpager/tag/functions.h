@@ -2,7 +2,7 @@
  * functions.h
  * This file is part of dbPager Server
  *
- * Copyright (C) 2008 - Dennis Prochko
+ * Copyright (C) 2008-2018 - Dennis Prochko
  *
  * dbPager Server is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -160,6 +160,13 @@ public:
 class function_date_fmt: public tag_impl {
 public:
 	function_date_fmt(const std::string &tag_name = ""):
+	  tag_impl(tag_name) { };
+	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
+};
+
+class function_env: public tag_impl {
+public:
+	function_env(const std::string &tag_name = ""):
 	  tag_impl(tag_name) { };
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };

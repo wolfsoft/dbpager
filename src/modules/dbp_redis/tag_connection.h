@@ -41,7 +41,8 @@ public:
 class tag_connection: public tag_impl {
 public:
 	int database_number;
-	std::string server, password;
+	std::string server;
+	std::string password;
 	tag_connection(const std::string &tag_name = ""): database_number(0), tag_impl(tag_name) { };
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };

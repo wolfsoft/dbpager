@@ -69,7 +69,7 @@ void interpreter::load() {
 		options = new app_config();
 		options->load_from_file(config_filename);
 
-		if (options->value("application", "pool", "unlimited") != string("0")) {
+		if (options->value("application", "pool", string("unlimited")) != string("0")) {
 			use_cache = true;
 		}
 
@@ -79,7 +79,7 @@ void interpreter::load() {
 			loaded_logger = NULL;
 		}
 
-		const string &log_type = options->value("services", "log", "internal");
+		const string &log_type = options->value("services", "log", string("internal"));
 		if (log_type != string("internal")) {
 			string module = options->value("services", string("logger.backend.") + log_type, string(""));
 			if (!module.empty()) {
@@ -100,7 +100,7 @@ void interpreter::load() {
 			session = NULL;
 		}
 
-		const string &session_type = options->value("services", "session", "internal");
+		const string &session_type = options->value("services", "session", string("internal"));
 		if (session_type != string("internal")) {
 			const string &module = options->value("services", string("session.backend.") + session_type, string(""));
 
@@ -146,7 +146,7 @@ interpreter::dbpager_application_ptr interpreter::get_app(const dbp::url &u) {
 		dbpager_application_ptr app(new dbpager_application(this, u));
 		return app;
 	}
-	
+
 	app_cache::const_iterator it = apps.find(u.str());
 	if (it != apps.end())
 		return it->second;

@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -57,8 +57,8 @@ void init(app_config *config) {
 	MQTT_NS::lib_init();
 #endif
 	if (config) {
-		host = config->value("modules.mqtt", "host", "127.0.0.1");
-		port = config->value("modules.mqtt", "port", "1883");
+		host = config->value("modules.mqtt", "host", string("127.0.0.1"));
+		port = config->value("modules.mqtt", "port", string("1883"));
 		user = config->value("modules.mqtt", "user", string());
 		password = config->value("modules.mqtt", "password", string());
 	}

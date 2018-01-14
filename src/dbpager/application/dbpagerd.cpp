@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -24,7 +24,7 @@
 #include <sys/stat.h>
 #include <pwd.h>
 #include <grp.h>
- 
+
 #include <stdexcept>
 #include <iostream>
 #include <fstream>
@@ -130,7 +130,7 @@ private:
 			if (FCGX_Init() != 0)
 				throw std::runtime_error(_("Initialization failed"));
 
-			string socket_path = config.value("dbpagerd", "bind", fcgi_unix_socket_path);
+			string socket_path = config.value("dbpagerd", "bind", string(fcgi_unix_socket_path));
 
 			mode_t old_umask = umask(0);
 			socket = FCGX_OpenSocket(socket_path.c_str(), 128); // SOMAXCONN
@@ -141,8 +141,8 @@ private:
 					(format(_("Can't bind to the {0}. Check your access rights or check for some other program using this resource")) % socket_path).str());
 
 			// drop priveleges
-			string user_name = config.value("dbpagerd", "user", "nobody");
-			string group_name = config.value("dbpagerd", "group", "nogroup");
+			string user_name = config.value("dbpagerd", "user", string("nobody"));
+			string group_name = config.value("dbpagerd", "group", string("nogroup"));
 
 			if (group *grp = getgrnam(group_name.c_str())) {
 				if (setegid(grp->gr_gid) != 0)

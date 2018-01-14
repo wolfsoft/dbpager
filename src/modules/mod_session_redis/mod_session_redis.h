@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -38,7 +38,7 @@ public:
 
 class mod_session_redis: public session {
 public:
-	mod_session_redis(): ttl(0) { };
+	mod_session_redis(): ttl(0), database_number(0) { };
 	virtual std::string get(const std::string &key);
 	virtual void put(const std::string &key, const std::string &value);
 	void set_server(const std::string &server) {
@@ -46,11 +46,19 @@ public:
 	}
 	void set_ttl(int ttl) {
 		this->ttl = ttl;
-	};
+	}
+	void set_database_number(int database_number) {
+		this->database_number = database_number;
+	}
+	void set_password(const std::string &password) {
+		this->password = password;
+	}
 private:
+	int ttl;
+	int database_number;
 	std::string empty;
 	std::string server;
-	int ttl;
+	std::string password;
 };
 
 }

@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -40,7 +40,7 @@ bool async;
 extern "C" {
 
 void init(dbp::app_config *config) {
-	dest = config->value("services.logger.file", "path", "/dev/null");
+	dest = config->value("services.logger.file", "path", string("/dev/null"));
 	async = config->value("services.logger.file", "async", false);
 };
 

@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -34,12 +34,14 @@ using namespace std;
 
 // Export functions as required by dbp::plugin class
 
-string server, password;
+std::string server;
+std::string password;
 int database_number;
 
 extern "C" {
 
 void init(app_config *config) {
+	server = string("localhost:6379");
 	database_number = 0;
 	redis_pool &p = redis_pool::instance();
 	if (config) {
@@ -47,7 +49,7 @@ void init(app_config *config) {
 		if (cnt) {
 			p.reset(auto_ptr<pool_size_policy>(new pool_size_limited_policy(cnt)));
 		}
-		server = config->value("modules.redis", "server", "localhost:6379");
+		server = config->value("modules.redis", "server", string("localhost:6379"));
 		password = config->value("modules.redis", "password", string());
 		database_number = config->value("modules.redis", "database", 0);
 	}

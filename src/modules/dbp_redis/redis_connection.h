@@ -48,12 +48,45 @@ public:
 		return configured;
 	}
 
-	void configure(const std::string &host, int port) {
-		c = redisConnect(host.c_str(), port);
-		if (c == NULL || c->err) {
-			throw redis_exception(c->errstr);
+	void configure(const std::string &host_and_port) {
+		// split by comma
+		dbp::strings s = dbp::tokenize()(dbp::trim()(host_and_port));
+		for (dbp::strings::const_iterator i = s.begin(); i != s.end(); ++i) {
+			dbp::strings hp = dbp::tokenize()(*i, ":");
+			int p = 6379;
+			if (hp.size() > 1)
+				p = dbp::from_string<int>(dbp::trim()(hp[1]));
+			std::string host = dbp::trim()(hp[0]);
+
+			c = redisConnect(host.c_str(), p);
+			if (c == NULL || c->err) {
+				throw redis_exception(std::string(c->errstr));
+			}
+
+			configured = true;
 		}
-		configured = true;
+	}
+
+	void login(const std::string &password) {
+		if (!configured)
+			return;
+
+		redisReply *reply = (redisReply*)redisCommand(c, "AUTH %s", password.c_str());
+		if (!reply)
+			throw redis_exception(c->errstr);
+
+		freeReplyObject(reply);
+	}
+
+	void select_database(int database) {
+		if (!configured)
+			return;
+
+		redisReply *reply = (redisReply*)redisCommand(c, "SELECT %d", database);
+		if (!reply)
+			throw redis_exception(c->errstr);
+
+		freeReplyObject(reply);
 	}
 
 	redisContext* get_ptr() {

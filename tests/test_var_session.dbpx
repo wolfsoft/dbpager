@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+<dbp:module
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+>
+
+<dbp:var name="hello" value="hello, world!" type="user" />
+
+{$hello}
+
+</dbp:module>

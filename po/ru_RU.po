@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-10 16:31+0300\n"
+"POT-Creation-Date: 2018-01-14 03:55+0300\n"
 "PO-Revision-Date: 2017-12-30 21:28+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -153,8 +153,8 @@ msgstr "ошибка при разборе файла '{0}'. {1}"
 msgid "invalid nested tags ({0})"
 msgstr "неверная вложенность тегов ({0})"
 
-#: src/dbpager/parser/dbpx_parser.cpp:161 src/dbpager/tag/tag_factory.cpp:140
-#: src/dbpager/tag/tag_factory.cpp:151
+#: src/dbpager/parser/dbpx_parser.cpp:161 src/dbpager/tag/tag_factory.cpp:141
+#: src/dbpager/tag/tag_factory.cpp:152
 msgid "unknown tag found ({0})"
 msgstr "обнаружен неизвестный тег ({0})"
 
@@ -169,7 +169,7 @@ msgstr "у тега include отсутствует параметр href"
 #: src/dbpager/tag/functions.cpp:161 src/dbpager/tag/functions.cpp:173
 #: src/dbpager/tag/functions.cpp:185 src/dbpager/tag/functions.cpp:205
 #: src/dbpager/tag/functions.cpp:235 src/dbpager/tag/functions.cpp:244
-#: src/dbpager/tag/functions.cpp:254
+#: src/dbpager/tag/functions.cpp:254 src/dbpager/tag/functions.cpp:263
 msgid "wrong number of arguments ({0} instead {1} expected)"
 msgstr "неверное число аргументов ({0} вместо ожидаемых {1})"
 

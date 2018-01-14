@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -40,7 +40,7 @@ int ttl = 0;
 extern "C" {
 
 void init(dbp::app_config *config) {
-	servers = config->value("services.session.memcached", "servers", "localhost:11211");
+	servers = config->value("services.session.memcached", "servers", string("localhost:11211"));
 	ttl = config->value("services.session.memcached", "ttl", 0);
 };
 

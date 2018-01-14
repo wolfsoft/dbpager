@@ -48,7 +48,11 @@ void tag_connection::execute(context &ctx, std::ostream &out,
 	try {
 		dbp::pool_ptr<redis_connection> c = redis_pool::instance().acquire(server + connection);
 		if (!c->is_configured()) {
-			c->configure("localhost", 6379);
+			c->configure(server);
+			if (!password.empty())
+				c->login(password);
+			if (database_number > 0)
+				c->select_database(database_number);
 		}
 		// save the pointer to connection for nested tags
 		ctx.add_value(string("@REDIS:CONNECTION@") + connection, to_string<redis_connection*>(&*c));

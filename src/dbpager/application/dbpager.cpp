@@ -15,10 +15,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
- 
+
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -96,12 +96,12 @@ private:
 			}
 		};
 	private:
-		strings &_vars;	
+		strings &_vars;
 	};
 
 	bool on_version(cmdline_parameter&) {
 		cout << app_full_name << ". " <<
-		  _("Copyright (c) 2008-2015 Dennis Prochko <wolfsoft@mail.ru>") << endl;
+		  _("Copyright (c) 2008-2018 Dennis Prochko <wolfsoft@mail.ru>") << endl;
 		return false;
 	};
 

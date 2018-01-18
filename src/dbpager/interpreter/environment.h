@@ -40,7 +40,7 @@ public:
 	//! Obtain the environment's context (variables initialized)
 	context* get_context();
 	//! Initializes the environment parameters
-	virtual void init_custom_params() = 0; //TODO
+	virtual void init_custom_params() = 0;
 protected:
 	context *global, *user, *session;
 	dbpager::interpreter &in;
@@ -51,7 +51,7 @@ public:
 	//! Constructor; initializes the environment
 	explicit http_environment(dbpager::interpreter&, const dbp::http_request&);
 	//! Initializes the environment parameters
-	virtual void init_custom_params(); //TODO
+	virtual void init_custom_params();
 	//! Initialize response with environment parameters
 	void init_response(dbp::http_response&);
 	//! Maps uri to application main file, i.e. acts as a request router

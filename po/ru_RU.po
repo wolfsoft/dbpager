@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-14 03:55+0300\n"
+"POT-Creation-Date: 2018-01-18 01:29+0300\n"
 "PO-Revision-Date: 2017-12-30 21:28+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -55,8 +55,8 @@ msgstr "URL или имя файла не определено"
 
 #: src/dbpager/application/dbpager.cpp:104
 #: src/dbpager/application/dbpagerd.cpp:88
-msgid "Copyright (c) 2008-2015 Dennis Prochko <wolfsoft@mail.ru>"
-msgstr "Авторские права (c) 2008-2015 Прочко Денис <wolfsoft@mail.ru>"
+msgid "Copyright (c) 2008-2018 Dennis Prochko <wolfsoft@mail.ru>"
+msgstr "Авторские права (c) 2008-2018 Прочко Денис <wolfsoft@mail.ru>"
 
 #: src/dbpager/application/dbpagerd.cpp:55
 msgid "dbPager FastCGI Server"

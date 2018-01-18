@@ -71,6 +71,8 @@ rm -f stamp-h1
 rm -f depcomp
 rm -f ltmain.sh
 rm -f libtool
+rm -f compile
+rm -f mimetic/config.h.in
 
 cd ../..
 cd src/fcgi-2.4.1-SNAP-0311112127
@@ -93,6 +95,8 @@ rm -f stamp-h1
 rm -f depcomp
 rm -f ltmain.sh
 rm -f libtool
+rm -f compile
+rm -f fcgi_config.h.in
 
 cd ../..
 # delete all temporary and backup files

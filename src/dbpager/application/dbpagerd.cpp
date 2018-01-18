@@ -82,10 +82,17 @@ private:
 	string _pid_file;
 	interpreter *dbpager;
 
+#ifdef HAVE_CXX11
+	typedef std::unordered_map<std::string, std::string> string_map;
+#else
+	typedef std::tr1::unordered_map<std::string, std::string> string_map;
+#endif
+	typedef pair<dbp::http_request, string_map> req_env;
+
 	// Show program version on -v command line parameter
 	bool on_version(cmdline_parameter&) {
 		cout << app_full_name << ". " <<
-		  _("Copyright (c) 2008-2015 Dennis Prochko <wolfsoft@mail.ru>") << endl;
+		  _("Copyright (c) 2008-2018 Dennis Prochko <wolfsoft@mail.ru>") << endl;
 		return false;
 	}
 
@@ -200,7 +207,7 @@ private:
 			if (FCGX_Accept_r(&request) < 0)
 				break;
 
-			http_request req = get_request(request.envp, request.in);
+			req_env req = get_request(request.envp, request.in);
 			http_response resp;
 
 			try {
@@ -230,12 +237,12 @@ private:
 		FCGX_FFlush(stream);
 	}
 
-	http_response process_cgi_request(const http_request &req) {
+	http_response process_cgi_request(const req_env &req) {
 		// initialize the response
 		http_response resp;
 		resp.set_header("X-Powered-By", app_full_name + string(" (FastCGI)"));
 
-		http_environment env(*dbpager, req);
+		fastcgi_environment env(*dbpager, req);
 		try {
 			// convert application path to URL
 			dbp::url u("file://" + env.get_path());
@@ -285,9 +292,10 @@ private:
 	};
 
 	/* copypaste from cgi_application.cpp */
-	http_request get_request(char **env, FCGX_Stream *stream) {
+	req_env get_request(char **env, FCGX_Stream *stream) {
 		http_request req;
 		int c_len = 0;
+		string_map env_vars;
 		// read environment variables
 		while (env && *env) {
 			// split PARAM=VALUE of the environment
@@ -346,6 +354,8 @@ private:
 						pos = left.find_first_of("_");
 					}
 					req.set_header(left, right);
+				} else {
+					env_vars[string("ENV_") + left] = right;
 				}
 			}
 			// check next environment variable
@@ -359,8 +369,24 @@ private:
 			delete[] buf;
 		}
 
-		return req;
+		return make_pair(req, env_vars);
 	}
+
+	// Helper application environment class
+	class fastcgi_environment: public http_environment {
+	public:
+		explicit fastcgi_environment(dbpager::interpreter &interpreter, const req_env &req):
+		  http_environment(interpreter, req.first), _req(req) { };
+		virtual void init_custom_params() {
+			http_environment::init_custom_params();
+			const string_map &env = _req.second;
+			for (string_map::const_iterator i = env.begin(); i != env.end(); ++i) {
+				session->add_value(i->first, i->second);
+			}
+		};
+	private:
+		const req_env &_req;
+	};
 
 };
 

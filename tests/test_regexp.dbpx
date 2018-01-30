@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<dbp:module
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+>
+
+<dbp:var name="article" value='This is a article with &lt;img src=&apos;data:xxx&apos; width="0" height="0"/> image'>
+	<!-- extract first image -->
+	<dbp:var name="first" value="1">
+	<dbp:regexp name="r" expr='&lt;img.+?src=["&apos;](.+?)["&apos;]' value="{$article}">
+		<dbp:switch test="{$first}">
+			<dbp:case match="1">
+					<img src="{$r}" alt="{$title}" style="max-height:36px;max-width:36px;float:left;margin-right:8px"/>
+				<dbp:set name="first">0</dbp:set>
+			</dbp:case>
+		</dbp:switch>
+	</dbp:regexp>
+	</dbp:var>
+</dbp:var>
+
+</dbp:module>

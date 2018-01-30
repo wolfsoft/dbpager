@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -40,7 +40,7 @@ void tag_regexp::execute(context &ctx, std::ostream &out, const tag *caller) con
 	if (variable.empty()) {
 		variable = "result";
 	}
-	pcrecpp::RE re(expression, pcrecpp::RE_Options(PCRE_MULTILINE|PCRE_UTF8));
+	pcrecpp::RE re(expression, pcrecpp::RE_Options(PCRE_CASELESS|PCRE_MULTILINE|PCRE_UTF8));
 	if (!with.empty()) {
 		// replace
 		if (re.GlobalReplace(with, &value) > 0) {

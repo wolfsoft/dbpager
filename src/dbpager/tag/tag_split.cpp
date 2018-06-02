@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -96,10 +96,9 @@ void tag_split::execute(context &ctx, std::ostream &out, const tag *caller) cons
 					--i;
 					string v = ctx.get_value(*i);
 					while (j != str.end()) {
+						v += sep;
 						v += *j;
 						++j;
-						if (j != str.end())
-							v += sep;
 					}
 					ctx.set_value(*i, v);
 				}

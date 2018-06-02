@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-18 01:29+0300\n"
+"POT-Creation-Date: 2018-06-02 22:28+0300\n"
 "PO-Revision-Date: 2017-12-30 21:28+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -20,8 +20,8 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 
 #: src/dbpager/application/dbp_cgi.cpp:114
-#: src/dbpager/application/dbpagerd.cpp:179
-#: src/dbpager/application/dbpagerd.cpp:281
+#: src/dbpager/application/dbpagerd.cpp:186
+#: src/dbpager/application/dbpagerd.cpp:288
 msgid "Internal error: {0}"
 msgstr "Внутренняя ошибка: {0}"
 
@@ -54,7 +54,7 @@ msgid "the URL or file name is not defined"
 msgstr "URL или имя файла не определено"
 
 #: src/dbpager/application/dbpager.cpp:104
-#: src/dbpager/application/dbpagerd.cpp:88
+#: src/dbpager/application/dbpagerd.cpp:95
 msgid "Copyright (c) 2008-2018 Dennis Prochko <wolfsoft@mail.ru>"
 msgstr "Авторские права (c) 2008-2018 Прочко Денис <wolfsoft@mail.ru>"
 
@@ -66,11 +66,11 @@ msgstr "Сервер dbPager FastCGI"
 msgid "store pid to this file"
 msgstr "сохранить идентификатор процесса в этот файл"
 
-#: src/dbpager/application/dbpagerd.cpp:131
+#: src/dbpager/application/dbpagerd.cpp:138
 msgid "Initialization failed"
 msgstr "Проблема при инициализации"
 
-#: src/dbpager/application/dbpagerd.cpp:141
+#: src/dbpager/application/dbpagerd.cpp:148
 msgid ""
 "Can't bind to the {0}. Check your access rights or check for some other "
 "program using this resource"
@@ -78,26 +78,26 @@ msgstr ""
 "Невозможно привязаться к {0}. Проверьте ваши права доступа или наличие "
 "других программ, использующих этот ресурс"
 
-#: src/dbpager/application/dbpagerd.cpp:150
+#: src/dbpager/application/dbpagerd.cpp:157
 msgid "Can't switch current group to {0} - check your access rights"
 msgstr ""
 "Невозможно сменить текущую группу на {0} - проверьте ваши права доступа"
 
-#: src/dbpager/application/dbpagerd.cpp:153
+#: src/dbpager/application/dbpagerd.cpp:160
 msgid "No such group {0}"
 msgstr "Нет такой группы {0}"
 
-#: src/dbpager/application/dbpagerd.cpp:158
+#: src/dbpager/application/dbpagerd.cpp:165
 msgid "Can't switch current user to {0} - check your access rights"
 msgstr ""
 "Невозможно сменить текущего пользователя на {0} - проверьте ваши права "
 "доступа"
 
-#: src/dbpager/application/dbpagerd.cpp:161
+#: src/dbpager/application/dbpagerd.cpp:168
 msgid "No such user {0}"
 msgstr "Нет такого пользователя {0}"
 
-#: src/dbpager/application/dbpagerd.cpp:181
+#: src/dbpager/application/dbpagerd.cpp:188
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 

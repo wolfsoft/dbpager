@@ -99,7 +99,11 @@ void function_pos::execute(context &ctx, std::ostream &out,
 		    params.size() % 2).str());
 	string what = get_parameter(ctx, "arg1");
 	string where = get_parameter(ctx, "arg2");
-	out << where.find(what);
+	size_t found = where.find(what);
+	if (found == string::npos)
+		out << "-1";
+	else
+		out << found;
 }
 
 void function_encode_base64::execute(context &ctx, std::ostream &out,

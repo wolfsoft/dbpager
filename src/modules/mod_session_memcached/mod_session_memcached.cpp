@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -49,6 +49,12 @@ public:
 	void configure(const std::string &host, int port) {
 		memcached_server_add(mc, host.c_str(), port);
 		configured = true;
+	}
+
+	void reset() {
+		if (mc) memcached_free(mc);
+		mc = NULL;
+		configured = false;
 	}
 
 	memcached_st* get_ptr() {
@@ -88,49 +94,67 @@ private:
 
 std::string mod_session_memcached::get(const std::string &key) {
 	pool_ptr<memcached_connection> c = memcached_pool::instance().acquire(servers);
-
-	if (!c->is_configured()) {
-		strings s = tokenize()(servers);
-		for (strings::const_iterator i = s.begin(); i != s.end(); ++i) {
-			strings hp = tokenize()(*i, ":");
-			int port = 11211;
-			if (hp.size() > 1)
-				port = from_string<int>(trim()(hp[1]));
-			c->configure(trim()(hp[0]), port);
+	try {
+		if (!c->is_configured()) {
+			strings s = tokenize()(servers);
+			for (strings::const_iterator i = s.begin(); i != s.end(); ++i) {
+				strings hp = tokenize()(*i, ":");
+				int port = 11211;
+				if (hp.size() > 1)
+					port = from_string<int>(trim()(hp[1]));
+				c->configure(trim()(hp[0]), port);
+			}
 		}
+
+		size_t vlen = 0;
+		uint32_t flags = 0;
+		memcached_return error;
+
+		char *value = memcached_get(c->get_ptr(), key.c_str(), key.length(), &vlen, &flags, &error);
+
+		if (!value && error != MEMCACHED_SUCCESS && error != MEMCACHED_NOTFOUND) {
+			string rslt(memcached_strerror(c->get_ptr(), error));
+			throw mod_session_memcached_exception(rslt);
+		}
+
+		if (value) {
+			string rslt(value);
+			free(value);
+			return rslt;
+		} else {
+			return "";
+		}
+
+	} catch (...) {
+		c->reset();
+		throw;
 	}
-
-	size_t vlen = 0;
-	uint32_t flags = 0;
-	memcached_return error;
-
-	char *value = memcached_get(c->get_ptr(), key.c_str(), key.length(), &vlen, &flags, &error);
-
-	if (error == MEMCACHED_SUCCESS && value) {
-		std::string rslt(value);
-		free(value);
-		return rslt;
-	}
-
-	return string("");
-
 }
 
 void mod_session_memcached::put(const std::string &key, const std::string &value) {
 	pool_ptr<memcached_connection> c = memcached_pool::instance().acquire(servers);
-
-	if (!c->is_configured()) {
-		strings s = tokenize()(servers);
-		for (strings::const_iterator i = s.begin(); i != s.end(); ++i) {
-			strings hp = tokenize()(*i, ":");
-			int port = 11211;
-			if (hp.size() > 1)
-				port = from_string<int>(trim()(hp[1]));
-			c->configure(trim()(hp[0]), port);
+	try {
+		if (!c->is_configured()) {
+			strings s = tokenize()(servers);
+			for (strings::const_iterator i = s.begin(); i != s.end(); ++i) {
+				strings hp = tokenize()(*i, ":");
+				int port = 11211;
+				if (hp.size() > 1)
+					port = from_string<int>(trim()(hp[1]));
+				c->configure(trim()(hp[0]), port);
+			}
 		}
-	}
 
-	memcached_set(c->get_ptr(), key.c_str(), key.length(), value.c_str(), value.length(), ttl, 0);
+		memcached_return_t error = memcached_set(c->get_ptr(), key.c_str(), key.length(), value.c_str(), value.length(), ttl, 0);
+		if (error != MEMCACHED_SUCCESS) {
+			string rslt(memcached_strerror(c->get_ptr(), error));
+			throw mod_session_memcached_exception(rslt);
+		}
+
+	} catch (...) {
+		c->reset();
+		throw;
+	}
 
 }
 

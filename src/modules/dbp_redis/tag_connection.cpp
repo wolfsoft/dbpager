@@ -44,9 +44,9 @@ void tag_connection::execute(context &ctx, std::ostream &out,
 		return;
 	}
 
+	dbp::pool_ptr<redis_connection> c = redis_pool::instance().acquire(server + connection);
 	ctx.enter();
 	try {
-		dbp::pool_ptr<redis_connection> c = redis_pool::instance().acquire(server + connection);
 		if (!c->is_configured()) {
 			c->configure(server);
 			if (!password.empty())
@@ -59,6 +59,7 @@ void tag_connection::execute(context &ctx, std::ostream &out,
 		tag_impl::execute(ctx, out, caller);
 		ctx.leave();
 	} catch (...) {
+		c->reset();
 		ctx.leave();
 		throw;
 	}

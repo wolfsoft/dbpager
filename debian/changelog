@@ -1,3 +1,9 @@
+dbpager (3.2.4) stable; urgency=low
+
+  * Automatically restore broken network connections.
+
+ -- Dennis Prochko <wolfsoft@mail.ru>  Sun, 31 Mar 2019 05:39:00 +0300
+
 dbpager (3.2.3) stable; urgency=low
 
   * Upstream bugfix update.

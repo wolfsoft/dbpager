@@ -31,13 +31,13 @@ COPY . dbpager/
 # Install dependencies, compile from sources, cleaning up
 RUN export DEBIAN_FRONTEND=noninteractive \
 	&& export CXXFLAGS="-O3" \
-	&& echo "deb http://mirror.yandex.ru/debian stable main contrib non-free" > /etc/apt/sources.list \
-	&& echo "deb http://mirror.yandex.ru/debian stable-updates main contrib non-free" >> /etc/apt/sources.list \
+	&& echo "deb http://deb.debian.org/debian stable main contrib non-free" > /etc/apt/sources.list \
+	&& echo "deb http://deb.debian.org/debian stable-updates main contrib non-free" >> /etc/apt/sources.list \
 	&& echo "deb http://security.debian.org stable/updates main contrib non-free" >> /etc/apt/sources.list \
 	&& apt-get update && apt-get -y dist-upgrade \
 	&& apt-get -y install git autopoint libtool automake pkg-config gettext autoconf autotools-dev xsltproc scons build-essential \
 	\
-	&& apt-get -y install libssl-dev unixodbc-dev \
+	&& apt-get -y install netbase libssl-dev unixodbc-dev \
 	&& git clone https://github.com/wolfsoft/libdcl.git \
 	&& cd libdcl && ./autogen.sh && ./configure --disable-gtk --disable-qt --disable-winapi --disable-doxygen-doc --without-apache && make -j8 && make install && cd .. \
 	\

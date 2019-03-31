@@ -35,54 +35,59 @@ using namespace dbp;
 
 std::string mod_session_redis::get(const std::string &key) {
 	pool_ptr<redis_connection> c = redis_pool::instance().acquire(server);
+	try {
+		if (!c->is_configured()) {
+			c->configure(server);
+			if (!password.empty())
+				c->login(password);
+			if (database_number > 0)
+				c->select_database(database_number);
+		}
 
-	if (!c->is_configured()) {
-		c->configure(server);
-		if (!password.empty())
-			c->login(password);
-		if (database_number > 0)
-			c->select_database(database_number);
+		redisReply *reply = (redisReply*)redisCommand(c->get_ptr(), "GET %s", key.c_str());
+		if (reply) {
+			std::string rslt = (reply->type == REDIS_REPLY_STRING && reply->str) ? string(reply->str) : string("");
+			freeReplyObject(reply);
+			return rslt;
+		} else {
+			throw mod_session_redis_exception(c->get_ptr()->errstr);
+		}
+	} catch (...) {
+		c->reset();
+		throw;
 	}
-
-	redisReply *reply = (redisReply*)redisCommand(c->get_ptr(), "GET %s", key.c_str());
-
-	if (reply) {
-		std::string rslt = (reply->type == REDIS_REPLY_STRING && reply->str) ? string(reply->str) : string("");
-		freeReplyObject(reply);
-		return rslt;
-	} else {
-		throw mod_session_redis_exception(c->get_ptr()->errstr);
-	}
-
 }
 
 void mod_session_redis::put(const std::string &key, const std::string &value) {
 	pool_ptr<redis_connection> c = redis_pool::instance().acquire(server);
+	try {
+		if (!c->is_configured()) {
+			c->configure(server);
+			if (!password.empty())
+				c->login(password);
+			if (database_number > 0)
+				c->select_database(database_number);
+		}
 
-	if (!c->is_configured()) {
-		c->configure(server);
-		if (!password.empty())
-			c->login(password);
-		if (database_number > 0)
-			c->select_database(database_number);
-	}
-
-	redisReply *reply = (redisReply*)redisCommand(c->get_ptr(), "SET %s %s", key.c_str(), value.c_str());
-	if (reply) {
-		freeReplyObject(reply);
-	} else {
-		throw mod_session_redis_exception(c->get_ptr()->errstr);
-	}
-
-	if (ttl > 0) {
-		redisReply *reply = (redisReply*)redisCommand(c->get_ptr(), "EXPIRE %s %d", key.c_str(), ttl);
+		redisReply *reply = (redisReply*)redisCommand(c->get_ptr(), "SET %s %s", key.c_str(), value.c_str());
 		if (reply) {
 			freeReplyObject(reply);
 		} else {
 			throw mod_session_redis_exception(c->get_ptr()->errstr);
 		}
-	}
 
+		if (ttl > 0) {
+			redisReply *reply = (redisReply*)redisCommand(c->get_ptr(), "EXPIRE %s %d", key.c_str(), ttl);
+			if (reply) {
+				freeReplyObject(reply);
+			} else {
+				throw mod_session_redis_exception(c->get_ptr()->errstr);
+			}
+		}
+	} catch (...) {
+		c->reset();
+		throw;
+	}
 }
 
 

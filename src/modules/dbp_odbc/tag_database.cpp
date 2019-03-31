@@ -2,7 +2,7 @@
  * tag_database.cpp
  * This file is part of dbPager Server
  *
- * Copyright (C) 2008-2014 - Dennis Prochko <wolfsoft@mail.ru>
+ * Copyright (C) 2008-2019 - Dennis Prochko <wolfsoft@mail.ru>
  *
  * dbPager Server is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -47,9 +47,9 @@ void tag_database::execute(context &ctx, std::ostream &out,
 		return;
 	}
 
+	pool_ptr<connection> c = database_pool::instance().acquire(dsn + user + password);
 	ctx.enter();
 	try {
-		pool_ptr<connection> c = database_pool::instance().acquire(dsn + user + password);
 		if (!c->is_open())
 			c->open(dsn, user, password);
 		// save the pointer to database for nested tags
@@ -59,6 +59,7 @@ void tag_database::execute(context &ctx, std::ostream &out,
 		ctx.leave();
 	}
 	catch (...) {
+		c->close();
 		ctx.leave();
 		throw;
 	}

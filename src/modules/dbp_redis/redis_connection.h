@@ -38,7 +38,6 @@ public:
 class redis_connection {
 public:
 	redis_connection(): c(NULL), configured(false) { }
-	redis_connection(const std::string &server, const std::string &password): c(NULL), configured(false) { }
 
 	virtual ~redis_connection() {
 		if (c) redisFree(c);
@@ -87,6 +86,12 @@ public:
 			throw redis_exception(c->errstr);
 
 		freeReplyObject(reply);
+	}
+
+	void reset() {
+		if (c) redisFree(c);
+		c = NULL;
+		configured = false;
 	}
 
 	redisContext* get_ptr() {

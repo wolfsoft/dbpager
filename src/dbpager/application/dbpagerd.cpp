@@ -271,6 +271,9 @@ private:
 			switch (e.get_code()) {
 				case 301:
 				case 302:
+				case 303:
+				case 307:
+				case 308:
 					resp.set_header("Location", e.what());
 					break;
 				default:

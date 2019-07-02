@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -88,6 +88,9 @@ private:
 			switch (e.get_code()) {
 				case 301:
 				case 302:
+				case 303:
+				case 307:
+				case 308:
 					resp.set_header("Location", e.what());
 					break;
 				default:

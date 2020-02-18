@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -46,7 +46,7 @@ void tag_unknown::execute(context &ctx, std::ostream &out, const tag *caller) co
 	tag_impl::execute(ctx, s, caller);
 	const string &data = s.str();
 
-	string const empty_tags[] = {
+	static const vector<string> tags = {
 		"base",
 		"meta",
 		"link",
@@ -60,7 +60,6 @@ void tag_unknown::execute(context &ctx, std::ostream &out, const tag *caller) co
 		"isindex",
 		"col"
 	};
-	vector<string> tags(empty_tags, empty_tags + sizeof(empty_tags) / sizeof(empty_tags[0]));
 
 	if (find(tags.begin(), tags.end(), name) == tags.end())
 		out << ">" << data << "</" << name << ">";

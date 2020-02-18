@@ -66,7 +66,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 	&& find /usr/share/locale/ -type f -delete \
 	&& find /usr/share/man/ -type f -delete \
 	&& find /usr/share/zoneinfo/ -type f -delete \
-	&& find /var/ -type f -delete \
 	&& find /usr/local/share/ -type f -delete \
 	&& ldconfig
 

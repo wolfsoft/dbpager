@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -77,7 +77,7 @@ string tag_expression::evaluator::eval(context &ctx,
 					curr_expr += curr_ch;
 				else
 					out << curr_ch;
-				
+
 		}
 		prev_ch = curr_ch;
 	}
@@ -153,13 +153,27 @@ void tag_expression::evaluator::get_token(istream &in,
 			in.putback(ch);
 			curr_tok.type = token::NUMBER;
 			return;
-		case '$':
-			curr_tok.name = "";
-			while (in.get(ch) && (isalnum(ch) || (ch == '_')))
-				curr_tok.name += ch;
-			in.putback(ch);
-			curr_tok.type = token::NAME;
-			return;
+		case '$': {
+				curr_tok.name = "";
+/* if quoted characters in variable name will required in the future
+				char prev_ch = 0;
+				while (in.get(ch) && (isalnum(ch) || (ch == '_') || (ch == '\\') || (prev_ch == '\\'))) {
+					if (prev_ch == '\\') {
+						curr_tok.name += ch;
+						prev_ch = ch;
+						continue;
+					}
+					prev_ch = ch;
+					if (ch == '\\') continue;
+					curr_tok.name += ch;
+				}
+*/
+				while (in.get(ch) && (isalnum(ch) || (ch == '_') || (ch == '-')))
+					curr_tok.name += ch;
+				in.putback(ch);
+				curr_tok.type = token::NAME;
+				return;
+		}
 		case '\'': case '"': {
 				char end = ch;
 				do {
@@ -402,7 +416,7 @@ string tag_expression::evaluator::prim(context &ctx, istream &in,
 				curr_tok.value = "";
 				return rslt;
 			}
-		case token::NUMBER: 
+		case token::NUMBER:
 			get_token(in, curr_tok);
 			{
 				string rslt = curr_tok.value;

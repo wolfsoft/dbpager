@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-02 22:28+0300\n"
+"POT-Creation-Date: 2019-09-20 19:12+0300\n"
 "PO-Revision-Date: 2017-12-30 21:28+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -19,9 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: src/dbpager/application/dbp_cgi.cpp:114
+#: src/dbpager/application/dbp_cgi.cpp:117
 #: src/dbpager/application/dbpagerd.cpp:186
-#: src/dbpager/application/dbpagerd.cpp:288
+#: src/dbpager/application/dbpagerd.cpp:291
 msgid "Internal error: {0}"
 msgstr "Внутренняя ошибка: {0}"
 
@@ -164,12 +164,12 @@ msgstr "у тега include отсутствует параметр href"
 
 #: src/dbpager/tag/functions.cpp:52 src/dbpager/tag/functions.cpp:68
 #: src/dbpager/tag/functions.cpp:79 src/dbpager/tag/functions.cpp:98
-#: src/dbpager/tag/functions.cpp:109 src/dbpager/tag/functions.cpp:121
-#: src/dbpager/tag/functions.cpp:133 src/dbpager/tag/functions.cpp:145
-#: src/dbpager/tag/functions.cpp:161 src/dbpager/tag/functions.cpp:173
-#: src/dbpager/tag/functions.cpp:185 src/dbpager/tag/functions.cpp:205
-#: src/dbpager/tag/functions.cpp:235 src/dbpager/tag/functions.cpp:244
-#: src/dbpager/tag/functions.cpp:254 src/dbpager/tag/functions.cpp:263
+#: src/dbpager/tag/functions.cpp:113 src/dbpager/tag/functions.cpp:125
+#: src/dbpager/tag/functions.cpp:137 src/dbpager/tag/functions.cpp:149
+#: src/dbpager/tag/functions.cpp:165 src/dbpager/tag/functions.cpp:177
+#: src/dbpager/tag/functions.cpp:189 src/dbpager/tag/functions.cpp:209
+#: src/dbpager/tag/functions.cpp:239 src/dbpager/tag/functions.cpp:248
+#: src/dbpager/tag/functions.cpp:258 src/dbpager/tag/functions.cpp:267
 msgid "wrong number of arguments ({0} instead {1} expected)"
 msgstr "неверное число аргументов ({0} вместо ожидаемых {1})"
 
@@ -186,32 +186,32 @@ msgstr "файл {0} не может быть удалён"
 msgid "unbalanced expression braces found"
 msgstr "найдены не сбалансированные скобки выражения"
 
-#: src/dbpager/tag/tag_expression.cpp:168
+#: src/dbpager/tag/tag_expression.cpp:182
 msgid "invalid expression: {0} expected"
 msgstr "неверное выражение: ожидался {0}"
 
-#: src/dbpager/tag/tag_expression.cpp:185
+#: src/dbpager/tag/tag_expression.cpp:199
 msgid ""
 "parameter(s) are not defined for function '{0}', expected '(', found '{1}'"
 msgstr ""
 "параметр(ы) для функции '{0}' не определен(ы), ожидалась '(', найдено '{1}'"
 
-#: src/dbpager/tag/tag_expression.cpp:204
-#: src/dbpager/tag/tag_expression.cpp:440
+#: src/dbpager/tag/tag_expression.cpp:218
+#: src/dbpager/tag/tag_expression.cpp:454
 msgid "invalid expression: \")\" expected"
 msgstr "неверное выражение: ожидалась \")\""
 
-#: src/dbpager/tag/tag_expression.cpp:209
+#: src/dbpager/tag/tag_expression.cpp:223
 msgid "unknown expression token '{0}'"
 msgstr "неизвестный оператор '{0}' в выражении"
 
-#: src/dbpager/tag/tag_expression.cpp:355
-#: src/dbpager/tag/tag_expression.cpp:391
-#: src/dbpager/tag/tag_expression.cpp:427
+#: src/dbpager/tag/tag_expression.cpp:369
+#: src/dbpager/tag/tag_expression.cpp:405
+#: src/dbpager/tag/tag_expression.cpp:441
 msgid "can't convert the string to a number"
 msgstr "невозможно преобразовать строку в число"
 
-#: src/dbpager/tag/tag_expression.cpp:447
+#: src/dbpager/tag/tag_expression.cpp:461
 msgid "invalid expression: primary expected"
 msgstr "неверное выражение: ожидалось число"
 

@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -40,11 +40,9 @@ void tag_execute::execute(context &ctx, std::ostream &out, const tag *caller) co
 		const string &name = get_parameter(ctx, "name");
 		if (!name.empty()) {
 			tag_tag *t = static_cast<tag_tag*>(c->get_child(string("@") + name));
-			if (!t)
-				throw tag_exception(
-				  (format(_("custom tag '{0}' is not defined at this scope")) % name).str());
-
-			t->execute(ctx, out, c);
+			if (t) {
+				t->execute(ctx, out, c);
+			}
 			ctx.push(c);
 
 		} else {

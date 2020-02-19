@@ -1,5 +1,6 @@
 sudo: required
 language: cpp
+dist: bionic
 compiler:
   - gcc
 addons:
@@ -14,7 +15,7 @@ before_install:
   - sudo rm -f /etc/apt/sources.list.d/mongodb*
   - sudo apt-get update -qq
   - sudo apt-get install -qq git autopoint libtool automake gettext autoconf autotools-dev
-  - sudo apt-get install -qq libjsoncpp-dev libssl-dev xsltproc doxygen graphviz libgtk2.0-dev libqt4-dev libapr1-dev apache2-threaded-dev unixodbc-dev
+  - sudo apt-get install -qq libjsoncpp-dev libssl-dev xsltproc doxygen graphviz libgtk2.0-dev libqt4-dev libapr1-dev apache2-dev unixodbc-dev
   - git clone https://github.com/wolfsoft/libdcl.git
   - cd libdcl && ./autogen.sh && ./configure && make -j4 && sudo make install && cd ..
   - sudo apt-get install -qq xsltproc pkg-config unixodbc-dev libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libcurl4-openssl-dev apache2-dev libaprutil1-dev libmemcached-dev libhiredis-dev libgearman-dev libevent-dev uuid-dev scons libboost-thread-dev libboost-filesystem-dev libboost-system-dev libpqxx3-dev libv8-dev

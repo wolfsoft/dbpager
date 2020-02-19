@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -144,7 +144,7 @@ tag* dbpx_parser::process_node(const url &current_url, xmlTextReaderPtr reader,
 				string object = to_string<const char*>((const char*)xmlTextReaderConstLocalName(reader));
 				string namespace_uri = to_string<const char*>((const char*)xmlTextReaderConstNamespaceUri(reader));
 				string namespace_prefix = to_string<const char*>((const char*)xmlTextReaderConstPrefix(reader));
-			
+
 				if (namespace_uri.compare(0, dbpager_custom_uri.length(), dbpager_custom_uri) == 0) {
 					// custom tag processing
 					rslt = new tag_usr(object);

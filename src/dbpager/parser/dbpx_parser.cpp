@@ -207,7 +207,7 @@ tag* dbpx_parser::process_node(const url &current_url, xmlTextReaderPtr reader,
 				  (const char*)xmlTextReaderConstValue(reader)));
 				t->set_depth(xmlTextReaderDepth(reader));
 				make_relationship(reader, current_node, t);
-				return t;
+				return current_node;
 			}
 			break;
 		case XML_READER_TYPE_CDATA:

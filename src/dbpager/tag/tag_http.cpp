@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -23,8 +23,6 @@
 #include <sstream>
 
 #include <dcl/strutils.h>
-#include <dcl/url.h>
-
 #include "tag/tag_http.h"
 
 #include <curl/curl.h>
@@ -48,12 +46,9 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 		throw tag_exception("can't initialize cURL library");
 
 	// read key parameters
-	url href = get_parameter(ctx, "href");
-	if (href.scheme.empty()) {
-		href.scheme = "http";
-	}
+	const string &href = get_parameter(ctx, "href");
 
-	string method = get_parameter(ctx, "method");
+	string method(get_parameter(ctx, "method"));
 	if (method.empty()) {
 		method = "GET";
 	} else {
@@ -66,25 +61,21 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 	ostringstream content(ostringstream::out | ostringstream::binary);
 	tag_impl::execute(ctx, content, caller);
 	string content_str = content.str();
-	string http_agent = string("Mozilla/5.0 ") + app_full_name;
+	string http_agent = app_full_name;
 	try {
-
-		curl_easy_setopt(curl, CURLOPT_URL, href.str().c_str());
+		curl_easy_setopt(curl, CURLOPT_URL, href.c_str());
 		curl_easy_setopt(curl, CURLOPT_USERAGENT, http_agent.c_str());
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &out);
 
 		if (!content_str.empty()) {
-#ifdef CURLOPT_SAFE_UPLOAD
-			curl_easy_setopt(curl, CURLOPT_SAFE_UPLOAD, true);
-#endif
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content_str.c_str());
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, content_str.length());
 		}
 
 		if (method == "POST")
-			curl_easy_setopt(curl, CURLOPT_POST, true);
+			curl_easy_setopt(curl, CURLOPT_POST, 1L);
 		else if (method != "GET") {
 			curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, method.c_str());
 		}

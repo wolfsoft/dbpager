@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -108,7 +108,7 @@ void tag_query::execute(context &ctx, std::ostream &out,
 	for (pqxx::result::const_iterator row = r.begin(); row != r.end(); ++row) {
 		ctx.enter();
 		try {
-			for (pqxx::result::tuple::const_iterator field = row->begin(); field != row->end(); ++field) {
+			for (auto field = row->begin(); field != row->end(); ++field) {
 				if (field.type() == 16) { // boolean
 					try {
 						if (field.as<bool>())

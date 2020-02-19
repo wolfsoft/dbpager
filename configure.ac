@@ -20,7 +20,7 @@
 #
 
 # initialization
-AC_INIT([dbpager], [3.2.5], [wolfsoft@mail.ru])
+AC_INIT([dbpager], [3.2.6], [wolfsoft@mail.ru])
 AC_PREREQ([2.63])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])
@@ -394,11 +394,11 @@ AM_CONDITIONAL(WITH_GEARMAN, test "$use_gearman" = "yes")
 #fi
 AM_CONDITIONAL(WITH_MONGO, test "$use_mongo" = "yes")
 
-PKG_CHECK_MODULES(libpcrecpp, [libpcrecpp >= 7.4])
+PKG_CHECK_MODULES(libpcrecpp, [libpcrecpp >= 8.0])
 
 PKG_CHECK_MODULES(libcurl, [libcurl >= 7.0])
 
-PKG_CHECK_MODULES(libpqxx, [libpqxx >= 4.0],
+PKG_CHECK_MODULES(libpqxx, [libpqxx >= 6.0],
 [
 	if test "$use_pgsql" != "no"; then
 		AC_DEFINE([HAVE_LIBPQXX], [1], [enable libpqxx usage])

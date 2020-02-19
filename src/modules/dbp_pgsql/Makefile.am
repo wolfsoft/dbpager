@@ -19,6 +19,7 @@ libdbp_pgsql_la_LIBADD = \
 	@libpqxx_LIBS@
 
 AM_CXXFLAGS += \
+	-DPQXX_HIDE_EXP_OPTIONAL=1 \
 	-I../../libdbpager/include \
 	@libdclbase_CFLAGS@ \
 	@libpqxx_CFLAGS@

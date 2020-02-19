@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-20 19:12+0300\n"
+"POT-Creation-Date: 2020-02-19 20:09+0300\n"
 "PO-Revision-Date: 2017-12-30 21:28+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -173,8 +173,7 @@ msgstr "у тега include отсутствует параметр href"
 msgid "wrong number of arguments ({0} instead {1} expected)"
 msgstr "неверное число аргументов ({0} вместо ожидаемых {1})"
 
-#: src/dbpager/tag/tag_call.cpp:58 src/dbpager/tag/tag_execute.cpp:45
-#: src/libdbpager/tag_usr.cpp:63
+#: src/dbpager/tag/tag_call.cpp:58 src/libdbpager/tag_usr.cpp:63
 msgid "custom tag '{0}' is not defined at this scope"
 msgstr "вызываемый тег '{0}' не определен в этой области видимости"
 

@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -31,7 +31,7 @@ namespace dbpager {
 
 class tag_usr: public tag_impl {
 public:
-	tag_usr(const std::string &tag_name = ""): user_tag(NULL), tag_impl(tag_name) { };
+	tag_usr(const std::string &tag_name = ""): tag_impl(tag_name), user_tag(NULL) { };
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 	void execute_direct(context &ctx, std::ostream &out,
 	  const tag *caller) const;

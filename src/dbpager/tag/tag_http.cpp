@@ -47,6 +47,8 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 
 	// read key parameters
 	const string &href = get_parameter(ctx, "href");
+	const string &user = get_parameter(ctx, "user");
+	const string &password = get_parameter(ctx, "password");
 
 	string method(get_parameter(ctx, "method"));
 	if (method.empty()) {
@@ -68,6 +70,11 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &out);
+
+		if (!user.empty()) {
+			string up = user + string(":") + password;
+			curl_easy_setopt(curl, CURLOPT_USERPWD, up.c_str());
+		}
 
 		if (!content_str.empty()) {
 			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content_str.c_str());

@@ -64,12 +64,13 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 	tag_impl::execute(ctx, content, caller);
 	string content_str = content.str();
 	string http_agent = app_full_name;
+	stringstream _out;
 	try {
 		curl_easy_setopt(curl, CURLOPT_URL, href.c_str());
 		curl_easy_setopt(curl, CURLOPT_USERAGENT, http_agent.c_str());
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &out);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &_out);
 
 		if (!user.empty()) {
 			string up = user + string(":") + password;
@@ -100,11 +101,15 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 
 		long http_code = 0;
 		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-		if (http_code >= 400 || res != CURLE_OK)
+		if (res != CURLE_OK)
 			throw tag_exception((format(_("http request failed: {0}")) % string(curl_easy_strerror(res))).str());
+		if (http_code >= 400)
+			throw tag_exception((format(_("http request failed: {0}")) % _out.str()).str());
 
 		curl_slist_free_all(list);
 		curl_easy_cleanup(curl);
+
+		out << _out.rdbuf();
 
 	} catch (...) {
 		curl_slist_free_all(list);

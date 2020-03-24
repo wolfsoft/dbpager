@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-19 20:09+0300\n"
+"POT-Creation-Date: 2020-03-23 23:22+0300\n"
 "PO-Revision-Date: 2017-12-30 21:28+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -214,7 +214,7 @@ msgstr "невозможно преобразовать строку в числ
 msgid "invalid expression: primary expected"
 msgstr "неверное выражение: ожидалось число"
 
-#: src/dbpager/tag/tag_http.cpp:106
+#: src/dbpager/tag/tag_http.cpp:104
 msgid "http request failed: {0}"
 msgstr "не удалось выполнить http запрос: {0}"
 
@@ -286,7 +286,7 @@ msgstr "имя ключа (name) не определено"
 #: src/modules/dbp_pgsql/tag_transaction.cpp:41
 #: src/modules/dbp_redis/tag_query.cpp:41
 #: src/modules/dbp_sqlite/tag_query.cpp:41
-#: src/modules/dbp_sqlite/tag_transaction.cpp:40
+#: src/modules/dbp_sqlite/tag_transaction.cpp:39
 msgid "(default)"
 msgstr "(по умолчанию)"
 
@@ -377,7 +377,7 @@ msgstr "имя источника данных (dsn) не определено"
 #: src/modules/dbp_pgsql/tag_transaction.cpp:44
 #: src/modules/dbp_redis/tag_query.cpp:44
 #: src/modules/dbp_sqlite/tag_query.cpp:44
-#: src/modules/dbp_sqlite/tag_transaction.cpp:43
+#: src/modules/dbp_sqlite/tag_transaction.cpp:42
 msgid "database (id='{0}') is not defined in the current context"
 msgstr "база данных (id='{0}') не определена в текущем контексте"
 

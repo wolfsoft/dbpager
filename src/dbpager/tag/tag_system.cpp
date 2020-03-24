@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -35,15 +35,21 @@ void tag_system::execute(context &ctx, std::ostream &out, const tag *caller) con
 	string href = get_parameter(ctx, "href");
 	string args = get_parameter(ctx, "parameters");
 	// execute called process
-	stringstream _in;
-	tag_impl::execute(ctx, _in, caller);
-	_in.seekg(0);
-	_in.clear();
-	stringstream _err;
-	process p(_in, out, _err);
-	p.execute(href, args);
-	if (!_err.str().empty() > 0) {
-		throw tag_exception(_err.str());
+	stringstream _in, _err;
+	try {
+		tag_impl::execute(ctx, _in, caller);
+		_in.clear();
+		_in.seekg(0);
+		process p(_in, out, _err);
+		p.execute(href, args);
+	} catch (std::exception &e) {
+		throw;
+	} catch (...) {
+		throw tag_exception("unknown subprocess calling error");
+	}
+	string errstr = _err.str();
+	if (!errstr.empty()) {
+		throw tag_exception(errstr);
 	}
 }
 

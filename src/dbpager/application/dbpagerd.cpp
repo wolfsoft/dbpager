@@ -38,6 +38,7 @@
 #include "tag/tag_throw.h"
 #include "interpreter/interpreter.h"
 
+#define TCP_NODELAY 1
 #include "fcgiapp.h"
 
 namespace dbpager {
@@ -202,11 +203,7 @@ private:
 		FCGX_Request request;
 		FCGX_InitRequest(&request, socket, FCGI_FAIL_ACCEPT_ON_INTR);
 
-		while(true) {
-
-			if (FCGX_Accept_r(&request) < 0)
-				break;
-
+		while (FCGX_Accept_r(&request) == 0) {
 			req_env req = get_request(request.envp, request.in);
 			http_response resp;
 
@@ -220,8 +217,11 @@ private:
 
 			send_response(resp, request.out);
 
-			FCGX_Finish_r(&request);
+			// No need because FCGX_Accept_r do the same internally
+			// FCGX_Finish_r(&request);
 		}
+
+		FCGX_Finish_r(&request);
 
 	};
 
@@ -234,7 +234,8 @@ private:
 		FCGX_PutS("\r\n", stream);
 
 		FCGX_PutStr(out.str().c_str(), out.str().length(), stream);
-		FCGX_FFlush(stream);
+		// No need because data will flushed on finish request
+		// FCGX_FFlush(stream);
 	}
 
 	http_response process_cgi_request(const req_env &req) {

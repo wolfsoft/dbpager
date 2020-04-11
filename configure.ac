@@ -523,7 +523,7 @@ AS_AC_EXPAND(UNIX_SOCKET_PATH, "\${runstatedir}/dbpagerd.sock")
 AC_TYPE_UINT32_T
 AC_FUNC_MMAP
 AC_CONFIG_SUBDIRS([src/mimetic-0.9.7])
-AC_CONFIG_SUBDIRS([src/fcgi-2.4.1-SNAP-0311112127])
+AC_CONFIG_SUBDIRS([src/fcgi-2.4.1-SNAP-0910052249])
 
 # Generate makefiles
 AC_CONFIG_FILES([

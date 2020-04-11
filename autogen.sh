@@ -70,7 +70,7 @@ autoreconf -f -i
 cd ../..
 
 echo fcgi...
-cd src/fcgi-2.4.1-SNAP-0311112127
+cd src/fcgi-2.4.1-SNAP-0910052249
 
 if [ -f /usr/local/share/aclocal/libtool.m4 ]; then
 cp /usr/local/share/aclocal/libtool.m4 ./aclocal.m4

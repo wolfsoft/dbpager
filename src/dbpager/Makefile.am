@@ -99,9 +99,9 @@ endif
 # FastCGI server
 if WITH_FCGI
 bin_PROGRAMS += dbpagerd
-dbpagerd_CPPFLAGS = -I../fcgi-2.4.1-SNAP-0311112127/include
+dbpagerd_CPPFLAGS = -I../fcgi-2.4.1-SNAP-0910052249/include
 dbpagerd_LDADD = libdbpcore.la \
-	../fcgi-2.4.1-SNAP-0311112127/libfcgi/libfcgi.la
+	../fcgi-2.4.1-SNAP-0910052249/libfcgi/libfcgi.la
 dbpagerd_SOURCES = application/dbpagerd.cpp
 endif
 

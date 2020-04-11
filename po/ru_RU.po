@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-23 23:22+0300\n"
+"POT-Creation-Date: 2020-04-11 04:13+0300\n"
 "PO-Revision-Date: 2017-12-30 21:28+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -20,8 +20,8 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 
 #: src/dbpager/application/dbp_cgi.cpp:117
-#: src/dbpager/application/dbpagerd.cpp:186
-#: src/dbpager/application/dbpagerd.cpp:291
+#: src/dbpager/application/dbpagerd.cpp:187
+#: src/dbpager/application/dbpagerd.cpp:290
 msgid "Internal error: {0}"
 msgstr "Внутренняя ошибка: {0}"
 
@@ -30,18 +30,18 @@ msgid "dbPager Language interpretator"
 msgstr "интерпретатор языка dbPager"
 
 #: src/dbpager/application/dbpager.cpp:45
-#: src/dbpager/application/dbpagerd.cpp:58
+#: src/dbpager/application/dbpagerd.cpp:59
 msgid "show application version"
 msgstr "показать версию приложения"
 
 #: src/dbpager/application/dbpager.cpp:48
-#: src/dbpager/application/dbpagerd.cpp:61
-#: src/dbpager/application/dbpagerd.cpp:65
+#: src/dbpager/application/dbpagerd.cpp:62
+#: src/dbpager/application/dbpagerd.cpp:66
 msgid "name"
 msgstr "имя"
 
 #: src/dbpager/application/dbpager.cpp:48
-#: src/dbpager/application/dbpagerd.cpp:61
+#: src/dbpager/application/dbpagerd.cpp:62
 msgid "use an alternate configuration file"
 msgstr "использовать альтернативный файл конфигурации"
 
@@ -54,23 +54,23 @@ msgid "the URL or file name is not defined"
 msgstr "URL или имя файла не определено"
 
 #: src/dbpager/application/dbpager.cpp:104
-#: src/dbpager/application/dbpagerd.cpp:95
+#: src/dbpager/application/dbpagerd.cpp:96
 msgid "Copyright (c) 2008-2018 Dennis Prochko <wolfsoft@mail.ru>"
 msgstr "Авторские права (c) 2008-2018 Прочко Денис <wolfsoft@mail.ru>"
 
-#: src/dbpager/application/dbpagerd.cpp:55
+#: src/dbpager/application/dbpagerd.cpp:56
 msgid "dbPager FastCGI Server"
 msgstr "Сервер dbPager FastCGI"
 
-#: src/dbpager/application/dbpagerd.cpp:65
+#: src/dbpager/application/dbpagerd.cpp:66
 msgid "store pid to this file"
 msgstr "сохранить идентификатор процесса в этот файл"
 
-#: src/dbpager/application/dbpagerd.cpp:138
+#: src/dbpager/application/dbpagerd.cpp:139
 msgid "Initialization failed"
 msgstr "Проблема при инициализации"
 
-#: src/dbpager/application/dbpagerd.cpp:148
+#: src/dbpager/application/dbpagerd.cpp:149
 msgid ""
 "Can't bind to the {0}. Check your access rights or check for some other "
 "program using this resource"
@@ -78,26 +78,26 @@ msgstr ""
 "Невозможно привязаться к {0}. Проверьте ваши права доступа или наличие "
 "других программ, использующих этот ресурс"
 
-#: src/dbpager/application/dbpagerd.cpp:157
+#: src/dbpager/application/dbpagerd.cpp:158
 msgid "Can't switch current group to {0} - check your access rights"
 msgstr ""
 "Невозможно сменить текущую группу на {0} - проверьте ваши права доступа"
 
-#: src/dbpager/application/dbpagerd.cpp:160
+#: src/dbpager/application/dbpagerd.cpp:161
 msgid "No such group {0}"
 msgstr "Нет такой группы {0}"
 
-#: src/dbpager/application/dbpagerd.cpp:165
+#: src/dbpager/application/dbpagerd.cpp:166
 msgid "Can't switch current user to {0} - check your access rights"
 msgstr ""
 "Невозможно сменить текущего пользователя на {0} - проверьте ваши права "
 "доступа"
 
-#: src/dbpager/application/dbpagerd.cpp:168
+#: src/dbpager/application/dbpagerd.cpp:169
 msgid "No such user {0}"
 msgstr "Нет такого пользователя {0}"
 
-#: src/dbpager/application/dbpagerd.cpp:188
+#: src/dbpager/application/dbpagerd.cpp:189
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 
@@ -214,7 +214,7 @@ msgstr "невозможно преобразовать строку в числ
 msgid "invalid expression: primary expected"
 msgstr "неверное выражение: ожидалось число"
 
-#: src/dbpager/tag/tag_http.cpp:104
+#: src/dbpager/tag/tag_http.cpp:105 src/dbpager/tag/tag_http.cpp:107
 msgid "http request failed: {0}"
 msgstr "не удалось выполнить http запрос: {0}"
 

@@ -91,7 +91,7 @@ private:
 			for (strings::const_iterator i = _vars.begin() + 1;
 			  i < _vars.end(); ++i) {
 			  	string p_name, p_value;
-			  	tokenize()(*i, p_name, p_value, "=");
+			  	tokenize()(*i, p_name, p_value, false, "=");
 				session->add_value(p_name, p_value);
 			}
 		};

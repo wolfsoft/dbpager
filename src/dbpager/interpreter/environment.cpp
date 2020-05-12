@@ -75,7 +75,7 @@ http_environment::http_environment(interpreter &in, const dbp::http_request &r):
 		strings s = tokenize()(value);
 		for (strings::const_iterator i = s.begin(); i != s.end(); ++i) {
 			string k, v;
-			tokenize()(*i, k, v, "=");
+			tokenize()(*i, k, v, false, "=");
 			if (!k.empty()) {
 				user->add_value(k, v);
 			}
@@ -152,7 +152,7 @@ void http_environment::parse_urlencoded(context &ctx,
 		  i != pairs.end(); ++i) {
 		  	// split each parameter to name and value
 			string param, value;
-			tokenize()(*i, param, value, "=");
+			tokenize()(*i, param, value, false, "=");
 			// add variable, decode urlencoded value
 			ctx.add_value(url().decode(param),
 			  url().decode(value));
@@ -245,7 +245,7 @@ void http_environment::init_custom_params() {
 			for (strings::const_iterator i = pairs.begin();
 			  i != pairs.end(); ++i) {
 				string param, value;
-				tokenize()(*i, param, value, "=");
+				tokenize()(*i, param, value, false, "=");
 				session->add_value(url().decode(param),
 				  url().decode(value));
 			}
@@ -254,11 +254,7 @@ void http_environment::init_custom_params() {
 		case http_method::post: {
 			// parse content type
 			string ct, cv;
-			tokenize()(req.get_content_type(), ct, cv, ";");
-			if (ct.empty()) {
-				ct = cv;
-				cv.clear();
-			}
+			tokenize()(req.get_content_type(), ct, cv, false, ";");
 			ct = trim()(ct);
 			cv = trim()(cv);
 			// select appropriate content parser method

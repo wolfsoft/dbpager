@@ -251,6 +251,7 @@ void http_environment::init_custom_params() {
 			}
 			break;
 		}
+		case http_method::put:
 		case http_method::post: {
 			// parse content type
 			string ct, cv;
@@ -315,4 +316,3 @@ std::string http_environment::get_path() {
 }
 
 } // namespace
-

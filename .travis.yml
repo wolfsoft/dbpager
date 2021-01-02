@@ -11,4 +11,4 @@ before_install:
   - cd libdcl && ./autogen.sh && ./configure --disable-gtk --disable-qt --disable-winapi --disable-doxygen-doc && make && sudo make install && cd ..
 script:
   - ./autogen.sh
-  - ./configure --disable-dbp_isapi --disable-dbp_gearman --disable-dbp_mongo --disable-dbp_script && make && make check
+  - ./configure --disable-dbp_isapi --disable-dbp_mongo --disable-dbp_script && make && make check

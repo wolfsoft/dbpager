@@ -8,7 +8,7 @@ Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), autotools-dev, xsltproc, p
  libxml2-dev, libxslt1-dev | libxslt-dev, libpcre3-dev, libcurl4-openssl-dev,
  apache2-dev | apache2-threaded-dev | apache2-prefork-dev,
  libaprutil1-dev | libapr1-dev, libmemcached-dev, libhiredis-dev,
- libgearman-dev | gearmand, libevent-dev, uuid-dev,
+ libevent-dev, uuid-dev,
  scons, libboost-thread-dev, libboost-filesystem-dev, libboost-system-dev,
  libpqxx-dev (>= 6), libv8-dev,
  libmosquitto-dev | libmosquitto0-dev, libmosquittopp-dev | libmosquittopp0-dev
@@ -169,14 +169,6 @@ Description: dbPager Server extension - XSL transformation
  This is a dbPager Language interpretators extension. It provides XSL
  transformation feature to dbPager applications.
 
-Package: dbpager-gearman
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Conflicts: libdbp-gearman
-Description: dbPager Server extension - Gearman job server support
- This is a dbPager Language interpretators extension. It provides access
- to the Gearman job server acting as client.
-
 Package: dbpager-script
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
@@ -204,4 +196,3 @@ Description: The core functions of the dbPager Language
  such as web servers.
  .
  This is a debugging symbols.
-

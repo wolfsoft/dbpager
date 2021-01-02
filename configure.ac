@@ -181,13 +181,6 @@ AC_ARG_ENABLE(dbp_bdb,
 	[use_bdb=auto]
 )
 
-AC_ARG_ENABLE(dbp_gearman,
-	AS_HELP_STRING([--enable-dbp_gearman={yes|no}],
-	[build dbp_gearman plugin (default=no)]),
-	[use_gearman=$enableval],
-	[use_gearman=no]
-)
-
 AC_ARG_ENABLE(dbp_mongo,
 	AS_HELP_STRING([--enable-dbp_mongo={yes|no}],
 	[build dbp_mongo plugin (default=no)]),
@@ -366,29 +359,6 @@ AC_SUBST(DB_CXX_LIBS)
 
 AM_CONDITIONAL(WITH_BDB, test "$use_bdb" = "yes")
 
-
-# check for mod_gearman option
-PKG_CHECK_MODULES(libgearman, [gearmand >= 0.10],
-[
-	if test "$use_gearman" != "no"; then
-		use_gearman="yes"
-	fi
-	AC_CHECK_LIB([event], [event_dispatch], [LIBEVENT=-levent],
-	[
-		AC_MSG_ERROR([libevent-dev library is required to dbp_gearman plugin,\
- but not found.])
-		use_gearman="no"
-	])
-],
-[
-	if test "$use_gearman" = "yes"; then
-		AC_MSG_ERROR([libgearman-dev library is required to dbp_gearman plugin,\
- but not found.])
-	fi
-	use_gearman="no"
-])
-AM_CONDITIONAL(WITH_GEARMAN, test "$use_gearman" = "yes")
-
 # check for mod_mongo option
 #if test "$use_mongo" != "no"; then
 #	AC_CHECK_PROG([SCONS], [scons], [/usr/bin/scons])
@@ -406,7 +376,7 @@ AM_CONDITIONAL(WITH_MONGO, test "$use_mongo" = "yes")
 
 PKG_CHECK_MODULES(libpcrecpp, [libpcrecpp >= 8.0])
 
-PKG_CHECK_MODULES(libcurl, [libcurl >= 7.0])
+PKG_CHECK_MODULES(libcurl, [libcurl >= 7.33])
 
 PKG_CHECK_MODULES(libpqxx, [libpqxx >= 6.0],
 [
@@ -562,8 +532,6 @@ AC_CONFIG_FILES([
    src/modules/dbp_xslt/dbp_xslt.conf
    src/modules/dbp_bdb/Makefile
    src/modules/dbp_bdb/dbp_bdb.conf
-   src/modules/dbp_gearman/Makefile
-   src/modules/dbp_gearman/dbp_gearman.conf
    src/modules/dbp_mongo/Makefile
    src/modules/dbp_mongo/dbp_mongo.conf
    src/modules/dbp_script/Makefile
@@ -598,7 +566,6 @@ echo PostgreSQL module.....................................$use_pgsql
 echo XSLT module...........................................$use_xslt
 echo EXSLT support of XSLT module..........................$use_exslt
 echo Berkeley DB module....................................$use_bdb
-echo Gearman module........................................$use_gearman
 echo Mongo module..........................................$use_mongo
 echo Script module.........................................$use_script
 echo MQTT module...........................................$use_mqtt

@@ -50,7 +50,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && export LANG=C \
 	\
 	&& apt-get -y install libpq-dev libpqxx-dev libjsoncpp-dev libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libpcrecpp0v5 libcurl4-openssl-dev libmemcached-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libhiredis-dev libmosquitto-dev libmosquittopp-dev \
 	\
-	&& cd dbpager && ./autogen.sh && ./configure --disable-dbp_cgi --disable-mod_dbp --disable-dbp_isapi --disable-dbp_gearman --disable-dbp_mongo --disable-dbp_script && make -j`nproc` && make install && cd .. \
+	&& cd dbpager && ./autogen.sh && ./configure --disable-dbp_cgi --disable-mod_dbp --disable-dbp_isapi --disable-dbp_mongo --disable-dbp_script && make -j`nproc` && make install && cd .. \
 	\
 	&& find /usr/local/ -type f -exec strip -s '{}' 2>/dev/null ';' \
 	&& ldconfig

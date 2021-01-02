@@ -75,6 +75,10 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 		if (!user.empty()) {
 			string up = user + string(":") + password;
 			curl_easy_setopt(curl, CURLOPT_USERPWD, up.c_str());
+			curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		} else if (!password.empty()) {
+			curl_easy_setopt(curl, CURLOPT_XOAUTH2_BEARER, password.c_str());
+			curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BEARER);
 		}
 
 		if (!content_str.empty()) {
@@ -92,6 +96,8 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 		for (parameters::const_iterator i = params.begin(); i != params.end(); ++i) {
 			if (i->first == "href") continue;
 			if (i->first == "method") continue;
+			if (i->first == "user") continue;
+			if (i->first == "password") continue;
 			list = curl_slist_append(list, string(i->first + string(": ") + i->second->get_text()).c_str());
 		}
 

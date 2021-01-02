@@ -21,8 +21,6 @@
 
 FROM debian:buster AS builder
 
-MAINTAINER Dennis Prochko <wolfsoft@mail.ru>
-
 WORKDIR /root
 
 # Copy full source code

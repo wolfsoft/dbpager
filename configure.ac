@@ -20,7 +20,7 @@
 #
 
 # initialization
-AC_INIT([dbpager], [3.2.6], [wolfsoft@mail.ru])
+AC_INIT([dbpager], [3.2.9], [wolfsoft@mail.ru])
 AC_PREREQ([2.63])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])
@@ -323,6 +323,16 @@ PKG_CHECK_MODULES(libxslt, [libxslt >= 1.1.0],
 
 AM_CONDITIONAL(WITH_XSLT, test "$use_xslt" = "yes")
 
+PKG_CHECK_MODULES(libexslt, [libexslt >= 0.8.0], [
+	AC_DEFINE([HAVE_EXSLT], [1], [enable exslt library functions usage])
+	use_exslt="yes"
+],
+[
+	use_exslt="no"
+])
+
+AM_CONDITIONAL(WITH_EXSLT, test "$use_exslt" = "yes")
+
 
 AC_CHECK_LIB(db_cxx, db_env_create,
 [
@@ -586,6 +596,7 @@ echo Memcached module......................................$use_memcached
 echo Redis module..........................................$use_redis
 echo PostgreSQL module.....................................$use_pgsql
 echo XSLT module...........................................$use_xslt
+echo EXSLT support of XSLT module..........................$use_exslt
 echo Berkeley DB module....................................$use_bdb
 echo Gearman module........................................$use_gearman
 echo Mongo module..........................................$use_mongo

@@ -203,19 +203,21 @@ void http_environment::parse_json(context &ctx, const dbp::http_request &req) {
 	if (value) {
 		Json::Value root;
 		Json::Reader reader;
+		Json::FastWriter writer;
 		if (!reader.parse(value, root)) {
 			throw dbp::exception(_("invalid JSON structure of the request"));
 		}
+		ctx.add_value("content", writer.write(root));
 		if (root.isObject()) {
 			// parse json object members
 			Json::Value::Members members = root.getMemberNames();
 			for (Json::Value::Members::const_iterator i = members.begin(); i != members.end(); ++i) {
-				if (root[*i].isConvertibleTo(Json::ValueType::stringValue))
+				if (root[*i].isConvertibleTo(Json::ValueType::stringValue)) {
 					ctx.add_value(*i, root[*i].asString());
+				} else {
+					ctx.add_value(*i, writer.write(root[*i]));
+				}
 			}
-		} else {
-			Json::FastWriter writer;
-			ctx.add_value("content", writer.write(root));
 		}
 	}
 }

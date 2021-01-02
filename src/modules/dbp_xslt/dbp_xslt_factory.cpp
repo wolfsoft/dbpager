@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -23,10 +23,17 @@
 
 #include <dcl/plugin.h>
 
+#include "config.h"
+
 #include <libxml/parser.h>
 #include <libxslt/xslt.h>
 
+#ifdef HAVE_EXSLT
+#include <libexslt/exslt.h>
+#endif
+
 #include "tag_transform.h"
+#include "tag_transform_json.h"
 
 namespace dbpager {
 
@@ -41,11 +48,16 @@ extern "C" {
 void init(void *config) {
 	xmlSubstituteEntitiesDefault(1);
 	xmlLoadExtDtdDefaultValue = 1;
+#ifdef HAVE_EXSLT
+	exsltRegisterAll();
+#endif
 };
 
 disposable* create_object(const char *object_name) {
 	if (strcmp(object_name, "transform") == 0)
 		return new tag_transform();
+	else if (strcmp(object_name, "transform-json") == 0)
+		return new tag_transform_json();
 	else
 		return NULL;
 };
@@ -62,4 +74,3 @@ void finalize() {
 } // extern
 
 } // namespace
-

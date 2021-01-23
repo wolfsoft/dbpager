@@ -212,7 +212,9 @@ void http_environment::parse_json(context &ctx, const dbp::http_request &req) {
 			// parse json object members
 			Json::Value::Members members = root.getMemberNames();
 			for (Json::Value::Members::const_iterator i = members.begin(); i != members.end(); ++i) {
-				if (root[*i].isConvertibleTo(Json::ValueType::stringValue)) {
+				if (root[*i].type() == Json::nullValue) {
+					ctx.add_value(*i, std::string());
+				} else if (root[*i].isConvertibleTo(Json::ValueType::stringValue)) {
 					ctx.add_value(*i, root[*i].asString());
 				} else {
 					ctx.add_value(*i, writer.write(root[*i]));
@@ -236,23 +238,23 @@ void http_environment::init_custom_params() {
 	session->add_value("SERVER_NAME", req.get_server_name());
 	session->add_value("SERVER_PORT", to_string<int>(req.get_server_port()));
 	session->add_value("HTTPS", req.get_https() ? "on" : string(""));
+
+	// extract name=value parameters from a query string
+	strings pairs = tokenize()(req.get_query_string(), "&");
+	for (strings::const_iterator i = pairs.begin();
+	  i != pairs.end(); ++i) {
+		string param, value;
+		tokenize()(*i, param, value, false, "=");
+		session->add_value(url().decode(param),
+		  url().decode(value));
+	}
 	// parse request parameters
-	strings pairs;
 	switch (req.get_method()) {
 		case http_method::head:
 			session->add_value("HTTP_METHOD", "GET");
-		case http_method::get: {
-			// extract name=value parameters from a query string
-			strings pairs = tokenize()(req.get_query_string(), "&");
-			for (strings::const_iterator i = pairs.begin();
-			  i != pairs.end(); ++i) {
-				string param, value;
-				tokenize()(*i, param, value, false, "=");
-				session->add_value(url().decode(param),
-				  url().decode(value));
-			}
 			break;
-		}
+		case http_method::get:
+			break;
 		case http_method::put:
 		case http_method::post: {
 			// parse content type

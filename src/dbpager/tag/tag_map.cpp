@@ -84,14 +84,12 @@ void tag_map_element::execute(context &ctx, std::ostream &out, const tag *caller
 	}
 	string_map *data = (string_map*)from_string<void*>(data_ptr);
 
-	auto it = data->find(key);
-	if (it == data->end())
-		throw tag_map_exception(
-		  (format(_("element '{0}' was not found on map '{1}'")) % key % name).str());
-
 	ctx.enter();
 	try {
-		ctx.add_value(name + "_" + it->first, it->second);
+		auto it = data->find(key);
+		if (it != data->end()) {
+			ctx.add_value(name + "_" + it->first, it->second);
+		}
 		tag_impl::execute(ctx, out, caller);
 		ctx.leave();
 	} catch (...) {
@@ -136,12 +134,19 @@ void tag_map_from_json::execute(context &ctx, std::ostream &out, const tag *call
 
 	ostringstream s(ostringstream::out | ostringstream::binary);
 	tag_impl::execute(ctx, s, caller);
+	std::string buf = s.str();
+
+	if (buf.size() == 0) {
+		// silently skip the empty json
+		return;
+	}
 
 	Json::Value root;
 	Json::Reader reader;
 	Json::FastWriter writer;
-	if (!reader.parse(s.str(), root)) {
-		throw dbp::exception(_("invalid JSON structure of the request"));
+	if (!reader.parse(buf, root)) {
+		throw tag_map_exception(
+		  (format(_("invalid JSON structure '{0}'")) % buf).str());
 	}
 
 	if (root.isObject()) {
@@ -149,7 +154,9 @@ void tag_map_from_json::execute(context &ctx, std::ostream &out, const tag *call
 		// parse json object members
 		Json::Value::Members members = root.getMemberNames();
 		for (Json::Value::Members::const_iterator i = members.begin(); i != members.end(); ++i) {
-			if (root[*i].isConvertibleTo(Json::ValueType::stringValue)) {
+			if (root[*i].type() == Json::nullValue) {
+				data->insert({*i, std::string()});
+			} else if (root[*i].isConvertibleTo(Json::ValueType::stringValue)) {
 				data->insert({*i, root[*i].asString()});
 			} else {
 				data->insert({*i, writer.write(root[*i])});

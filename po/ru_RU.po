@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-23 14:50+0200\n"
+"POT-Creation-Date: 2021-06-07 00:24+0300\n"
 "PO-Revision-Date: 2017-12-30 21:28+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -109,7 +109,7 @@ msgstr "Ошибка при разборе файла '{0}' - продолжен
 msgid "invalid JSON structure of the request"
 msgstr "некорректная JSON структура запроса"
 
-#: src/dbpager/interpreter/environment.cpp:295
+#: src/dbpager/interpreter/environment.cpp:294
 msgid "invalid XML structure of the request"
 msgstr "некорректная XML структура запроса"
 
@@ -153,8 +153,8 @@ msgstr "ошибка при разборе файла '{0}'. {1}"
 msgid "invalid nested tags ({0})"
 msgstr "неверная вложенность тегов ({0})"
 
-#: src/dbpager/parser/dbpx_parser.cpp:161 src/dbpager/tag/tag_factory.cpp:141
-#: src/dbpager/tag/tag_factory.cpp:152
+#: src/dbpager/parser/dbpx_parser.cpp:161 src/dbpager/tag/tag_factory.cpp:142
+#: src/dbpager/tag/tag_factory.cpp:153
 msgid "unknown tag found ({0})"
 msgstr "обнаружен неизвестный тег ({0})"
 
@@ -162,14 +162,15 @@ msgstr "обнаружен неизвестный тег ({0})"
 msgid "href parameter missing for tag include"
 msgstr "у тега include отсутствует параметр href"
 
-#: src/dbpager/tag/functions.cpp:52 src/dbpager/tag/functions.cpp:68
-#: src/dbpager/tag/functions.cpp:79 src/dbpager/tag/functions.cpp:98
-#: src/dbpager/tag/functions.cpp:113 src/dbpager/tag/functions.cpp:125
-#: src/dbpager/tag/functions.cpp:137 src/dbpager/tag/functions.cpp:149
-#: src/dbpager/tag/functions.cpp:165 src/dbpager/tag/functions.cpp:177
-#: src/dbpager/tag/functions.cpp:189 src/dbpager/tag/functions.cpp:209
-#: src/dbpager/tag/functions.cpp:239 src/dbpager/tag/functions.cpp:248
-#: src/dbpager/tag/functions.cpp:258 src/dbpager/tag/functions.cpp:267
+#: src/dbpager/tag/functions.cpp:53 src/dbpager/tag/functions.cpp:69
+#: src/dbpager/tag/functions.cpp:80 src/dbpager/tag/functions.cpp:99
+#: src/dbpager/tag/functions.cpp:114 src/dbpager/tag/functions.cpp:126
+#: src/dbpager/tag/functions.cpp:138 src/dbpager/tag/functions.cpp:150
+#: src/dbpager/tag/functions.cpp:171 src/dbpager/tag/functions.cpp:187
+#: src/dbpager/tag/functions.cpp:199 src/dbpager/tag/functions.cpp:211
+#: src/dbpager/tag/functions.cpp:231 src/dbpager/tag/functions.cpp:261
+#: src/dbpager/tag/functions.cpp:270 src/dbpager/tag/functions.cpp:280
+#: src/dbpager/tag/functions.cpp:289
 msgid "wrong number of arguments ({0} instead {1} expected)"
 msgstr "неверное число аргументов ({0} вместо ожидаемых {1})"
 

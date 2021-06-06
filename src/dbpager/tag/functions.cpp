@@ -25,10 +25,12 @@
 #define _GNU_SOURCE
 #include <unistd.h>
 #include <crypt.h>
+#include <openssl/sha.h>
 
 #include <algorithm>
 #include <iterator>
 #include <iostream>
+#include <iomanip>
 
 #include <dcl/codec_base64.h>
 #include <dcl/datetime.h>
@@ -140,6 +142,27 @@ void function_md5::execute(context &ctx, std::ostream &out,
 	(params.begin()->second)->execute(ctx, s, this);
 	s.seekg(0);
 	encoder_md5().encode(s, out);
+}
+
+void function_sha256::execute(context &ctx, std::ostream &out,
+  const tag*) const {
+	if (params.size() != 1)
+		throw function_exception(
+		  (format(_("wrong number of arguments ({0} instead {1} expected)")) %
+		    params.size() % 1).str());
+	stringstream s(stringstream::in | stringstream::out | stringstream::binary);
+	(params.begin()->second)->execute(ctx, s, this);
+	s.seekg(0);
+
+	unsigned char hash[SHA256_DIGEST_LENGTH];
+	SHA256_CTX sha256;
+	SHA256_Init(&sha256);
+	SHA256_Update(&sha256, s.str().c_str(), s.str().size());
+	SHA256_Final(hash, &sha256);
+	stringstream ss;
+	for(int i = 0; i < SHA256_DIGEST_LENGTH; i++) {
+		out << std::hex << std::setw(2) << std::setfill('0') << (int)hash[i];
+	}
 }
 
 void function_crypt::execute(context &ctx, std::ostream &out,
@@ -274,4 +297,3 @@ void function_env::execute(context &ctx, std::ostream &out, const tag*) const {
 }
 
 } // namespace
-

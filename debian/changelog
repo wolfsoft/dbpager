@@ -1,6 +1,15 @@
-dbpager (3.2.5) stable; urgency=low
+dbpager (3.2.15) stable; urgency=low
+
+  * fix stored session value separator
+
+ -- Dennis Prochko <wolfsoft@mail.ru>  Thu, 09 Sep 2021 22:25:22 +0300
+
+dbpager (3.2.14) stable; urgency=low
 
   * dbp:throw recognizes more redirect codes
+  * multiple improvements
+
+ -- Dennis Prochko <wolfsoft@mail.ru>  Sat, 10 Jul 2021 13:28:00 +0300
 
 dbpager (3.2.4) stable; urgency=low
 

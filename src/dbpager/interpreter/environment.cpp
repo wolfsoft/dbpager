@@ -72,7 +72,7 @@ http_environment::http_environment(interpreter &in, const dbp::http_request &r):
 		is_session_new = true;
 	} else {
 		const string &value = in.get_session().get(session_id);
-		strings s = tokenize()(value);
+		strings s = tokenize()(value, ";");
 		for (strings::const_iterator i = s.begin(); i != s.end(); ++i) {
 			string k, v;
 			tokenize()(*i, k, v, false, "=");

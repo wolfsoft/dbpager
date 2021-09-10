@@ -72,7 +72,7 @@ void tag_query::execute(context &ctx, std::ostream &out,
 				tag_impl::execute(ctx, out, caller);
 				break;
 			case REDIS_REPLY_NIL:
-				tag_impl::execute(ctx, out, caller);
+				// do not call child tags on empty result
 				break;
 			case REDIS_REPLY_ARRAY:
 				ctx.add_value("count", to_string<int>(reply->elements));

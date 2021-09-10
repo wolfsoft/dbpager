@@ -1,6 +1,7 @@
-dbpager (3.2.15) stable; urgency=low
+dbpager (3.2.16) stable; urgency=low
 
   * fix stored session value separator
+  * do not call child tags on empty redis query result
 
  -- Dennis Prochko <wolfsoft@mail.ru>  Thu, 09 Sep 2021 22:25:22 +0300
 

@@ -1,3 +1,10 @@
+dbpager (3.2.17) stable; urgency=low
+
+  * restore redis session connection when lost
+  * dbp_redis now processes parameters, i.e. <redis:query statement='SET item_id %s', parameters='id'/>
+
+ -- Dennis Prochko <wolfsoft@mail.ru>  Mon, 04 Apr 2022 18:20:54 +0300
+
 dbpager (3.2.16) stable; urgency=low
 
   * fix stored session value separator

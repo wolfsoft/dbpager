@@ -34,8 +34,10 @@ using namespace std;
 using namespace dbp;
 
 std::string mod_session_redis::get(const std::string &key) {
-	pool_ptr<redis_connection> c = redis_pool::instance().acquire(server);
-	try {
+	int attempts = 3;
+	string msg = "Unknown error";
+	while (attempts) {
+		pool_ptr<redis_connection> c = redis_pool::instance().acquire(server);
 		if (!c->is_configured()) {
 			c->configure(server);
 			if (!password.empty())
@@ -50,17 +52,19 @@ std::string mod_session_redis::get(const std::string &key) {
 			freeReplyObject(reply);
 			return rslt;
 		} else {
-			throw mod_session_redis_exception(c->get_ptr()->errstr);
+			msg = string(c->get_ptr()->errstr);
+			c->reset();
+			attempts--;
 		}
-	} catch (...) {
-		c->reset();
-		throw;
 	}
+	throw mod_session_redis_exception(msg);
 }
 
 void mod_session_redis::put(const std::string &key, const std::string &value) {
-	pool_ptr<redis_connection> c = redis_pool::instance().acquire(server);
-	try {
+	int attempts = 3;
+	string msg = "Unknown error";
+	while (attempts) {
+		pool_ptr<redis_connection> c = redis_pool::instance().acquire(server);
 		if (!c->is_configured()) {
 			c->configure(server);
 			if (!password.empty())
@@ -73,7 +77,10 @@ void mod_session_redis::put(const std::string &key, const std::string &value) {
 		if (reply) {
 			freeReplyObject(reply);
 		} else {
-			throw mod_session_redis_exception(c->get_ptr()->errstr);
+			msg = string(c->get_ptr()->errstr);
+			c->reset();
+			attempts--;
+			continue;
 		}
 
 		if (ttl > 0) {
@@ -81,13 +88,17 @@ void mod_session_redis::put(const std::string &key, const std::string &value) {
 			if (reply) {
 				freeReplyObject(reply);
 			} else {
-				throw mod_session_redis_exception(c->get_ptr()->errstr);
+				msg = string(c->get_ptr()->errstr);
+				c->reset();
+				attempts--;
+				continue;
 			}
 		}
-	} catch (...) {
-		c->reset();
-		throw;
+
+		return;
 	}
+
+	throw mod_session_redis_exception(msg);
 }
 
 

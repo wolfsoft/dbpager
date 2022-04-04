@@ -27,7 +27,8 @@ endif
 	--build=$(DEB_BUILD_GNU_TYPE) \
 	--prefix=/usr \
 	--sysconfdir=/etc \
-	CXXFLAGS="-O3"
+	--disable-dbp_mongo --disable-dbp_script \
+	CXXFLAGS="-O3 -pipe"
 
 build-arch: build
 build-indep: build
@@ -62,7 +63,7 @@ binary-indep: build install
 # We have nothing to do by default.
 
 # Build architecture-dependent files here.
-binary-arch: build install
+binary-arch: build install--disable-dbp_mongo --disable-dbp_script
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs ChangeLog

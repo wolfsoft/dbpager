@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-07 00:24+0300\n"
+"POT-Creation-Date: 2021-11-14 21:42+0200\n"
 "PO-Revision-Date: 2017-12-30 21:28+0300\n"
 "Last-Translator: Dennis Prochko <wolfsoft@mail.ru>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -162,15 +162,15 @@ msgstr "обнаружен неизвестный тег ({0})"
 msgid "href parameter missing for tag include"
 msgstr "у тега include отсутствует параметр href"
 
-#: src/dbpager/tag/functions.cpp:53 src/dbpager/tag/functions.cpp:69
-#: src/dbpager/tag/functions.cpp:80 src/dbpager/tag/functions.cpp:99
-#: src/dbpager/tag/functions.cpp:114 src/dbpager/tag/functions.cpp:126
-#: src/dbpager/tag/functions.cpp:138 src/dbpager/tag/functions.cpp:150
-#: src/dbpager/tag/functions.cpp:171 src/dbpager/tag/functions.cpp:187
-#: src/dbpager/tag/functions.cpp:199 src/dbpager/tag/functions.cpp:211
-#: src/dbpager/tag/functions.cpp:231 src/dbpager/tag/functions.cpp:261
-#: src/dbpager/tag/functions.cpp:270 src/dbpager/tag/functions.cpp:280
-#: src/dbpager/tag/functions.cpp:289
+#: src/dbpager/tag/functions.cpp:54 src/dbpager/tag/functions.cpp:70
+#: src/dbpager/tag/functions.cpp:81 src/dbpager/tag/functions.cpp:100
+#: src/dbpager/tag/functions.cpp:115 src/dbpager/tag/functions.cpp:127
+#: src/dbpager/tag/functions.cpp:139 src/dbpager/tag/functions.cpp:151
+#: src/dbpager/tag/functions.cpp:172 src/dbpager/tag/functions.cpp:188
+#: src/dbpager/tag/functions.cpp:200 src/dbpager/tag/functions.cpp:212
+#: src/dbpager/tag/functions.cpp:232 src/dbpager/tag/functions.cpp:262
+#: src/dbpager/tag/functions.cpp:271 src/dbpager/tag/functions.cpp:281
+#: src/dbpager/tag/functions.cpp:290
 msgid "wrong number of arguments ({0} instead {1} expected)"
 msgstr "неверное число аргументов ({0} вместо ожидаемых {1})"
 

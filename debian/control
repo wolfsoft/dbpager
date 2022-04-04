@@ -169,13 +169,13 @@ Description: dbPager Server extension - XSL transformation
  This is a dbPager Language interpretators extension. It provides XSL
  transformation feature to dbPager applications.
 
-Package: dbpager-script
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Conflicts: libdbp-script
-Description: dbPager Server extension - JavaScript support
- This is a dbPager Language interpretators extension. It provides
- server-side JavaScript.
+#Package: dbpager-script
+#Architecture: any
+#Depends: ${shlibs:Depends}, ${misc:Depends}
+#Conflicts: libdbp-script
+#Description: dbPager Server extension - JavaScript support
+# This is a dbPager Language interpretators extension. It provides
+# server-side JavaScript.
 
 Package: dbpager-mqtt
 Architecture: any

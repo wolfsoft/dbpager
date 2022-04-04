@@ -49,8 +49,20 @@ void tag_query::execute(context &ctx, std::ostream &out,
 
 	ctx.enter();
 	try {
-		const string &statement = get_parameter(ctx, "statement");
-		reply = (redisReply*)redisCommand(conn->get_ptr(), statement.c_str());
+		const string &statement = get_parameter(ctx, "command");
+
+		strings args = tokenize()(get_parameter(ctx, "args"));
+		std::vector<const char*> argv(args.size());
+		std::vector<size_t> argv_len(args.size());
+		std::transform(args.begin(), args.end(), argv.begin(), [](const std::string& str) {
+			return str.c_str();
+		});
+		std::transform(args.begin(), args.end(), argv_len.begin(), [](const std::string& str) {
+			return str.size();
+		});
+		argv.insert(argv.begin(), statement.c_str());
+		argv_len.insert(argv_len.begin(), statement.size());
+		reply = (redisReply*)redisCommandArgv(conn->get_ptr(), args.size() + 1, argv.data(), argv_len.data());
 
 		if (!reply)
 			throw dbp::exception(conn->get_ptr()->errstr);

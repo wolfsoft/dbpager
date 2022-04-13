@@ -45,22 +45,30 @@ void tag_database::execute(context &ctx, std::ostream &out,
 
 	dbp::pool_ptr<database_pool::pool_item> pp = database_pool::instance().acquire(dsn);
 	ctx.enter();
-	try {
-		if (!(*pp))
-			pp->reset(new pqxx::connection(dsn));
-		pqxx::connection &c = **pp;
-		// save the pointer to database for nested tags
-		ctx.add_value(string("@PGSQL:DATABASE@") + get_parameter(ctx, "id"),
-		  dbp::to_string<pqxx::connection*>(&c));
-		tag_impl::execute(ctx, out, caller);
-		ctx.leave();
-	} catch (const pqxx::broken_connection &e) {
-		pp->reset(new pqxx::connection(dsn));
-		ctx.leave();
-		throw tag_database_exception(e.what());
-	} catch (...) {
-		ctx.leave();
-		throw;
+	int attempts = 3;
+	while (true) {
+		try {
+			if (!(*pp))
+				pp->reset(new pqxx::connection(dsn));
+			pqxx::connection &c = **pp;
+			// save the pointer to database for nested tags
+			ctx.add_value(string("@PGSQL:DATABASE@") + get_parameter(ctx, "id"), dbp::to_string<pqxx::connection*>(&c));
+			tag_impl::execute(ctx, out, caller);
+			ctx.leave();
+			return;
+		} catch (const pqxx::broken_connection &e) {
+			pp->reset();
+			attempts--;
+			if (!attempts) {
+				ctx.leave();
+				ctx.get_services_provider()->get_logger().error(trim()(e.what()));
+				throw tag_database_exception(e.what());
+			}
+			ctx.get_services_provider()->get_logger().warning(trim()(e.what()) + std::string(", reconnecting..."));
+		} catch (...) {
+			ctx.leave();
+			throw;
+		}
 	}
 }
 

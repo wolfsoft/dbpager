@@ -2,7 +2,7 @@
 # configure.ac
 # This file is part of dbPager Server
 #
-# Copyright (c) 2008-2018 Dennis Prochko <wolfsoft@mail.ru>
+# Copyright (c) 2008-2022 Dennis Prochko <wolfsoft@mail.ru>
 #
 # dbPager Server is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #
 
 # initialization
-AC_INIT([dbpager], [3.2.17], [wolfsoft@mail.ru])
+AC_INIT([dbpager], [3.2.18], [wolfsoft@mail.ru])
 AC_PREREQ([2.63])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])

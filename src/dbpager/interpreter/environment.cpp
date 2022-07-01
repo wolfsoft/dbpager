@@ -254,6 +254,7 @@ void http_environment::init_custom_params() {
 			session->add_value("HTTP_METHOD", "GET");
 			break;
 		case http_method::get:
+		case http_method::del:
 			break;
 		case http_method::put:
 		case http_method::post: {

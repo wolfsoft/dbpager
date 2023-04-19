@@ -29,5 +29,5 @@ const signed char Base64::sDecTable[] = {
         49,50,51,-1
 };
 
-const int Base64::sDecTableSz = sizeof(Base64::sDecTable) / sizeof(signed char);
+const int Base64::sDecTableSz = sizeof(Base64::sDecTable) / sizeof(char);
 

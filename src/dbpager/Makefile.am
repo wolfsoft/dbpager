@@ -6,7 +6,7 @@ noinst_LTLIBRARIES = libdbpcore.la
 libdbpcore_la_LDFLAGS = -static -no-undefined
 libdbpcore_la_CPPFLAGS = \
 	-fPIC \
-	-I../mimetic-0.9.7 \
+	-I../mimetic \
 	@libdclbase_CFLAGS@ \
 	@libdclnet_CFLAGS@ \
 	@libxml2_CFLAGS@ \
@@ -50,7 +50,7 @@ libdbpcore_la_SOURCES = \
 
 libdbpcore_la_LIBADD = \
 	../libdbpager/libdbpager.la \
-	../mimetic-0.9.7/mimetic/libmimetic.la \
+	../mimetic/mimetic/libmimetic.la \
 	@libdclbase_LIBS@ \
 	@libdclnet_LIBS@ \
 	@libxml2_LIBS@ \

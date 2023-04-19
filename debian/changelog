@@ -1,3 +1,10 @@
+dbpager (3.2.19) stable; urgency=low
+
+  * added SameSite=none to the session cookie
+  * Dependency library updated (mimetic)
+
+ -- Dennis Prochko <wolfsoft@mail.ru>  Tue, 18 Apr 2023 21:32:18 +0300
+
 dbpager (3.2.18) stable; urgency=low
 
   * restore postgresql connection when lost

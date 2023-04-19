@@ -115,6 +115,7 @@ void http_environment::init_response(dbp::http_response &resp) {
 		http_cookie c("session", session_id);
 		c.path = "/";
 		c.http_only = true;
+		c.same_site = "none";
 		if (req.get_https())
 			c.secure = true;
 		if (session->get_value("SESSION_PERSISTENT") == string("1")) {

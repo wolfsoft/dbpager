@@ -4,7 +4,7 @@ AC_INIT(mimetic/mimetic.h)
 AC_CANONICAL_SYSTEM
 AC_CONFIG_MACRO_DIR([m4])
 
-AM_INIT_AUTOMAKE(mimetic,0.9.7)
+AM_INIT_AUTOMAKE(mimetic,0.9.8)
 AM_CONFIG_HEADER(mimetic/config.h)
 
 dnl Checks for programs.
@@ -189,4 +189,9 @@ AC_OUTPUT(Makefile          \
     mimetic/codec/Makefile  \
     mimetic/rfc822/Makefile \
     mimetic/os/Makefile     \
-    mimetic/parser/Makefile)
+    mimetic/parser/Makefile \
+    test/Makefile           \
+    examples/Makefile       \
+    doc/Makefile            \
+    doc/doxygen.config      \
+    win32/Makefile)

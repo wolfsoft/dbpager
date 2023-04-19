@@ -1,6 +1,6 @@
 MAINTAINERCLEANFILES = Makefile Makefile.in config.cache
 EXTRA_DIST=LICENSE m4
-SUBDIRS = mimetic
+SUBDIRS = mimetic doc examples test win32
 INCLUDES=-I$(top_srcdir)
 ACLOCAL_AMFLAGS=-I m4
 

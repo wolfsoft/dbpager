@@ -6,14 +6,14 @@
  ***************************************************************************/
 #ifndef _MIMETIC_MESSAGEID_H_
 #define _MIMETIC_MESSAGEID_H_
-//#ifdef HAVE_STDINT_H
+#ifdef HAVE_STDINT_H
 #include <stdint.h>
-//#endif
+#endif
 #include <string>
 #include <mimetic/libconfig.h>
-//#ifdef HAVE_INTTYPES_H
+#ifdef HAVE_INTTYPES_H
 #include <inttypes.h>
-//#endif
+#endif
 #include <mimetic/utils.h>
 #include <mimetic/os/utils.h>
 #include <mimetic/rfc822/fieldvalue.h>

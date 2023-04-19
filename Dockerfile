@@ -29,7 +29,7 @@ COPY . dbpager/
 # Install dependencies, compile from sources, cleaning up
 # N.B.: gcc 8 is broken (dbp::system segfaults)
 RUN export DEBIAN_FRONTEND=noninteractive && export LANG=C \
-	&& export CXXFLAGS="-O3 -pipe" \
+	&& export CXXFLAGS="-std=c++0x -O3 -pipe" \
 	&& export CC="gcc-7" \
 	&& export CXX="g++-7" \
 	&& echo "deb http://deb.debian.org/debian buster main contrib non-free" > /etc/apt/sources.list \

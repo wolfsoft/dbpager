@@ -28,7 +28,7 @@ endif
 	--prefix=/usr \
 	--sysconfdir=/etc \
 	--disable-dbp_mongo --disable-dbp_script \
-	CXXFLAGS="-O3 -pipe"
+	CXXFLAGS="-std=c++0x -O3 -pipe"
 
 build-arch: build
 build-indep: build

@@ -20,7 +20,7 @@
 #
 
 # initialization
-AC_INIT([dbpager], [3.2.18], [wolfsoft@mail.ru])
+AC_INIT([dbpager], [3.2.19], [wolfsoft@mail.ru])
 AC_PREREQ([2.63])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])
@@ -502,7 +502,7 @@ AS_AC_EXPAND(UNIX_SOCKET_PATH, "\${runstatedir}/dbpagerd.sock")
 # Subprojects
 AC_TYPE_UINT32_T
 AC_FUNC_MMAP
-AC_CONFIG_SUBDIRS([src/mimetic-0.9.7])
+AC_CONFIG_SUBDIRS([src/mimetic])
 AC_CONFIG_SUBDIRS([src/fcgi-2.4.1-SNAP-0910052249])
 
 # Generate makefiles

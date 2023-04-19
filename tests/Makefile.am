@@ -7,7 +7,7 @@ libdbpcore_la_LDFLAGS = -static -no-undefined
 libdbpcore_la_CPPFLAGS = \
 	-fPIC \
 	-I../src/dbpager \
-	-I../src/dbpager/../mimetic-0.9.7 \
+	-I../src/dbpager/../mimetic \
 	@libdclbase_CFLAGS@ \
 	@libdclnet_CFLAGS@ \
 	@libxml2_CFLAGS@ \
@@ -51,7 +51,7 @@ libdbpcore_la_SOURCES = \
 
 libdbpcore_la_LIBADD = \
 	../src/dbpager/../libdbpager/libdbpager.la \
-	../src/dbpager/../mimetic-0.9.7/mimetic/libmimetic.la \
+	../src/dbpager/../mimetic/mimetic/libmimetic.la \
 	@libdclbase_LIBS@ \
 	@libdclnet_LIBS@ \
 	@libxml2_LIBS@ \

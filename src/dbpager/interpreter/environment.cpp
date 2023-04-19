@@ -115,9 +115,10 @@ void http_environment::init_response(dbp::http_response &resp) {
 		http_cookie c("session", session_id);
 		c.path = "/";
 		c.http_only = true;
-		c.same_site = "none";
-		if (req.get_https())
+		if (req.get_https()) {
+			c.same_site = "none";
 			c.secure = true;
+		}
 		if (session->get_value("SESSION_PERSISTENT") == string("1")) {
 			datetime d;
 			d.year(2038).month(1).day(1).hour(0).minute(0).second(0);
@@ -131,6 +132,7 @@ void http_environment::init_response(dbp::http_response &resp) {
 		c.path = "/";
 		c.http_only = true;
 		if (req.get_https())
+			c.same_site = "none";
 			c.secure = true;
 		datetime d;
 		d.year(1976).month(4).day(21).hour(0).minute(0).second(0);

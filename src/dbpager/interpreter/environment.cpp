@@ -131,9 +131,10 @@ void http_environment::init_response(dbp::http_response &resp) {
 		http_cookie c("session", "");
 		c.path = "/";
 		c.http_only = true;
-		if (req.get_https())
+		if (req.get_https()) {
 			c.same_site = "none";
 			c.secure = true;
+		}
 		datetime d;
 		d.year(1976).month(4).day(21).hour(0).minute(0).second(0);
 		c.expires = d;

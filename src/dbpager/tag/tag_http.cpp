@@ -49,6 +49,9 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 	const string &href = get_parameter(ctx, "href");
 	const string &user = get_parameter(ctx, "user");
 	const string &password = get_parameter(ctx, "password");
+	const string &certificate = get_parameter(ctx, "certificate");
+	const string &private_key = get_parameter(ctx, "private-key");
+	const string &ca_certificate = get_parameter(ctx, "ca-certificate");
 
 	string method(get_parameter(ctx, "method"));
 	if (method.empty()) {
@@ -66,11 +69,21 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 	string http_agent = app_full_name;
 	stringstream _out;
 	try {
+		curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
 		curl_easy_setopt(curl, CURLOPT_URL, href.c_str());
 		curl_easy_setopt(curl, CURLOPT_USERAGENT, http_agent.c_str());
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &_out);
+
+		if (!certificate.empty() && !private_key.empty()) {
+			curl_easy_setopt(curl, CURLOPT_SSLCERT, certificate.c_str());
+			curl_easy_setopt(curl, CURLOPT_SSLKEY, private_key.c_str());
+		}
+		if (!ca_certificate.empty()) {
+			curl_easy_setopt(curl, CURLOPT_CAINFO, ca_certificate.c_str());
+			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1);
+		}
 
 		if (!user.empty()) {
 			string up = user + string(":") + password;
@@ -82,8 +95,8 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 		}
 
 		if (!content_str.empty()) {
-			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content_str.c_str());
-			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, content_str.length());
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE_LARGE, content_str.size());
+			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content_str.data());
 		}
 
 		if (method == "POST")
@@ -98,6 +111,9 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 			if (i->first == "method") continue;
 			if (i->first == "user") continue;
 			if (i->first == "password") continue;
+			if (i->first == "certificate") continue;
+			if (i->first == "private-key") continue;
+			if (i->first == "ca-certificate") continue;
 			list = curl_slist_append(list, string(i->first + string(": ") + i->second->get_text()).c_str());
 		}
 

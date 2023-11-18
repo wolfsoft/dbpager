@@ -2,7 +2,7 @@
  * dbpager.cpp
  * This file is part of dbPager Server
  *
- * Copyright (C) 2008-2015 - Dennis Prochko
+ * Copyright (C) 2008-2024 Dennis Prochko <dennis.prochko@gmail.com>
  *
  * dbPager Server is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -101,7 +101,7 @@ private:
 
 	bool on_version(cmdline_parameter&) {
 		cout << app_full_name << ". " <<
-		  _("Copyright (c) 2008-2018 Dennis Prochko <wolfsoft@mail.ru>") << endl;
+		  _("Copyright (c) 2008-2024 Dennis Prochko <dennis.prochko@gmail.com>") << endl;
 		return false;
 	};
 

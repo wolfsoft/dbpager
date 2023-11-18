@@ -107,6 +107,13 @@ public:
 	};
 };
 
+class system_context: public context {
+public:
+	system_context(context *parent = NULL): context(parent) {
+		_type = "system";
+	};
+};
+
 }
 
 #endif /*CONTEXT_H_*/

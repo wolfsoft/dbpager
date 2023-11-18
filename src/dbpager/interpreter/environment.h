@@ -42,7 +42,7 @@ public:
 	//! Initializes the environment parameters
 	virtual void init_custom_params() = 0;
 protected:
-	context *global, *user, *session;
+	context *system, *global, *user, *session;
 	dbpager::interpreter &in;
 };
 

@@ -40,7 +40,8 @@ using namespace dbp;
 using namespace mimetic;
 
 environment::environment(interpreter &in): global(NULL), user(NULL), session(NULL), in(in) {
-	global = new global_context();
+	system = new system_context();
+	global = new global_context(system);
 	user = new user_context(global);
 	session = new local_context(user);
 
@@ -52,8 +53,8 @@ environment::~environment() {
 	delete session;
 	delete user;
 	delete global;
+	delete system;
 }
-
 
 http_environment::http_environment(interpreter &in, const dbp::http_request &r):
   environment(in), is_session_new(false), req(r) {
@@ -88,6 +89,13 @@ http_environment::http_environment(interpreter &in, const dbp::http_request &r):
 }
 
 void http_environment::init_response(dbp::http_response &resp) {
+	// convert system context variables into http headers
+	for(auto v: system->get_values()) {
+		auto n = v.first;
+		transform(n.begin(), n.end(), n.begin(), ::tolower);
+		resp.set_header(n, v.second);
+	}
+
 	// setup http response variables from environment variables
 	resp.set_content_type(session->get_value("CONTENT_TYPE"));
 

@@ -1,8 +1,8 @@
 /*
- * tag_unknown.h
+ * tag_cdata.h
  * This file is part of dbPager Server
  *
- * Copyright (C) 2008 - Dennis Prochko
+ * Copyright (c) 2023 Dennis Prochko <dennis.prochko@gmail.com>
  *
  * dbPager Server is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,8 @@
  * Boston, MA  02110-1301  USA
  */
 
-#ifndef TAG_UNKNOWN_H_
-#define TAG_UNKNOWN_H_
+#ifndef TAG_CDATA_H_
+#define TAG_CDATA_H_
 
 #include <string>
 #include <ostream>
@@ -29,14 +29,12 @@
 
 namespace dbpager {
 
-class tag_unknown: public tag_impl {
+class tag_cdata: public tag_impl {
 public:
-	tag_unknown(const std::string &tag_name = ""): tag_impl(tag_name) { };
+	tag_cdata(const std::string &tag_name = ""): tag_impl(tag_name) { };
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
-private:
-	void real_execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
 }
 
-#endif /*TAG_UNKNOWN_H_*/
+#endif /*TAG_CDATA_H_*/

@@ -29,6 +29,7 @@
 #include "optimizer/optimizer.h"
 #include "tag/tag_factory.h"
 #include "tag/tag_unknown.h"
+#include "tag/tag_cdata.h"
 #include "tag/tag_expression.h"
 
 namespace dbpager {
@@ -212,9 +213,11 @@ tag* dbpx_parser::process_node(const url &current_url, xmlTextReaderPtr reader,
 			break;
 		case XML_READER_TYPE_CDATA:
 			{
-				current_node->set_text(current_node->get_text() +
-					to_string<const char*>(
-					  (const char*)xmlTextReaderConstValue(reader)));
+				tag_cdata *t = new tag_cdata();
+				t->set_text(to_string<const char*>(
+				  (const char*)xmlTextReaderConstValue(reader)));
+				t->set_depth(xmlTextReaderDepth(reader));
+				make_relationship(reader, current_node, t);
 				return current_node;
 			}
 			break;
@@ -231,9 +234,15 @@ void dbpx_parser::process_attributes(xmlTextReaderPtr reader, tag &node) const {
 		param->set_text(to_string<const char*>(
 		  (const char*)xmlTextReaderConstValue(reader)));
 		// only attrs without ns: prefix
-		if (!xmlTextReaderConstPrefix(reader))
+		if (!xmlTextReaderConstPrefix(reader)) {
 			node.add_parameter(to_string<const char*>(
 			  (const char*)xmlTextReaderConstName(reader)), param);
+		} else {
+			string namespace_uri = to_string<const char*>((const char*)xmlTextReaderConstNamespaceUri(reader));
+			if (namespace_uri.compare(0, dbpager_uri.length(), dbpager_uri) == 0) {
+				node.add_parameter(std::string("@DBP:PARAM@") + to_string<const char*>((const char*)xmlTextReaderConstLocalName(reader)), param);
+			}
+		}
 	}
 }
 

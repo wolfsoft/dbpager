@@ -127,12 +127,19 @@ void tag_unknown::real_execute(context &ctx, std::ostream &out, const tag *calle
 	}
 
 	// write tag parameters
-	for (parameters::const_iterator i = params.begin();
-	  i != params.end(); ++i) {
-	  	if ((i->first).length() > 0) {
-	  		if (i->first.rfind("@DBP:PARAM@", 0) == 0) {
-	  			continue;
-	  		}
+	for (parameters::const_iterator i = params.begin(); i != params.end(); ++i) {
+		if ((i->first).length() > 0) {
+			if (i->first.rfind("@DBP:PARAM@attr", 0) == 0) {
+				ostringstream s(stringstream::out | ostringstream::binary);
+				(i->second)->execute(ctx, s, this);
+				const string &v = s.str();
+				if (!v.empty())
+					out << " " << v;
+				continue;
+			}
+			if (i->first.rfind("@DBP:PARAM@", 0) == 0) {
+				continue;
+			}
 			ostringstream s(stringstream::out | ostringstream::binary);
 			(i->second)->execute(ctx, s, this);
 			const string &v = s.str();

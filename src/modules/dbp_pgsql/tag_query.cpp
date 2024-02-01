@@ -105,6 +105,7 @@ void tag_query::execute(context &ctx, std::ostream &out,
 		throw tag_query_exception(e.what());
 	}
 
+	string var_prefix = get_parameter(ctx, "prefix");
 	for (pqxx::result::const_iterator row = r.begin(); row != r.end(); ++row) {
 		ctx.enter();
 		try {
@@ -112,14 +113,14 @@ void tag_query::execute(context &ctx, std::ostream &out,
 				if (field.type() == 16) { // boolean
 					try {
 						if (field.as<bool>())
-							ctx.add_value(field.name(), "1");
+							ctx.add_value(var_prefix + field.name(), "1");
 						else
-							ctx.add_value(field.name(), "0");
+							ctx.add_value(var_prefix + field.name(), "0");
 					} catch(...) {
-						ctx.add_value(field.name(), "");
+						ctx.add_value(var_prefix + field.name(), "");
 					}
 				} else
-					ctx.add_value(field.name(), field.c_str());
+					ctx.add_value(var_prefix + field.name(), field.c_str());
 			}
 			// call inherited method
 			tag_impl::execute(ctx, out, caller);

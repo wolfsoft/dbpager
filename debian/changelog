@@ -1,3 +1,12 @@
+dbpager (3.2.24) stable; urgency=low
+
+  * Added prefix parameter for variables in postgresql query tag
+  * dbp:attr support for HTML5 empty attributes
+  * Automatic html entities encoding on output
+  * System variables context to support set up http headers
+
+ -- Dennis Prochko <dennis.prochko@gmail.com>  Wed, 31 Jan 2024 23:37:05 +0200
+
 dbpager (3.2.21) stable; urgency=low
 
   * Added certificate, private-key, ca-certificate to the http tag

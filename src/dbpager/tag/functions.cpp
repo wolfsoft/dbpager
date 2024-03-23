@@ -240,6 +240,27 @@ void function_upper::execute(context &ctx, std::ostream &out, const tag*) const 
 	  uppercase(std::locale("")));
 }
 
+struct lowercase {
+	lowercase(const locale &loc): loc(loc) { }
+	char operator()(char c) { return std::tolower(c, loc); }
+private:
+    const locale &loc;
+};
+
+void function_lower::execute(context &ctx, std::ostream &out, const tag*) const {
+	if (params.size() != 1)
+		throw function_exception(
+		  (format(_("wrong number of arguments ({0} instead {1} expected)")) %
+		    params.size() % 1).str());
+	stringstream s(stringstream::in | stringstream::out | stringstream::binary);
+	(params.begin()->second)->execute(ctx, s, this);
+	s.seekg(0);
+	transform(istream_iterator<char>(s),
+	  istream_iterator<char>(),
+	  ostream_iterator<char>(out, ""),
+	  lowercase(std::locale("")));
+}
+
 function_rnd::function_rnd(const std::string &tag_name):
   tag_impl(tag_name) {
 	srand(time(NULL));

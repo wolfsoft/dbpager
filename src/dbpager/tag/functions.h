@@ -144,6 +144,13 @@ public:
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
+class function_lower: public tag_impl {
+public:
+	function_lower(const std::string &tag_name = ""):
+	  tag_impl(tag_name) { };
+	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
+};
+
 class function_rnd: public tag_impl {
 public:
 	function_rnd(const std::string &tag_name = "");

@@ -4,8 +4,9 @@ dbpager (3.2.24) stable; urgency=low
   * dbp:attr support for HTML5 empty attributes
   * Automatic html entities encoding on output
   * System variables context to support set up http headers
+  * @lower() function added
 
- -- Dennis Prochko <dennis.prochko@gmail.com>  Wed, 31 Jan 2024 23:37:05 +0200
+ -- Dennis Prochko <dennis.prochko@gmail.com>  Sun, 25 Feb 2024 00:23:52 +0200
 
 dbpager (3.2.21) stable; urgency=low
 

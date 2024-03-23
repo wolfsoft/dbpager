@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbpager 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-17 18:34+0200\n"
+"POT-Creation-Date: 2024-02-23 15:29+0200\n"
 "PO-Revision-Date: 2023-11-18 21:26+0200\n"
 "Last-Translator: Dennis Prochko <d.prochko@botguard.net>\n"
 "Language-Team: ru <wolfsoft@mail.ru>\n"
@@ -56,8 +56,7 @@ msgstr "URL или имя файла не определено"
 #: src/dbpager/application/dbpager.cpp:104
 #: src/dbpager/application/dbpagerd.cpp:96
 msgid "Copyright (c) 2008-2024 Dennis Prochko <dennis.prochko@gmail.com>"
-msgstr ""
-"Авторские права (c) 2008-2024 Прочко Денис <dennis.prochko@gmail.com>"
+msgstr "Авторские права (c) 2008-2024 Прочко Денис <dennis.prochko@gmail.com>"
 
 #: src/dbpager/application/dbpagerd.cpp:56
 msgid "dbPager FastCGI Server"
@@ -125,41 +124,41 @@ msgstr ""
 msgid "Configuration realoaded"
 msgstr "Конфигурация перезагружена"
 
-#: src/dbpager/parser/dbpx_parser.cpp:44
+#: src/dbpager/parser/dbpx_parser.cpp:45
 msgid "Validity warning at line {0}: {1}"
 msgstr "Предупреждение валидации на строке {0}: {1}"
 
-#: src/dbpager/parser/dbpx_parser.cpp:46
+#: src/dbpager/parser/dbpx_parser.cpp:47
 msgid "Validity error at line {0}: {1}"
 msgstr "Ошибка валидации на строке {0}: {1}"
 
-#: src/dbpager/parser/dbpx_parser.cpp:48
+#: src/dbpager/parser/dbpx_parser.cpp:49
 msgid "Warning at line {0}: {1}"
 msgstr "Предупреждение на строке {0}: {1}"
 
-#: src/dbpager/parser/dbpx_parser.cpp:50
+#: src/dbpager/parser/dbpx_parser.cpp:51
 msgid "Error at line {0}: {1}"
 msgstr "Ошибка на строке {0}: {1}"
 
-#: src/dbpager/parser/dbpx_parser.cpp:62
+#: src/dbpager/parser/dbpx_parser.cpp:63
 msgid "unable to open file '{0}'. {1}"
 msgstr "невозможно открыть файл '{0}'. {1}"
 
-#: src/dbpager/parser/dbpx_parser.cpp:92
+#: src/dbpager/parser/dbpx_parser.cpp:93
 msgid "failed to parse file '{0}'. {1}"
 msgstr "ошибка при разборе файла '{0}'. {1}"
 
-#: src/dbpager/parser/dbpx_parser.cpp:113
-#: src/dbpager/parser/dbpx_parser.cpp:128
+#: src/dbpager/parser/dbpx_parser.cpp:114
+#: src/dbpager/parser/dbpx_parser.cpp:129
 msgid "invalid nested tags ({0})"
 msgstr "неверная вложенность тегов ({0})"
 
-#: src/dbpager/parser/dbpx_parser.cpp:161 src/dbpager/tag/tag_factory.cpp:142
+#: src/dbpager/parser/dbpx_parser.cpp:162 src/dbpager/tag/tag_factory.cpp:142
 #: src/dbpager/tag/tag_factory.cpp:153
 msgid "unknown tag found ({0})"
 msgstr "обнаружен неизвестный тег ({0})"
 
-#: src/dbpager/parser/dbpx_parser.cpp:177
+#: src/dbpager/parser/dbpx_parser.cpp:178
 msgid "href parameter missing for tag include"
 msgstr "у тега include отсутствует параметр href"
 
@@ -183,36 +182,36 @@ msgstr "вызываемый тег '{0}' не определен в этой о
 msgid "file {0} can't be deleted"
 msgstr "файл {0} не может быть удалён"
 
-#: src/dbpager/tag/tag_expression.cpp:90
+#: src/dbpager/tag/tag_expression.cpp:85
 msgid "unbalanced expression braces found"
 msgstr "найдены не сбалансированные скобки выражения"
 
-#: src/dbpager/tag/tag_expression.cpp:187
+#: src/dbpager/tag/tag_expression.cpp:182
 msgid "invalid expression: {0} expected"
 msgstr "неверное выражение: ожидался {0}"
 
-#: src/dbpager/tag/tag_expression.cpp:204
+#: src/dbpager/tag/tag_expression.cpp:199
 msgid ""
 "parameter(s) are not defined for function '{0}', expected '(', found '{1}'"
 msgstr ""
 "параметр(ы) для функции '{0}' не определен(ы), ожидалась '(', найдено '{1}'"
 
-#: src/dbpager/tag/tag_expression.cpp:223
-#: src/dbpager/tag/tag_expression.cpp:459
+#: src/dbpager/tag/tag_expression.cpp:218
+#: src/dbpager/tag/tag_expression.cpp:454
 msgid "invalid expression: \")\" expected"
 msgstr "неверное выражение: ожидалась \")\""
 
-#: src/dbpager/tag/tag_expression.cpp:228
+#: src/dbpager/tag/tag_expression.cpp:223
 msgid "unknown expression token '{0}'"
 msgstr "неизвестный оператор '{0}' в выражении"
 
-#: src/dbpager/tag/tag_expression.cpp:374
-#: src/dbpager/tag/tag_expression.cpp:410
-#: src/dbpager/tag/tag_expression.cpp:446
+#: src/dbpager/tag/tag_expression.cpp:369
+#: src/dbpager/tag/tag_expression.cpp:405
+#: src/dbpager/tag/tag_expression.cpp:441
 msgid "can't convert the string to a number"
 msgstr "невозможно преобразовать строку в число"
 
-#: src/dbpager/tag/tag_expression.cpp:466
+#: src/dbpager/tag/tag_expression.cpp:461
 msgid "invalid expression: primary expected"
 msgstr "неверное выражение: ожидалось число"
 

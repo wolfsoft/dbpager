@@ -111,6 +111,7 @@ tag_factory::tag_factory() {
 	register_tag<function_uuid>(dbpager_uri, "@uuid");
 	register_tag<function_rnd>(dbpager_uri, "@rnd");
 	register_tag<function_upper>(dbpager_uri, "@upper");
+	register_tag<function_lower>(dbpager_uri, "@lower");
 	register_tag<function_urlencode>(dbpager_uri, "@encode_url");
 	register_tag<function_urldecode>(dbpager_uri, "@decode_url");
 	register_tag<function_date_utc>(dbpager_uri, "@date_utc");

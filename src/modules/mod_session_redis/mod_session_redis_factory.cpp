@@ -63,7 +63,7 @@ disposable* create_object(const char *object_name) {
 	if (strcmp(object_name, "redis") == 0) {
 		mod_session_redis *msc = new mod_session_redis();
 		msc->set_server(server);
-		msc->set_password(server);
+		msc->set_password(password);
 		msc->set_database_number(database_number);
 		msc->set_ttl(ttl);
 		return msc;

@@ -38,7 +38,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && export LANG=C \
 	\
 	&& apt-get update && apt-get -y upgrade && apt-get -y install wget gnupg \
 	&& wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-	&& echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" >> /etc/apt/sources.list \
+	&& echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ buster-pgdg main" >> /etc/apt/sources.list \
 	\
 	&& apt-get update && apt-get -y install gcc-7 g++-7 \
 	&& apt-get -y install git autopoint libtool automake pkg-config gettext autoconf autotools-dev xsltproc scons build-essential \
@@ -48,7 +48,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && export LANG=C \
 	&& git clone https://github.com/wolfsoft/libdcl.git \
 	&& cd libdcl && ./autogen.sh && ./configure --disable-gtk --disable-qt --disable-winapi --disable-doxygen-doc --without-apache && make -j`nproc` && make install && cd .. \
 	\
-	&& apt-get -y install libpq-dev libpqxx-dev libjsoncpp-dev libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libpcrecpp0v5 libcurl4-openssl-dev libmemcached-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libhiredis-dev libmosquitto-dev libmosquittopp-dev \
+	&& apt-get -y install libpq-dev libpqxx-dev libjsoncpp-dev libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libpcrecpp0v5 libcurl4-openssl-dev libmemcached-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libhiredis-dev libmosquitto-dev libmosquittopp-dev libldap-dev \
 	\
 	&& cd dbpager && ./autogen.sh && ./configure --disable-dbp_cgi --disable-mod_dbp --disable-dbp_isapi --disable-dbp_mongo --disable-dbp_script && make -j`nproc` && make install && cd .. \
 	\
@@ -69,12 +69,12 @@ RUN export DEBIAN_FRONTEND=noninteractive && export LANG=C \
 	\
 	&& apt-get update && apt-get -y upgrade && apt-get -y install wget gnupg \
 	&& wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-	&& echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" >> /etc/apt/sources.list \
+	&& echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ buster-pgdg main" >> /etc/apt/sources.list \
 	\
 	&& apt-get update && apt-get -y upgrade \
 	\
 	&& apt-get -y install netbase libssl-dev unixodbc-dev \
-	&& apt-get -y install libpq-dev libpqxx-dev libjsoncpp-dev libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libpcrecpp0v5 libcurl4-openssl-dev libmemcached-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libhiredis-dev libmosquitto-dev libmosquittopp-dev \
+	&& apt-get -y install libpq-dev libpqxx-dev libjsoncpp-dev libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libpcrecpp0v5 libcurl4-openssl-dev libmemcached-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libhiredis-dev libmosquitto-dev libmosquittopp-dev libldap-dev \
 	&& apt-get -y remove wget gnupg *-dev *-doc \
 	&& apt-mark manual `dpkg -l | awk '($1 == "ii") && ($2 ~ /^lib|lib$/) { print $2 }'` \
 	&& apt-get -y autoremove --purge \

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<!-- enable LDAP plugin -->
+<dbp:module
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+	xmlns:ldap="http://dbpager.org.ru/schemas/dbp/3.0/ldap"
+>
+
+<!-- define constants -->
+<dbp:var name="url" value="ldap://localhost:1389" type="global" />
+<dbp:var name="users_dn" value="ou=users,dc=example,dc=org" type="global" />
+<dbp:var name="admin_user" value="cn=admin,dc=example,dc=org" type="global" />
+<dbp:var name="admin_pass" value="adminpassword" type="global" />
+
+
+<dbp:log>trying to authenticate {$username} with password {$password}...</dbp:log>
+
+<!-- connect to the LDAP server and do authentication -->
+<ldap:connection href="{$url}">
+	<!-- authenticate as admin first -->
+	<ldap:bind dn="{$admin_user}" password="{$admin_pass}">
+		<!-- search of user DN by common name (CN) -->
+		<ldap:search base="{$users_dn}" filter="(&amp;(ObjectClass=inetorgperson)(|(cn={$username})(uid={$username})(email={$username})))">
+			<!-- if user found, try to authenticate it -->
+			<ldap:bind dn="{$dn}" password="{$password}">
+				<dbp:log>{$username} logged in.</dbp:log>
+			</ldap:bind>
+		</ldap:search>
+	</ldap:bind>
+</ldap:connection>
+
+</dbp:module>

@@ -20,7 +20,7 @@
 #
 
 # initialization
-AC_INIT([dbpager], [3.2.25], [dennis.prochko@gmail.com])
+AC_INIT([dbpager], [3.3.1], [dennis.prochko@gmail.com])
 AC_PREREQ([2.63])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])
@@ -200,6 +200,13 @@ AC_ARG_ENABLE(dbp_mqtt,
 	[build dbp_mqtt plugin (default=auto)]),
 	[use_mqtt=$enableval],
 	[use_mqtt=auto]
+)
+
+AC_ARG_ENABLE(dbp_ldap,
+	AS_HELP_STRING([--enable-dbp_ldap={yes|no}],
+	[build dbp_ldap plugin (default=auto)]),
+	[use_ldap=$enableval],
+	[use_ldap=auto]
 )
 
 # Checks for c++ features
@@ -461,6 +468,23 @@ AC_SUBST(LIBMQTT_LIBS)
 
 AM_CONDITIONAL(WITH_MQTT, test "$use_mqtt" = "yes")
 
+#check mod_ldap option
+PKG_CHECK_MODULES(libldap, [ldap >= 2.4],
+[
+	if test "$use_ldap" != "no"; then
+		AC_DEFINE([HAVE_LDAP], [1], [enable ldap usage])
+		use_ldap="yes"
+	fi
+],
+[
+	if test "$use_ldap" = "yes"; then
+		AC_MSG_ERROR([libldap library is required but not found.])
+	fi
+	use_ldap="no"
+])
+
+AM_CONDITIONAL(WITH_LDAP, test "$use_ldap" = "yes")
+
 AX_WITH_APACHE()
 
 AC_CHECK_HEADERS([windows.h],
@@ -546,6 +570,8 @@ AC_CONFIG_FILES([
    src/modules/mod_session_redis/mod_session_redis.conf
    src/modules/dbp_redis/Makefile
    src/modules/dbp_redis/dbp_redis.conf
+   src/modules/dbp_ldap/Makefile
+   src/modules/dbp_ldap/dbp_ldap.conf
    src/data/Makefile
    tests/Makefile
 ])
@@ -569,6 +595,7 @@ echo Berkeley DB module....................................$use_bdb
 echo Mongo module..........................................$use_mongo
 echo Script module.........................................$use_script
 echo MQTT module...........................................$use_mqtt
+echo LDAP module...........................................$use_ldap
 echo
 echo Type \`make\` to compile dbPager software with these features
 echo

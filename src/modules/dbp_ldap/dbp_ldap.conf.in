@@ -1,0 +1,7 @@
+#
+# This directive assigns the XML namespace to the dbPager dbp_ldap module.
+# The module provides support of native LDAP support like authentication and
+# data querying
+#
+[modules]
+http://dbpager.org.ru/schemas/dbp/3.0/ldap = @PLUGINSDIR@/libdbp_ldap.so

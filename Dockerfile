@@ -49,6 +49,33 @@ RUN export DEBIAN_FRONTEND=noninteractive && export LANG=C \
 	&& cd libdcl && ./autogen.sh && ./configure --disable-gtk --disable-qt --disable-winapi --disable-doxygen-doc --without-apache && make -j`nproc` && make install && cd .. \
 	\
 	&& apt-get -y install libpq-dev libpqxx-dev libjsoncpp-dev libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libpcrecpp0v5 libcurl4-openssl-dev libmemcached-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libhiredis-dev libmosquitto-dev libmosquittopp-dev libldap-dev \
+	&& printf 'prefix=/usr\n \
+exec_prefix=${prefix}\n \
+includedir=${prefix}/include\n \
+libdir=${prefix}/lib/x86_64-linux-gnu\n \
+\n \
+Name: lber (OpenLDAP)\n \
+Description: OpenLDAP Lightweight ASN.1 Basic Encoding Rules library\n \
+URL: https://www.openldap.org\n \
+Version: 2.4.47+dfsg-3+deb10u7\n \
+Cflags: -I${includedir}\n \
+Libs: -L${libdir} -llber\n \
+Libs.private:\n \
+' > /usr/lib/x86_64-linux-gnu/pkgconfig/lber.pc \
+	&& printf 'prefix=/usr\n \
+exec_prefix=${prefix}\n \
+includedir=${prefix}/include\n \
+libdir=${prefix}/lib/x86_64-linux-gnu\n \
+\n \
+Name: ldap (OpenLDAP)\n \
+Description: OpenLDAP Lightweight Directory Access Protocol library\n \
+URL: https://www.openldap.org\n \
+Version: 2.4.47+dfsg-3+deb10u7\n \
+Requires: lber\n \
+Cflags: -I${includedir}\n \
+Libs: -L${libdir} -lldap\n \
+Libs.private:  -lsasl2 -lgnutls\n \
+' > /usr/lib/x86_64-linux-gnu/pkgconfig/ldap.pc \
 	\
 	&& cd dbpager && ./autogen.sh && ./configure --disable-dbp_cgi --disable-mod_dbp --disable-dbp_isapi --disable-dbp_mongo --disable-dbp_script && make -j`nproc` && make install && cd .. \
 	\

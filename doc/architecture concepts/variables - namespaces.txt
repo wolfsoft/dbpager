@@ -1,0 +1,33 @@
+# Variable Namespaces
+
+## Architecture problem solved: Overriding variable values by different access layers.
+
+### Namespaces processing order
+
+Variables accessed from `dbp` namespace uses a different namespaces in the specific order:
+
+dbp			Default namespace
+args		Variables from HTTP query arguments or command line parameters
+headers		Variables from HTTP headers
+env			Variables from system environment
+cookie		Variables from HTTP cookie header
+session		Durable variables storage, cookie-based session-wide
+
+## Example
+
+```xml
+<?xml version="1.0"?>
+
+<dbp:module
+	xmlns:dbp="http://dbpager.org.ru/schemas/dbp/3.0"
+	xmlns:args="http://dbpager.org.ru/schemas/dbp/3.0/args"
+	xmlns:session="http://dbpager.org.ru/schemas/dbp/3.0/session"
+	xmlns:user="http://dbpager.org.ru/schemas/dbp/3.0/user"
+>
+
+<dbp:log>{$args:user_id}</dbp:log>
+
+<session:var name="id" value="123" />
+
+</dbp:module>
+```

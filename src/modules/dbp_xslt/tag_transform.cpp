@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -58,8 +58,37 @@ void tag_transform::execute(context &ctx, std::ostream &out,
 		  _("the input stream does not contain the valid XML data"));
 	}
 	try {
-		// transform file
-		res = xsltApplyStylesheet(cur, doc, NULL);
+		// extract other parameters
+		std::vector<std::string> pstr;
+		for (const auto& p : params) {
+			if (p.first == "href") continue;
+			pstr.push_back(p.first);
+
+			// escape the value with single quotes
+			std::stringstream val;
+			p.second->execute(ctx, val, this);
+			std::string value = val.str();
+			if (!value.empty() && value.front() != '\'' && value.back() != '\'') {
+				std::string escaped_value = "";
+				for (char c : value) {
+					if (c == '\'')
+						escaped_value += "''";
+					else
+						escaped_value += c;
+				}
+				pstr.push_back("'" + escaped_value + "'");
+			} else {
+				pstr.push_back(value);
+			}
+		}
+
+		std::vector<const char*> pchr;
+		for (const auto& s : pstr) {
+			pchr.push_back(s.c_str());
+		}
+		pchr.push_back(nullptr);
+
+		res = xsltApplyStylesheet(cur, doc, pchr.data());
 		if (!res) {
 			throw tag_transform_exception(
 			  _("can't transform XML data"));
@@ -85,4 +114,3 @@ void tag_transform::execute(context &ctx, std::ostream &out,
 }
 
 } // namespace
-

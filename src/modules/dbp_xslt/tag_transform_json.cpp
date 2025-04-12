@@ -64,8 +64,38 @@ void tag_transform_json::execute(context &ctx, std::ostream &out,
 	xmlDocSetRootElement(doc, n);
 
 	try {
+		// extract other parameters
+		std::vector<std::string> pstr;
+		for (const auto& p : params) {
+			if (p.first == "href") continue;
+			pstr.push_back(p.first);
+
+			// escape the value with single quotes
+			std::stringstream val;
+			p.second->execute(ctx, val, this);
+			std::string value = val.str();
+			if (!value.empty() && value.front() != '\'' && value.back() != '\'') {
+				std::string escaped_value = "";
+				for (char c : value) {
+					if (c == '\'')
+						escaped_value += "''";
+					else
+						escaped_value += c;
+				}
+				pstr.push_back("'" + escaped_value + "'");
+			} else {
+				pstr.push_back(value);
+			}
+		}
+
+		std::vector<const char*> pchr;
+		for (const auto& s : pstr) {
+			pchr.push_back(s.c_str());
+		}
+		pchr.push_back(nullptr);
+
 		// transform file
-		res = xsltApplyStylesheet(cur, doc, NULL);
+		res = xsltApplyStylesheet(cur, doc, pchr.data());
 		if (!res) {
 			throw tag_transform_json_exception(
 			  _("can't transform JSON data"));

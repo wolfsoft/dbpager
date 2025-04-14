@@ -305,6 +305,10 @@ void function_date_fmt::execute(context &ctx, std::ostream &out, const tag*) con
 	out << d.str(get_parameter(ctx, "arg1"));
 }
 
+void function_now::execute(context &ctx, std::ostream &out, const tag*) const {
+	out << (int)time(NULL);
+}
+
 void function_env::execute(context &ctx, std::ostream &out, const tag*) const {
 	if (params.size() != 1) {
 		throw function_exception(

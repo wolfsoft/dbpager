@@ -178,6 +178,13 @@ public:
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
+class function_now: public tag_impl {
+public:
+	function_now(const std::string &tag_name = ""):
+	  tag_impl(tag_name) { };
+	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
+};
+
 class function_env: public tag_impl {
 public:
 	function_env(const std::string &tag_name = ""):

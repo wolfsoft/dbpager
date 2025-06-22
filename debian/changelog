@@ -1,3 +1,11 @@
+dbpager (3.2.26) stable; urgency=low
+
+  * now() function that returns current timestamp
+  * params for xslt transofmation tags
+  * dbp_ldap plugin
+
+ -- Dennis Prochko <dennis.prochko@gmail.com>  Mon, 23 Jun 2025 00:58:24 +0300
+
 dbpager (3.2.25) stable; urgency=low
 
   * mod_session_redis: fix password parameter

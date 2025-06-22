@@ -1,0 +1,3 @@
+usr/lib/dbpager/libdbp_ldap.so.*
+usr/lib/dbpager/libdbp_ldap*.so
+etc/dbpager/modules-available/dbp_ldap.conf

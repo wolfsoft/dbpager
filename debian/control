@@ -185,6 +185,14 @@ Description: dbPager Server extension - MQTT protocol support
  This is a dbPager Language interpretators extension. It provides
  MQTT protocol support.
 
+Package: dbpager-ldap
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libdbp-ldap
+Description: dbPager Server extension - LDAP protocol support
+ This is a dbPager Language interpretators extension. It provides
+ LDAP protocol support.
+
 Package: dbpager-dbg
 Architecture: any
 Depends: libdbpager4 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}

@@ -126,6 +126,7 @@ void http_environment::init_response(dbp::http_response &resp) {
 		if (req.get_https()) {
 			c.same_site = "none";
 			c.secure = true;
+			c.partitioned = true;
 		}
 		if (session->get_value("SESSION_PERSISTENT") == string("1")) {
 			datetime d;

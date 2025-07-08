@@ -20,7 +20,7 @@
 #
 
 # initialization
-AC_INIT([dbpager], [3.2.26], [dennis.prochko@gmail.com])
+AC_INIT([dbpager], [3.2.27], [dennis.prochko@gmail.com])
 AC_PREREQ([2.63])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])
@@ -230,9 +230,9 @@ fi
 # Checks for libraries
 PKG_CHECK_MODULES(jsoncpp, [jsoncpp >= 0.6.0])
 
-PKG_CHECK_MODULES(libdclbase, [libdclbase >= 0.2.0])
+PKG_CHECK_MODULES(libdclbase, [libdclbase >= 0.2.3])
 
-PKG_CHECK_MODULES(libdclnet, [libdclnet >= 0.2.0])
+PKG_CHECK_MODULES(libdclnet, [libdclnet >= 0.2.3])
 
 PKG_CHECK_MODULES(libmemcached, [libmemcached >= 1.0.0],
 [

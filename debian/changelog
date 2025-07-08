@@ -1,3 +1,9 @@
+dbpager (3.2.27) stable; urgency=low
+
+  * session cookie is now "partitioned" to make iframes work again.
+ 
+ -- Dennis Prochko <dennis.prochko@gmail.com>  Wed, 09 Jul 2025 00:00:33 +0300
+
 dbpager (3.2.26) stable; urgency=low
 
   * now() function that returns current timestamp

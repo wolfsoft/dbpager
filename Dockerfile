@@ -32,12 +32,12 @@ RUN export DEBIAN_FRONTEND=noninteractive && export LANG=C \
 	&& export CXXFLAGS="-std=c++0x -O3 -pipe" \
 	&& export CC="gcc-7" \
 	&& export CXX="g++-7" \
-	&& echo "deb http://deb.debian.org/debian buster main contrib non-free" > /etc/apt/sources.list \
-	&& echo "deb http://deb.debian.org/debian buster-updates main contrib non-free" >> /etc/apt/sources.list \
-	&& echo "deb http://security.debian.org buster/updates main contrib non-free" >> /etc/apt/sources.list \
+	&& echo "deb http://archive.debian.org/debian buster main contrib non-free" > /etc/apt/sources.list \
+	&& echo "deb http://archive.debian.org/debian buster-updates main contrib non-free" >> /etc/apt/sources.list \
+	&& echo "deb http://archive.debian.org/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list \
 	\
-	&& apt-get update && apt-get -y upgrade && apt-get -y install wget gnupg \
-	&& wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+	&& apt-get update && apt-get -y upgrade && apt-get -y install curl gnupg \
+	&& curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
 	&& echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ buster-pgdg main" >> /etc/apt/sources.list \
 	\
 	&& apt-get update && apt-get -y install gcc-7 g++-7 \
@@ -90,12 +90,12 @@ FROM debian:buster
 COPY --from=builder /usr/local/ /usr/local/
 
 RUN export DEBIAN_FRONTEND=noninteractive && export LANG=C \
-	&& echo "deb http://deb.debian.org/debian buster main contrib non-free" > /etc/apt/sources.list \
-	&& echo "deb http://deb.debian.org/debian buster-updates main contrib non-free" >> /etc/apt/sources.list \
-	&& echo "deb http://security.debian.org buster/updates main contrib non-free" >> /etc/apt/sources.list \
+	&& echo "deb http://archive.debian.org/debian buster main contrib non-free" > /etc/apt/sources.list \
+	&& echo "deb http://archive.debian.org/debian buster-updates main contrib non-free" >> /etc/apt/sources.list \
+	&& echo "deb http://archive.debian.org/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list \
 	\
-	&& apt-get update && apt-get -y upgrade && apt-get -y install wget gnupg \
-	&& wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+	&& apt-get update && apt-get -y upgrade && apt-get -y install curl gnupg \
+	&& curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
 	&& echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ buster-pgdg main" >> /etc/apt/sources.list \
 	\
 	&& apt-get update && apt-get -y upgrade \

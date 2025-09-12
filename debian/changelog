@@ -1,7 +1,15 @@
+dbpager (3.2.29) stable; urgency=low
+
+  * certificate-data, ca-certificate-data, and private-key-data parameters
+    were added to dbp:http tag to provide certificates and keys as raw strings
+    instead of filenames.
+
+ -- Dennis Prochko <dennis.prochko@gmail.com>  Fri, 12 Sep 2025 18:51:29 +0300
+
 dbpager (3.2.27) stable; urgency=low
 
   * session cookie is now "partitioned" to make iframes work again.
- 
+
  -- Dennis Prochko <dennis.prochko@gmail.com>  Wed, 09 Jul 2025 00:00:33 +0300
 
 dbpager (3.2.26) stable; urgency=low

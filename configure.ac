@@ -20,7 +20,7 @@
 #
 
 # initialization
-AC_INIT([dbpager], [3.2.27], [dennis.prochko@gmail.com])
+AC_INIT([dbpager], [3.2.29], [dennis.prochko@gmail.com])
 AC_PREREQ([2.63])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])
@@ -383,7 +383,10 @@ AM_CONDITIONAL(WITH_MONGO, test "$use_mongo" = "yes")
 
 PKG_CHECK_MODULES(libpcrecpp, [libpcrecpp >= 8.0])
 
-PKG_CHECK_MODULES(libcurl, [libcurl >= 7.33])
+# CURLOPT_CAINFO_BLOB requires 7.77
+# CURLOPT_SSLCERT_BLOB requires 7.71
+# but debian buster have only 7.74 in backports
+PKG_CHECK_MODULES(libcurl, [libcurl >= 7.71])
 
 PKG_CHECK_MODULES(libpqxx, [libpqxx >= 6.0],
 [

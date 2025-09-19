@@ -20,7 +20,7 @@
 #
 
 # initialization
-AC_INIT([dbpager], [3.2.29], [dennis.prochko@gmail.com])
+AC_INIT([dbpager], [3.2.30], [dennis.prochko@gmail.com])
 AC_PREREQ([2.63])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])

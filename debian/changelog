@@ -1,4 +1,4 @@
-dbpager (3.2.29) stable; urgency=low
+dbpager (3.2.30) stable; urgency=low
 
   * certificate-data, ca-certificate-data, and private-key-data parameters
     were added to dbp:http tag to provide certificates and keys as raw strings

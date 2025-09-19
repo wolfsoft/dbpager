@@ -26,6 +26,7 @@
 #include "tag/tag_http.h"
 
 #include <curl/curl.h>
+#include <curl/curlver.h>
 
 #include "dbpager/consts.h"
 
@@ -71,6 +72,14 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 	string content_str = content.str();
 	string http_agent = app_full_name;
 	stringstream _out;
+
+#if LIBCURL_VERSION_NUM >= 0x074700
+	struct curl_blob cert_blob, key_blob;
+#endif
+#if LIBCURL_VERSION_NUM >= 0x074D00
+	struct curl_blob ca_blob;
+#endif
+
 	try {
 		curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
 		curl_easy_setopt(curl, CURLOPT_URL, href.c_str());
@@ -83,28 +92,29 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 			curl_easy_setopt(curl, CURLOPT_SSLCERT, certificate.c_str());
 			curl_easy_setopt(curl, CURLOPT_SSLKEY, private_key.c_str());
 		}
-#ifdef CURLOPT_SSLCERT_BLOB
+#if LIBCURL_VERSION_NUM >= 0x074700
 		else if (!certificate_data.empty() && !private_key_data.empty()) {
-			struct curl_blob cert_blob {
-				certificate_data.c_str(), certificate_data.size(), CURL_BLOB_COPY
+			cert_blob = {
+				(void*)certificate_data.c_str(), certificate_data.size(), CURL_BLOB_COPY
 			};
-			struct curl_blob key_blob {
-				private_key_data.c_str(), private_key_data.size(), CURL_BLOB_COPY
+			key_blob = {
+				(void*)private_key_data.c_str(), private_key_data.size(), CURL_BLOB_COPY
 			};
             curl_easy_setopt(curl, CURLOPT_SSLCERT_BLOB, &cert_blob);
             curl_easy_setopt(curl, CURLOPT_SSLKEY_BLOB, &key_blob);
+			curl_easy_setopt(curl, CURLOPT_SSLCERTTYPE, "PEM");
         }
 #endif
 		if (!ca_certificate.empty()) {
 			curl_easy_setopt(curl, CURLOPT_CAINFO, ca_certificate.c_str());
 			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1);
 		}
-#ifdef CURLOPT_CAINFO_BLOB
+#if LIBCURL_VERSION_NUM >= 0x074D00
 		else if (!ca_certificate_data.empty()) {
-			struct curl_blob cert_blob {
-				ca_certificate_data.c_str(), ca_certificate_data.size(), CURL_BLOB_COPY
+			ca_blob = {
+				(void*)ca_certificate_data.c_str(), ca_certificate_data.size(), CURL_BLOB_COPY
 			};
-            curl_easy_setopt(curl, CURLOPT_CAINFO_BLOB, &cert_blob);
+            curl_easy_setopt(curl, CURLOPT_CAINFO_BLOB, &ca_blob);
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1);
         }
 #endif

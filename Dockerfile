@@ -1,8 +1,10 @@
 # dbPager Server Docker Container
 #
+# docker buildx build --platform linux/amd64,linux/arm64 -t wolfsoft/dbpager:3.3.0-beta1 .
+#
 # This file is part of dbPager Server
 #
-# Copyright (c) 2008 Dennis Prochko <wolfsoft@mail.ru>
+# Copyright (c) 2026 Dennis Prochko <dennis.prochko@gmail.com>
 #
 # dbPager Server is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +21,7 @@
 # Boston, MA  02110-1301  USA
 #
 
-FROM debian:buster AS builder
+FROM debian:bookworm AS builder
 
 WORKDIR /root
 
@@ -27,58 +29,22 @@ WORKDIR /root
 COPY . dbpager/
 
 # Install dependencies, compile from sources, cleaning up
-# N.B.: gcc 8 is broken (dbp::system segfaults)
+# N.B.: debian buster's gcc 8 is broken (dbp::system segfaults)
 RUN export DEBIAN_FRONTEND=noninteractive && export LANG=C \
 	&& export CXXFLAGS="-std=c++11 -O2 -pipe" \
-	&& export CC="gcc-7" \
-	&& export CXX="g++-7" \
-	&& echo "deb http://archive.debian.org/debian buster main contrib non-free" > /etc/apt/sources.list \
-	&& echo "deb http://archive.debian.org/debian buster-updates main contrib non-free" >> /etc/apt/sources.list \
-	&& echo "deb http://archive.debian.org/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list \
-	&& echo "deb http://archive.debian.org/debian buster-backports main contrib non-free" >> /etc/apt/sources.list \
+	&& echo "deb http://deb.debian.org/debian bookworm-backports main contrib non-free non-free-firmware" >> /etc/apt/sources.list \
 	\
-	&& apt-get update && apt-get -y upgrade && apt-get -y install gnupg \
-	&& apt-get -y -t buster-backports install curl \
-	&& curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-	&& echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ buster-pgdg main" >> /etc/apt/sources.list \
+	&& apt-get update && apt-get -y install gnupg curl \
 	\
-	&& apt-get update && apt-get -y install gcc-7 g++-7 \
-	&& apt-get -y install git autopoint libtool automake pkg-config gettext autoconf autotools-dev xsltproc scons build-essential \
+	&& curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o "/etc/apt/keyrings/postgresql.gpg" \
+	&& echo "deb [signed-by=/etc/apt/keyrings/postgresql.gpg] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main" >> /etc/apt/sources.list \
 	\
-	&& apt-get -y install netbase libssl-dev unixodbc-dev \
+	&& apt-get -y install gcc g++ git autopoint libtool automake pkg-config gettext autoconf autotools-dev xsltproc scons build-essential netbase libssl-dev unixodbc-dev \
 	\
 	&& git clone -b migrate-to-c11 --single-branch https://github.com/wolfsoft/libdcl.git \
 	&& cd libdcl && ./autogen.sh && ./configure --disable-gtk --disable-qt --disable-winapi --disable-doxygen-doc --without-apache && make -j`nproc` && make install && cd .. \
 	\
-	&& apt-get -y -t buster-backports install libcurl4-openssl-dev \
-	&& apt-get -y install libpq-dev libpqxx-dev libjsoncpp-dev libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libpcrecpp0v5 libmemcached-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libhiredis-dev libmosquitto-dev libmosquittopp-dev libldap2-dev \
-	&& bash -c 'echo -e "prefix=/usr\n \
-exec_prefix=\${prefix}\n \
-includedir=\${prefix}/include\n \
-libdir=\${prefix}/lib/`uname -m`-linux-gnu\n \
-\n \
-Name: lber (OpenLDAP)\n \
-Description: OpenLDAP Lightweight ASN.1 Basic Encoding Rules library\n \
-URL: https://www.openldap.org\n \
-Version: 2.4.47+dfsg-3+deb10u7\n \
-Cflags: -I\${includedir}\n \
-Libs: -L\${libdir} -llber\n \
-Libs.private:\n" \
-' > /usr/lib/`uname -m`-linux-gnu/pkgconfig/lber.pc \
-	&& bash -c 'echo -e "prefix=/usr\n \
-exec_prefix=\${prefix}\n \
-includedir=\${prefix}/include\n \
-libdir=\${prefix}/lib/`uname -m`-linux-gnu\n \
-\n \
-Name: ldap (OpenLDAP)\n \
-Description: OpenLDAP Lightweight Directory Access Protocol library\n \
-URL: https://www.openldap.org\n \
-Version: 2.4.47+dfsg-3+deb10u7\n \
-Requires: lber\n \
-Cflags: -I\${includedir}\n \
-Libs: -L\${libdir} -lldap\n \
-Libs.private:  -lsasl2 -lgnutls\n" \
-' > /usr/lib/`uname -m`-linux-gnu/pkgconfig/ldap.pc \
+	&& apt-get -y install libcurl4-openssl-dev libpq-dev libpqxx-dev libjsoncpp-dev libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libpcrecpp0v5 libmemcached-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libhiredis-dev libmosquitto-dev libmosquittopp-dev libldap2-dev \
 	\
 	&& cd dbpager && ./autogen.sh && ./configure --disable-dbp_cgi --disable-mod_dbp --disable-dbp_isapi --disable-dbp_mongo --disable-dbp_script && make -j`nproc` && make install && cd .. \
 	\
@@ -88,25 +54,21 @@ Libs.private:  -lsasl2 -lgnutls\n" \
 # System configuration
 RUN sed -i "s;^# bind = .*$;bind = :9000;g" /usr/local/etc/dbpager/dbpager.conf
 
-FROM debian:buster
+FROM debian:bookworm
 
 COPY --from=builder /usr/local/ /usr/local/
 
 RUN export DEBIAN_FRONTEND=noninteractive && export LANG=C \
-	&& echo "deb http://archive.debian.org/debian buster main contrib non-free" > /etc/apt/sources.list \
-	&& echo "deb http://archive.debian.org/debian buster-updates main contrib non-free" >> /etc/apt/sources.list \
-	&& echo "deb http://archive.debian.org/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list \
-	&& echo "deb http://archive.debian.org/debian buster-backports main contrib non-free" >> /etc/apt/sources.list \
+	&& export CXXFLAGS="-std=c++11 -O2 -pipe" \
+	&& echo "deb http://deb.debian.org/debian bookworm-backports main contrib non-free non-free-firmware" >> /etc/apt/sources.list \
 	\
-	&& apt-get update && apt-get -y upgrade && apt-get -y install gnupg \
-	&& apt-get -y -t buster-backports install curl \
-	&& curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-	&& echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ buster-pgdg main" >> /etc/apt/sources.list \
+	&& apt-get update && apt-get -y install gnupg curl \
 	\
-	&& apt-get update && apt-get -y upgrade \
+	&& curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o "/etc/apt/keyrings/postgresql.gpg" \
+	&& echo "deb [signed-by=/etc/apt/keyrings/postgresql.gpg] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main" >> /etc/apt/sources.list \
 	\
 	&& apt-get -y install netbase libssl-dev unixodbc-dev \
-	&& apt-get -y -t buster-backports install libcurl4-openssl-dev \
+	&& apt-get -y install libcurl4-openssl-dev \
 	&& apt-get -y install libpq-dev libpqxx-dev libjsoncpp-dev libdb++-dev libsqlite3-dev libxml2-dev libxslt1-dev libpcre3-dev libpcrecpp0v5 libmemcached-dev libevent-dev uuid-dev libboost-thread-dev libboost-filesystem-dev libboost-system-dev libhiredis-dev libmosquitto-dev libmosquittopp-dev libldap2-dev \
 	&& apt-get -y remove wget gnupg *-dev *-doc \
 	&& apt-mark manual `dpkg -l | awk '($1 == "ii") && ($2 ~ /^lib|lib$/) { print $2 }'` \

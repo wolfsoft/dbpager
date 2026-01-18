@@ -40,6 +40,8 @@ mod_session_jwt::mod_session_jwt(const std::string &token) {
 }
 
 void mod_session_jwt::load(context &ctx) {
+	if (id.empty())
+		return;
 	auto decoded = jwt::decode(id);
 	try {
 		jwt::verify()
@@ -82,22 +84,6 @@ void mod_session_jwt::save(const context &ctx, dbp::http_response &resp) {
 			}
 			resp.set_cookie(c);
 		}
-
-		if (id.empty()) {
-			dbp::http_cookie c("session-token", "");
-			c.path = "/";
-			c.http_only = true;
-			if (is_https) {
-				c.same_site = "none";
-				c.secure = true;
-				c.partitioned = true;
-			}
-			dbp::datetime d;
-			d.year(1976).month(4).day(21).hour(0).minute(0).second(0);
-			c.expires = d;
-			resp.set_cookie(c);
-		}
-
 	}
 }
 

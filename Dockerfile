@@ -29,7 +29,7 @@ COPY . dbpager/
 # Install dependencies, compile from sources, cleaning up
 # N.B.: gcc 8 is broken (dbp::system segfaults)
 RUN export DEBIAN_FRONTEND=noninteractive && export LANG=C \
-	&& export CXXFLAGS="-std=c++0x -O3 -pipe" \
+	&& export CXXFLAGS="-std=c++11 -O2 -pipe" \
 	&& export CC="gcc-7" \
 	&& export CXX="g++-7" \
 	&& echo "deb http://archive.debian.org/debian buster main contrib non-free" > /etc/apt/sources.list \
@@ -47,7 +47,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && export LANG=C \
 	\
 	&& apt-get -y install netbase libssl-dev unixodbc-dev \
 	\
-	&& git clone https://github.com/wolfsoft/libdcl.git \
+	&& git clone -b migrate-to-c11 --single-branch https://github.com/wolfsoft/libdcl.git \
 	&& cd libdcl && ./autogen.sh && ./configure --disable-gtk --disable-qt --disable-winapi --disable-doxygen-doc --without-apache && make -j`nproc` && make install && cd .. \
 	\
 	&& apt-get -y -t buster-backports install libcurl4-openssl-dev \

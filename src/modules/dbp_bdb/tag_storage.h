@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -42,7 +42,7 @@ class bdb_environment {
 public:
 	bdb_environment(const std::string &path);
 	~bdb_environment();
-	std::auto_ptr<bdb_database> database(std::string &href) const;
+	std::unique_ptr<bdb_database> database(std::string &href) const;
 private:
 	DbEnv *env;
 };

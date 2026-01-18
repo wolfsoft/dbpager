@@ -19,16 +19,11 @@
  * Boston, MA  02110-1301  USA
  */
 
-#ifndef _INTERPRETER_H_
-#define _INTERPRETER_H_
+#pragma once
 
 #include <string>
 
-#ifdef HAVE_CXX11
 #include <unordered_map>
-#else
-#include <tr1/unordered_map>
-#endif
 
 #include <dcl/dclbase.h>
 
@@ -55,8 +50,8 @@ public:
 		return *options;
 	}
 
-	//! Obtain the session service
-	dbpager::session& get_session() {
+	//! Obtain the session factory service
+	dbpager::session_factory& get_session() const {
 		return *session;
 	}
 
@@ -75,19 +70,15 @@ public:
 	void reload();
 
 private:
-#ifdef HAVE_CXX11
 	typedef std::unordered_map<std::string, dbpager_application_ptr > app_cache;
-#else
-	typedef std::tr1::unordered_map<std::string, dbpager_application_ptr > app_cache;
-#endif
 	std::string config_filename;
-	dbp::app_config *options;
-	dbpager::session *session;
-	dbp::logger *loaded_logger;
-	dbp::plugin *logger_plugin;
-	dbp::plugin *session_plugin;
+	dbp::app_config *options{nullptr};
+	dbpager::session_factory *session{nullptr};
+	dbp::logger *loaded_logger{nullptr};
+	dbp::plugin *logger_plugin{nullptr};
+	dbp::plugin *session_plugin{nullptr};
 	dbp::logger &logger;
-	bool use_cache;
+	bool use_cache{false};
 	dbp::mutex m;
 	app_cache apps;
 
@@ -97,6 +88,3 @@ private:
 };
 
 } // namespace
-
-#endif /*_INTERPRETER_H_*/
-

@@ -1,0 +1,36 @@
+#
+# This directive assigns the default session storage subsystem to the mod_session_jwt module.
+# The module provides session handling service by using JWT tokens.
+#
+[services]
+session.backend.jwt = @PLUGINSDIR@/libmod_session_jwt.so
+
+#
+# Module parameters
+#
+[services.session.jwt]
+#
+# secret directive
+#
+# The secret (password) to sign the JWT token. This is a sensitive data.
+# To avoid storing the secret in the configuration file, one could use
+# secret_environment parameter instead.
+#
+# secret = random long string
+
+#
+# secret_environment directive
+#
+# The environment variable name contains the jwt secret. If this parameter
+# is defined, it overrides the secret directive.
+#
+# secret_environment =
+
+#
+# ttl directive
+#
+# Specifies the session time-to-live in the cache (in seconds). This is a time
+# of the user inactivity - each user request resets the timer and the session
+# is closed when timer is out. Zero is the infinity.
+#
+# ttl = 0

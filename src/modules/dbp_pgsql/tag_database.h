@@ -42,9 +42,9 @@ class database_pool: public dbp::singleton<database_pool> {
 	friend class dbp::singleton<database_pool>;
 public:
 	typedef dbp::shared_ptr<pqxx::connection> pool_item;
-	void reset(std::auto_ptr<dbp::pool_size_policy> ps) {
+	void reset(std::unique_ptr<dbp::pool_size_policy> ps) {
 		delete pool;
-		pool = new dbp::pool<pool_item>(ps);
+		pool = new dbp::pool<pool_item>(std::move(ps));
 	}
 	dbp::pool_ptr<pool_item> acquire(const std::string &arg) {
 		return pool->acquire(arg);

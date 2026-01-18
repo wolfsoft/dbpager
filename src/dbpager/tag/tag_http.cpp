@@ -162,7 +162,7 @@ void tag_http::execute(context &ctx, std::ostream &out, const tag *caller) const
 		if (res != CURLE_OK)
 			throw tag_exception((format(_("http request failed: {0}")) % string(curl_easy_strerror(res))).str());
 		if (http_code >= 400)
-			throw tag_exception((format(_("http request failed: {0}")) % _out.str()).str());
+			throw tag_exception(_out.str());
 
 		curl_slist_free_all(list);
 		curl_easy_cleanup(curl);

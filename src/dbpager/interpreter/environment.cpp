@@ -39,7 +39,7 @@ using namespace std;
 using namespace dbp;
 using namespace mimetic;
 
-environment::environment(interpreter &in): global(NULL), user(NULL), session(NULL), in(in) {
+environment::environment(const interpreter &in): _session_factory(in.get_session()) {
 	system = new system_context();
 	global = new global_context(system);
 	user = new user_context(global);
@@ -56,35 +56,12 @@ environment::~environment() {
 	delete system;
 }
 
-http_environment::http_environment(interpreter &in, const dbp::http_request &r):
-  environment(in), is_session_new(false), req(r) {
-
-	const http_cookies &c = r.get_cookies();
-	for (http_cookies::const_iterator i = c.begin(); i != c.end(); ++i) {
-		if (i->name == "session") {
-			session_id = i->value;
-			break;
-		}
-	}
-
-	// get session cache instance
-	if (session_id.empty()) {
-		session_id = uuid().str();
-		is_session_new = true;
-	} else {
-		const string &value = in.get_session().get(session_id);
-		strings s = tokenize()(value, ";");
-		for (strings::const_iterator i = s.begin(); i != s.end(); ++i) {
-			string k, v;
-			tokenize()(*i, k, v, false, "=");
-			if (!k.empty()) {
-				user->add_value(k, v);
-			}
-		}
-	}
+http_environment::http_environment(const interpreter &in, const dbp::http_request &r): environment(in), req(r) {
+	_session_holder = _session_factory.create_session(req);
+	_session_holder->load(*user);
 
 	// add session id to variables
-	session->add_value("SESSION", session_id);
+	session->add_value("SESSION", _session_holder->get_id());
 	session->add_value("SESSION_PERSISTENT", "0");
 }
 
@@ -103,52 +80,7 @@ void http_environment::init_response(dbp::http_response &resp) {
 	if (req.get_method() == http_method::head)
 		return;
 
-	// set session cache instance
-	if (!user->empty()) {
-		string s;
-		context::variables c = user->get_values();
-		context::variables::const_iterator i = c.begin();
-		while (i != c.end()) {
-			s += i->first + "=" + i->second;
-			++i;
-			if (i != c.end())
-				s += ";";
-		}
-		in.get_session().put(session_id, s);
-	}
-
-	// setup cookies
-	if (is_session_new && !user->empty()) {
-		http_cookies cs;
-		http_cookie c("session", session_id);
-		c.path = "/";
-		c.http_only = true;
-		if (req.get_https()) {
-			c.same_site = "none";
-			c.secure = true;
-			c.partitioned = true;
-		}
-		if (session->get_value("SESSION_PERSISTENT") == string("1")) {
-			datetime d;
-			d.year(2038).month(1).day(1).hour(0).minute(0).second(0);
-			c.expires = d;
-		}
-		cs.push_back(c);
-		resp.set_cookies(cs);
-	}
-	if (session->get_value("SESSION").empty()) {
-		http_cookie c("session", "");
-		c.path = "/";
-		c.http_only = true;
-		if (req.get_https()) {
-			c.same_site = "none";
-			c.secure = true;
-		}
-		datetime d;
-		d.year(1976).month(4).day(21).hour(0).minute(0).second(0);
-		c.expires = d;
-		resp.set_cookie(c);
-	}
+	_session_holder->save(*user, resp);
 };
 
 context* environment::get_context() {

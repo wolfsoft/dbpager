@@ -83,11 +83,7 @@ private:
 	string _pid_file;
 	interpreter *dbpager;
 
-#ifdef HAVE_CXX11
 	typedef std::unordered_map<std::string, std::string> string_map;
-#else
-	typedef std::tr1::unordered_map<std::string, std::string> string_map;
-#endif
 	typedef pair<dbp::http_request, string_map> req_env;
 
 	// Show program version on -v command line parameter

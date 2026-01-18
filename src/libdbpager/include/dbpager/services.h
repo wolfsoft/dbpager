@@ -15,18 +15,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
-#ifndef _SERVICES_H_
-#define _SERVICES_H_
+#pragma once
 
 #include <dcl/dclbase.h>
 
-#include <dbpager/session.h>
-
 namespace dbpager {
+
+class session_factory;
 
 class services {
 public:
@@ -34,13 +33,10 @@ public:
 	virtual dbp::app_config& get_config() = 0;
 
 	//! Obtain the session service
-	virtual dbpager::session& get_session() = 0;
+	virtual dbpager::session_factory& get_session() const = 0;
 
 	//! Obtain the logger service
 	virtual dbp::logger& get_logger() = 0;
 };
 
 }
-
-#endif /*_SERVICES_H_*/
-

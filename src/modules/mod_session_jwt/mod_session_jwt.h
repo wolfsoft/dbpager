@@ -1,10 +1,10 @@
 /*
- * mod_session_memcached.h
+ * mod_session_jwt.h
  * This file is part of dbPager Server
  *
- * Copyright (C) 2008 - Dennis Prochko <wolfsoft@mail.ru>
+ * Copyright (C) 2026 - Dennis Prochko <dennis.prochko@gmail.com>
  *
- * dbPager Server is free software; you can memcachedtribute it and/or modify
+ * dbPager Server is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation version 3.
  *
@@ -31,51 +31,41 @@
 
 namespace dbpager {
 
-class mod_session_memcached_exception: public dbp::exception {
+class mod_session_jwt_exception: public dbp::exception {
 public:
-	mod_session_memcached_exception(const std::string &msg): dbp::exception(msg) { }
+	mod_session_jwt_exception(const std::string &msg): dbp::exception(msg) { }
 };
 
-class mod_session_memcached: public session_holder {
+class mod_session_jwt: public session_holder {
 public:
-	mod_session_memcached() {
-		id = dbp::uuid().str();
-		is_new = true;
-	};
-	mod_session_memcached(const std::string &session_id) {
-		id = session_id;
-		if (id.empty()) {
-			id = dbp::uuid().str();
-			is_new = true;
-		}
-	};
+	mod_session_jwt();
+	mod_session_jwt(const std::string &token);
 	virtual void load(context &ctx) override;
 	virtual void save(const context &ctx, dbp::http_response &resp) override;
-	void set_servers(const std::string &servers) {
-		this->servers = servers;
+
+	void set_secret(const std::string &secret) {
+		this->secret = secret;
 	}
 	void set_ttl(int ttl) {
 		this->ttl = ttl;
-	};
+	}
 private:
 	int ttl{0};
-	std::string servers;
-	std::string get_value(const std::string &key);
-	void put_value(const std::string &key, const std::string &value);
+	std::string secret;
 };
 
-class mod_session_memcached_factory: public session_factory {
+class mod_session_jwt_factory: public session_factory {
 public:
 	virtual std::unique_ptr<session_holder> create_session(const dbp::http_request &req) override;
-	void set_servers(const std::string &servers) {
-		this->servers = servers;
+	void set_secret(const std::string &secret) {
+		this->secret = secret;
 	}
 	void set_ttl(int ttl) {
 		this->ttl = ttl;
-	};
+	}
 private:
 	int ttl{0};
-	std::string servers;
+	std::string secret;
 };
 
-}
+} // namespace dbpager

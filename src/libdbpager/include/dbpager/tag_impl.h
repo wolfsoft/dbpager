@@ -15,23 +15,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
-#ifndef _TAG_IMPL_H_
-#define _TAG_IMPL_H_
-
-#include "config.h"
+#pragma once
 
 #include <string>
-
-#ifdef HAVE_CXX11
 #include <unordered_map>
-#else
-#include <tr1/unordered_map>
-#endif
-
 #include <vector>
 #include <ostream>
 
@@ -83,11 +74,7 @@ public:
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 	virtual void apply(context &ctx, tag::visitor_handler handler);
 protected:
-#ifdef HAVE_CXX11
 	typedef std::unordered_map<std::string, tag*> parameters;
-#else
-	typedef std::tr1::unordered_map<std::string, tag*> parameters;
-#endif
 	//! Tag parameters, in form name = expression
 	parameters params;
 	//! Tag name
@@ -104,7 +91,4 @@ private:
 	std::string _text;
 };
 
-}
-
-#endif /*_TAG_H_*/
-
+} // namespace dbpager

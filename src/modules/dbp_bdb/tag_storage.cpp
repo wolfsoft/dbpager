@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -71,8 +71,8 @@ bdb_environment::~bdb_environment() {
 	delete env;
 }
 
-auto_ptr<bdb_database> bdb_environment::database(std::string &href) const {
-	return auto_ptr<bdb_database>(new bdb_database(env, href));
+unique_ptr<bdb_database> bdb_environment::database(std::string &href) const {
+	return unique_ptr<bdb_database>(new bdb_database(env, href));
 }
 
 // database file
@@ -173,7 +173,7 @@ void tag_storage::execute(context &ctx, std::ostream &out,
 		throw tag_storage_exception(
 		  _("storage file name (href) is not defined"));
 	bdb_environment &env = bdb_environments::instance().environment(href);
-	auto_ptr<bdb_database> db = env.database(href);
+	unique_ptr<bdb_database> db = env.database(href);
 	db->open();
 	ctx.enter();
 	try {

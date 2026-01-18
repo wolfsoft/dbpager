@@ -20,7 +20,7 @@
  */
 
 #include <dcl/strutils.h>
-
+#include <dbpager/services.h>
 #include "tag_database.h"
 
 namespace dbpager {

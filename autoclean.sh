@@ -3,6 +3,8 @@
 set -e
 
 # cleaning up
+rm -rf vendor
+rm -rf libdcl
 test ! -f Makefile || make distclean
 
 # delete all temporary and backup files

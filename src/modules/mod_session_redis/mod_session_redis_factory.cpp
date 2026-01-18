@@ -50,7 +50,7 @@ void init(dbp::app_config *config) {
 	if (config) {
 		int cnt = config->value("services.session.redis", "pool_connections", 0);
 		if (cnt) {
-			p.reset(auto_ptr<pool_size_policy>(new pool_size_limited_policy(cnt)));
+			p.reset(std::unique_ptr<pool_size_policy>(new pool_size_limited_policy(cnt)));
 		}
 		server = config->value("services.session.redis", "server", string("localhost:6379"));
 		password = config->value("services.session.redis", "password", string());
@@ -61,12 +61,12 @@ void init(dbp::app_config *config) {
 
 disposable* create_object(const char *object_name) {
 	if (strcmp(object_name, "redis") == 0) {
-		mod_session_redis *msc = new mod_session_redis();
-		msc->set_server(server);
-		msc->set_password(password);
-		msc->set_database_number(database_number);
-		msc->set_ttl(ttl);
-		return msc;
+		mod_session_redis_factory *redis_factory = new mod_session_redis_factory();
+		redis_factory->set_server(server);
+		redis_factory->set_password(password);
+		redis_factory->set_database_number(database_number);
+		redis_factory->set_ttl(ttl);
+		return redis_factory;
 	} else
 		return NULL;
 };

@@ -42,11 +42,7 @@ public:
 	void execute(dbpager::environment &env, std::ostream &out) const;
 private:
 	dbpager_application() { };
-#ifdef HAVE_CXX11
 	std::unique_ptr<tag> t;
-#else
-	std::auto_ptr<tag> t;
-#endif
 	services *_services;
 };
 

@@ -20,7 +20,7 @@
 #
 
 # initialization
-AC_INIT([dbpager], [3.2.30], [dennis.prochko@gmail.com])
+AC_INIT([dbpager], [3.2.32], [dennis.prochko@gmail.com])
 AC_PREREQ([2.63])
 AC_CONFIG_AUX_DIR(build)
 AC_CONFIG_HEADERS([config.h])
@@ -51,7 +51,7 @@ AC_CONFIG_MACRO_DIR([m4])
 # 6. If any interfaces have been removed since the last public
 #    release, then set age to 0.
 #
-ABI_CUR=7
+ABI_CUR=8
 ABI_REV=0
 ABI_AGE=3
 AC_SUBST(ABI_CUR)
@@ -69,7 +69,7 @@ AM_GNU_GETTEXT_VERSION([0.18])
 # check for programs
 AC_ISC_POSIX
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX_11([noext],[mandatory])
+AX_CXX_COMPILE_STDCXX_11([noext],[optional])
 AC_PROG_SED
 LT_PROG_RC
 
@@ -230,9 +230,9 @@ fi
 # Checks for libraries
 PKG_CHECK_MODULES(jsoncpp, [jsoncpp >= 0.6.0])
 
-PKG_CHECK_MODULES(libdclbase, [libdclbase >= 0.2.3])
+PKG_CHECK_MODULES(libdclbase, [libdclbase >= 0.3.0])
 
-PKG_CHECK_MODULES(libdclnet, [libdclnet >= 0.2.3])
+PKG_CHECK_MODULES(libdclnet, [libdclnet >= 0.3.0])
 
 PKG_CHECK_MODULES(libmemcached, [libmemcached >= 1.0.0],
 [
@@ -571,6 +571,8 @@ AC_CONFIG_FILES([
    src/modules/mod_session_memcached/mod_session_memcached.conf
    src/modules/mod_session_redis/Makefile
    src/modules/mod_session_redis/mod_session_redis.conf
+   src/modules/mod_session_jwt/Makefile
+   src/modules/mod_session_jwt/mod_session_jwt.conf
    src/modules/dbp_redis/Makefile
    src/modules/dbp_redis/dbp_redis.conf
    src/modules/dbp_ldap/Makefile

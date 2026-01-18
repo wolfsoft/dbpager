@@ -36,8 +36,7 @@ using namespace std;
 using namespace dbp;
 
 interpreter::interpreter(const std::string config_filename, dbp::logger &logger):
-  config_filename(config_filename), options(NULL), session(NULL), loaded_logger(NULL), logger_plugin(NULL),
-  session_plugin(NULL), logger(logger), use_cache(false) {
+  config_filename(config_filename), logger(logger) {
 	xmlInitParser();
 	load();
 }
@@ -112,7 +111,7 @@ void interpreter::load() {
 				session_plugin = new plugin();
 				session_plugin->load(module);
 				session_plugin->init(options);
-				session = (dbpager::session*)session_plugin->create_object(session_type);
+				session = (dbpager::session_factory*)session_plugin->create_object(session_type);
 			}
 		}
 

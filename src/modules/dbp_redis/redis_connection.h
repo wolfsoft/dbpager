@@ -107,9 +107,9 @@ private:
 class redis_pool: public dbp::singleton<redis_pool> {
 	friend class dbp::singleton<redis_pool>;
 public:
-	void reset(std::auto_ptr<dbp::pool_size_policy> ps) {
+	void reset(std::unique_ptr<dbp::pool_size_policy> ps) {
 		delete pool;
-		pool = new dbp::pool<redis_connection>(ps);
+		pool = new dbp::pool<redis_connection>(std::move(ps));
 	}
 
 	dbp::pool_ptr<redis_connection> acquire(const std::string &arg) {

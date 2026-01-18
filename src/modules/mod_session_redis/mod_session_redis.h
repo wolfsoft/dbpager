@@ -19,14 +19,14 @@
  * Boston, MA  02110-1301  USA
  */
 
-#ifndef _MOD_SESSION_REDIS_H_
-#define _MOD_SESSION_REDIS_H_
+#pragma once
 
 #include <string>
 #include <ostream>
 
 #include <dcl/exception.h>
 
+#include <dbpager/context.h>
 #include <dbpager/session.h>
 
 namespace dbpager {
@@ -36,11 +36,35 @@ public:
 	mod_session_redis_exception(const std::string &msg): dbp::exception(msg) { }
 };
 
-class mod_session_redis: public session {
+class mod_session_redis: public session_holder {
 public:
-	mod_session_redis(): ttl(0), database_number(0) { };
-	virtual std::string get(const std::string &key);
-	virtual void put(const std::string &key, const std::string &value);
+	mod_session_redis() {
+		id = dbp::uuid().str();
+		is_new = true;
+	};
+	mod_session_redis(const std::string &session_id) {
+		id = session_id;
+		if (id.empty()) {
+			id = dbp::uuid().str();
+			is_new = true;
+		}
+	};
+	virtual void load(context &ctx) override;
+	virtual void save(const context &ctx, dbp::http_response &resp) override;
+public:
+	int ttl{0};
+	int database_number{0};
+	std::string empty;
+	std::string server;
+	std::string password;
+private:
+	std::string get_value(const std::string &key);
+	void put_value(const std::string &key, const std::string &value);
+};
+
+class mod_session_redis_factory: public session_factory {
+public:
+	virtual std::unique_ptr<session_holder> create_session(const dbp::http_request &req) override;
 	void set_server(const std::string &server) {
 		this->server = server;
 	}
@@ -62,5 +86,3 @@ private:
 };
 
 }
-
-#endif /*_MOD_SESSION_REDIS_H_*/

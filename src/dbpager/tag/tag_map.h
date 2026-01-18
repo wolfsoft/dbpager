@@ -27,11 +27,7 @@
 
 #include <dbpager/tag_impl.h>
 
-#ifdef HAVE_CXX11
 #include <unordered_map>
-#else
-#include <tr1/unordered_map>
-#endif
 
 namespace dbpager {
 
@@ -42,77 +38,49 @@ public:
 
 class tag_map: public tag_impl {
 public:
-#ifdef HAVE_CXX11
 	typedef std::unordered_map<std::string, std::string> string_map;
-#else
-	typedef std::tr1::unordered_map<std::string, std::string> string_map;
-#endif
 	tag_map(const std::string &tag_name = ""): tag_impl(tag_name) { };
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
 class tag_map_set: public tag_impl {
 public:
-#ifdef HAVE_CXX11
 	typedef std::unordered_map<std::string, std::string> string_map;
-#else
-	typedef std::tr1::unordered_map<std::string, std::string> string_map;
-#endif
 	tag_map_set(const std::string &tag_name = ""): tag_impl(tag_name) { };
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
 class tag_map_unset: public tag_impl {
 public:
-#ifdef HAVE_CXX11
 	typedef std::unordered_map<std::string, std::string> string_map;
-#else
-	typedef std::tr1::unordered_map<std::string, std::string> string_map;
-#endif
 	tag_map_unset(const std::string &tag_name = ""): tag_impl(tag_name) { };
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
 class tag_map_element: public tag_impl {
 public:
-#ifdef HAVE_CXX11
 	typedef std::unordered_map<std::string, std::string> string_map;
-#else
-	typedef std::tr1::unordered_map<std::string, std::string> string_map;
-#endif
 	tag_map_element(const std::string &tag_name = ""): tag_impl(tag_name) { };
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
 class tag_map_elements: public tag_impl {
 public:
-#ifdef HAVE_CXX11
 	typedef std::unordered_map<std::string, std::string> string_map;
-#else
-	typedef std::tr1::unordered_map<std::string, std::string> string_map;
-#endif
 	tag_map_elements(const std::string &tag_name = ""): tag_impl(tag_name) { };
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
 class tag_map_from_json: public tag_impl {
 public:
-#ifdef HAVE_CXX11
 	typedef std::unordered_map<std::string, std::string> string_map;
-#else
-	typedef std::tr1::unordered_map<std::string, std::string> string_map;
-#endif
 	tag_map_from_json(const std::string &tag_name = ""): tag_impl(tag_name) { };
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
 class tag_map_to_json: public tag_impl {
 public:
-#ifdef HAVE_CXX11
 	typedef std::unordered_map<std::string, std::string> string_map;
-#else
-	typedef std::tr1::unordered_map<std::string, std::string> string_map;
-#endif
 	tag_map_to_json(const std::string &tag_name = ""): tag_impl(tag_name) { };
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };

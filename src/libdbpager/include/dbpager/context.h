@@ -15,32 +15,26 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
-#ifndef CONTEXT_H_
-#define CONTEXT_H_
-
-#include "config.h"
+#pragma once
 
 #include <string>
 #include <deque>
 
-#ifdef HAVE_CXX11
 #include <unordered_map>
-#else
-#include <tr1/unordered_map>
-#endif
 
 #include <dcl/strutils.h>
 #include <dcl/exception.h>
 #include <dcl/mutex.h>
 
-#include <dbpager/services.h>
 #include <dbpager/tag.h>
 
 namespace dbpager {
+
+class services;
 
 class context_exception: public dbp::exception {
 public:
@@ -49,11 +43,7 @@ public:
 
 class context {
 public:
-#ifdef HAVE_CXX11
 	typedef std::unordered_map<std::string, std::string> variables;
-#else
-	typedef std::tr1::unordered_map<std::string, std::string> variables;
-#endif
 	context(context *parent = NULL): _parent(parent), _services(NULL) {
 		enter();
 	}
@@ -71,7 +61,7 @@ public:
 	virtual void set_services_provider(services* services) {
 		_services = services;
 	}
-	bool empty();
+	bool empty() const;
 	void push(const tag *t);
 	const tag* pop();
 private:
@@ -115,6 +105,3 @@ public:
 };
 
 }
-
-#endif /*CONTEXT_H_*/
-

@@ -2,7 +2,7 @@
  * session.h
  * This file is part of dbPager Server
  *
- * Copyright (C) 2015 - Dennis Prochko
+ * Copyright (C) 2026 - Dennis Prochko <dennis.prochko@gmail.com>
  *
  * dbPager Server is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,29 +15,41 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
-#ifndef _SESSION_H_
-#define _SESSION_H_
+#pragma once
 
 #include <string>
 #include <ostream>
 
-#include <dcl/delegate.h>
-#include <dcl/plugin.h>
+#include <dcl/dclbase.h>
+#include <dcl/http_header.h>
 
 namespace dbpager {
 
-class session: public dbp::disposable {
+class context;
+
+class session_holder {
 public:
-	virtual ~session() { };
-	virtual std::string get(const std::string &key) = 0;
-	virtual void put(const std::string &key, const std::string &value) = 0;
+	virtual ~session_holder() { };
+	const std::string& get_id() const {
+		return id;
+	};
+	virtual void load(context &ctx) = 0;
+	virtual void save(const context &ctx, dbp::http_response &resp) = 0;
+public:
+	bool is_new{false};
+	bool is_https{false};
+protected:
+	std::string id;
 };
 
-}
+class session_factory: public dbp::disposable {
+public:
+	virtual ~session_factory() { };
+	virtual std::unique_ptr<session_holder> create_session(const dbp::http_request &req) = 0;
+};
 
-#endif /*_SESSION_H_*/
-
+} // namespace dbpager

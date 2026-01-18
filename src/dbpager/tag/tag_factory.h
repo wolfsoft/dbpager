@@ -15,10 +15,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
- 
+
 #ifndef _TAG_FACTORY_H_
 #define _TAG_FACTORY_H_
 
@@ -27,11 +27,7 @@
 #include <string>
 #include <vector>
 
-#ifdef HAVE_CXX11
 #include <unordered_map>
-#else
-#include <tr1/unordered_map>
-#endif
 
 #include <dcl/singleton.h>
 #include <dcl/shared_ptr.h>
@@ -64,17 +60,9 @@ private:
 	tag_factory(const tag_factory&) { };
 private:
 	typedef std::vector<dbp::shared_ptr<dbp::plugin> > plugins_list;
-#ifdef HAVE_CXX11
 	std::unordered_map<std::string, plugins_list> _plugins;
-#else
-	std::tr1::unordered_map<std::string, plugins_list> _plugins;
-#endif
 	typedef dbp::factory<tag> factory;
-#ifdef HAVE_CXX11
 	std::unordered_map<std::string, factory> _factories;
-#else
-	std::tr1::unordered_map<std::string, factory> _factories;
-#endif
 };
 
 } // namespace

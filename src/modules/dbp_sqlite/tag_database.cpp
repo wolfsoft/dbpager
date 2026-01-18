@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with dbPager Server; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301  USA
  */
 
@@ -66,9 +66,9 @@ private:
 class database_pool: public dbp::singleton<database_pool> {
 	friend class dbp::singleton<database_pool>;
 public:
-	void reset(std::auto_ptr<dbp::pool_size_policy> ps) {
+	void reset(std::unique_ptr<dbp::pool_size_policy> ps) {
 		delete pool;
-		pool = new dbp::pool<sqlite_connection>(ps);
+		pool = new dbp::pool<sqlite_connection>(std::move(ps));
 	}
 	dbp::pool_ptr<sqlite_connection> acquire(const std::string &arg) {
 		return pool->acquire(arg);

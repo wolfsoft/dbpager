@@ -46,7 +46,7 @@ void init(dbp::app_config *config) {
 
 disposable* create_object(const char *object_name) {
 	if (strcmp(object_name, "memcached") == 0) {
-		mod_session_memcached *msc = new mod_session_memcached();
+		mod_session_memcached_factory *msc = new mod_session_memcached_factory();
 		msc->set_servers(servers);
 		msc->set_ttl(ttl);
 		return msc;

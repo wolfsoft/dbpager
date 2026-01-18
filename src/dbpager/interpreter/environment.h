@@ -19,13 +19,13 @@
  * Boston, MA  02110-1301  USA
  */
 
-#ifndef _ENVIRONMENT_H_
-#define _ENVIRONMENT_H_
+#pragma once
 
 #include <dcl/dclbase.h>
 #include <dcl/dclnet.h>
 
 #include <dbpager/context.h>
+#include <dbpager/session.h>
 
 namespace dbpager {
 
@@ -34,7 +34,7 @@ class interpreter;
 class environment: public dbp::noncopyable {
 public:
 	//! Constructor; initializes the environment
-	explicit environment(dbpager::interpreter&);
+	explicit environment(const dbpager::interpreter&);
 	//! Destructor; cleans up the resources
 	virtual ~environment();
 	//! Obtain the environment's context (variables initialized)
@@ -42,14 +42,14 @@ public:
 	//! Initializes the environment parameters
 	virtual void init_custom_params() = 0;
 protected:
-	context *system, *global, *user, *session;
-	dbpager::interpreter &in;
+	context *system{nullptr}, *global{nullptr}, *user{nullptr}, *session{nullptr};
+	session_factory &_session_factory;
 };
 
 class http_environment: public environment {
 public:
 	//! Constructor; initializes the environment
-	explicit http_environment(dbpager::interpreter&, const dbp::http_request&);
+	explicit http_environment(const dbpager::interpreter&, const dbp::http_request&);
 	//! Initializes the environment parameters
 	virtual void init_custom_params();
 	//! Initialize response with environment parameters
@@ -57,10 +57,8 @@ public:
 	//! Maps uri to application main file, i.e. acts as a request router
 	std::string get_path();
 private:
-	bool is_session_new;
+	std::unique_ptr<session_holder> _session_holder;
 	const dbp::http_request &req;
-	std::string session_id;
-
 	void parse_urlencoded(context&, const dbp::http_request&);
 	void parse_data(context&, const dbp::http_request&);
 	void parse_plain(context&, const dbp::http_request&);
@@ -68,6 +66,3 @@ private:
 };
 
 } // namespace
-
-#endif /*_ENVIRONMENT_H_*/
-

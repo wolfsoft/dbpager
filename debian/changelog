@@ -1,3 +1,10 @@
+dbpager (3.2.32) stable; urgency=low
+
+  * dbp:http triggers errors on http status codes >= 400 with error content only
+  * session storage using JWT tokens is implemented
+
+ -- Dennis Prochko <dennis.prochko@gmail.com>  Sun, 11 Jan 2026 13:37:39 +0200
+
 dbpager (3.2.30) stable; urgency=low
 
   * certificate-data, ca-certificate-data, and private-key-data parameters

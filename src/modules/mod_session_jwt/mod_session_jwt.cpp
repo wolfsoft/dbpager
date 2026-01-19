@@ -49,7 +49,9 @@ void mod_session_jwt::load(context &ctx) {
 
 		auto payload = decoded.get_payload_json();
 		for (auto& key : payload.getMemberNames()) {
-			ctx.add_value(key, payload[key].asString());
+			if (!key.empty() && key[0] == '_') {
+				ctx.add_value(key.substr(1), payload[key].asString());
+			}
 		}
 
 	} catch (const std::exception &e) {
@@ -87,7 +89,7 @@ void mod_session_jwt::save(const context &ctx, dbp::http_response &resp) {
 	}
 
 	for (const auto& e : ctx.get_values()) {
-		token.set_payload_claim(e.first, jwt::claim(e.second));
+		token.set_payload_claim(std::string("_") + e.first, jwt::claim(e.second));
 	}
 
 	if (id.empty()) {
@@ -95,8 +97,30 @@ void mod_session_jwt::save(const context &ctx, dbp::http_response &resp) {
 		is_new = true;
 	} else {
 		auto current_token = jwt::decode(id);
-		auto new_token = jwt::decode(token.sign(jwt::algorithm::hs256{secret}));
-		is_new = (current_token.get_payload() != new_token.get_payload());
+		auto current_payload = current_token.get_payload_json();
+		bool identical = true;
+		const auto& ctx_values = ctx.get_values();
+
+		// Compare size first
+		size_t payload_count = 0;
+		for (const auto& key : current_payload.getMemberNames()) {
+			if (!key.empty() && key[0] == '_') {
+				++payload_count;
+			}
+		}
+		if (payload_count != ctx_values.size()) {
+			identical = false;
+		} else {
+			// Compare each key/value
+			for (const auto& e : ctx_values) {
+				std::string jwt_key = "_" + e.first;
+				if (!current_payload.isMember(jwt_key) || current_payload[jwt_key].asString() != e.second) {
+					identical = false;
+					break;
+				}
+			}
+		}
+		is_new = !identical;
 	}
 
 	// setup cookies

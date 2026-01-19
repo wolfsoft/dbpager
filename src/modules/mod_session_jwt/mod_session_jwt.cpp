@@ -89,7 +89,9 @@ void mod_session_jwt::save(const context &ctx, dbp::http_response &resp) {
 	}
 
 	for (const auto& e : ctx.get_values()) {
-		token.set_payload_claim(std::string("_") + e.first, jwt::claim(e.second));
+		std::string key = e.first;
+		std::transform(key.begin(), key.end(), key.begin(), ::tolower);
+		token.set_payload_claim(std::string("_") + key, jwt::claim(e.second));
 	}
 
 	if (id.empty()) {
@@ -114,6 +116,7 @@ void mod_session_jwt::save(const context &ctx, dbp::http_response &resp) {
 			// Compare each key/value
 			for (const auto& e : ctx_values) {
 				std::string jwt_key = "_" + e.first;
+				std::transform(jwt_key.begin(), jwt_key.end(), jwt_key.begin(), ::tolower);
 				if (!current_payload.isMember(jwt_key) || current_payload[jwt_key].asString() != e.second) {
 					identical = false;
 					break;

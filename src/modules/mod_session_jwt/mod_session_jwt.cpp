@@ -24,7 +24,6 @@
 #include <dcl/dclbase.h>
 
 #include "mod_session_jwt.h"
-#include "jwt-cpp/jwt.h"
 
 namespace dbpager {
 
@@ -48,9 +47,11 @@ void mod_session_jwt::load(context &ctx) {
 			.allow_algorithm(jwt::algorithm::hs256(secret))
 			.verify(decoded);
 
-		for (auto& e : decoded.get_payload_json()) {
-			ctx.add_value(e.first, e.second.to_str());
+		auto payload = decoded.get_payload_json();
+		for (auto& key : payload.getMemberNames()) {
+			ctx.add_value(key, payload[key].asString());
 		}
+
 	} catch (const std::exception &e) {
 		throw mod_session_jwt_exception(std::string("JWT verification failed: ") + e.what());
 	}

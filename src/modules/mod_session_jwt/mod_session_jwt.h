@@ -24,6 +24,10 @@
 #include <string>
 #include <ostream>
 
+#define JWT_DISABLE_PICOJSON
+#include "jwt-cpp/traits/open-source-parsers-jsoncpp/defaults.h"
+#include "jwt-cpp/jwt.h"
+
 #include <dcl/exception.h>
 
 #include <dbpager/context.h>

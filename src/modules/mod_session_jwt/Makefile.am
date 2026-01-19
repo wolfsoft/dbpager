@@ -11,12 +11,14 @@ libmod_session_jwt_la_LDFLAGS = -version-info $(ABI_CUR):$(ABI_REV):$(ABI_AGE) -
 
 libmod_session_jwt_la_LIBADD = \
 	../../libdbpager/libdbpager.la \
-	@libdclbase_LIBS@
+	@libdclbase_LIBS@ \
+	@jsoncpp_LIBS@
 
 AM_CXXFLAGS += \
 	-I../../libdbpager/include \
 	-I../../../vendor/jwt-cpp/include \
-	@libdclbase_CFLAGS@
+	@libdclbase_CFLAGS@ \
+	@jsoncpp_CFLAGS@
 
 confdir = $(sysconfdir)/dbpager/services-available
 dist_conf_DATA = mod_session_jwt.conf

@@ -57,24 +57,10 @@ void mod_session_jwt::load(context &ctx) {
 }
 
 void mod_session_jwt::save(const context &ctx, dbp::http_response &resp) {
-	if (!ctx.empty()) {
-		auto token = jwt::create()
-			.set_type("JWS")
-			.set_issued_now()
-			.set_not_before(std::chrono::system_clock::now());
-		if (ttl > 0) {
-			token.set_expires_at(std::chrono::system_clock::now() + std::chrono::seconds{ttl});
-		}
-
-		for (const auto& e : ctx.get_values()) {
-			token.set_payload_claim(e.first, jwt::claim(e.second));
-		}
-
-		id = token.sign(jwt::algorithm::hs256{secret});
-
-		// setup cookies
-		if (is_new) {
-			dbp::http_cookie c("session-token", id);
+	if (ctx.empty()) {
+		if (!id.empty()) {
+			// clear cookie
+			dbp::http_cookie c("session-token", "");
 			c.path = "/";
 			c.http_only = true;
 			if (is_https) {
@@ -82,8 +68,48 @@ void mod_session_jwt::save(const context &ctx, dbp::http_response &resp) {
 				c.secure = true;
 				c.partitioned = true;
 			}
+			dbp::datetime d;
+			d.year(1976).month(4).day(21).hour(0).minute(0).second(0);
+			c.expires = d;
 			resp.set_cookie(c);
+			id.clear();
 		}
+		return;
+	}
+
+	auto token = jwt::create()
+		.set_type("JWS")
+		.set_issued_now()
+		.set_not_before(std::chrono::system_clock::now());
+	if (ttl > 0) {
+		token.set_expires_at(std::chrono::system_clock::now() + std::chrono::seconds{ttl});
+	}
+
+	for (const auto& e : ctx.get_values()) {
+		token.set_payload_claim(e.first, jwt::claim(e.second));
+	}
+
+	if (id.empty()) {
+		id = token.sign(jwt::algorithm::hs256{secret});
+		is_new = true;
+	} else {
+		auto current_token = jwt::decode(id);
+		auto new_token = jwt::decode(token.sign(jwt::algorithm::hs256{secret}));
+		is_new = (current_token.get_payload() != new_token.get_payload());
+	}
+
+	// setup cookies
+	if (is_new) {
+		id = token.sign(jwt::algorithm::hs256{secret});
+		dbp::http_cookie c("session-token", id);
+		c.path = "/";
+		c.http_only = true;
+		if (is_https) {
+			c.same_site = "none";
+			c.secure = true;
+			c.partitioned = true;
+		}
+		resp.set_cookie(c);
 	}
 }
 

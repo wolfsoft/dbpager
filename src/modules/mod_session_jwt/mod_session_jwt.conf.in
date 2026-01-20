@@ -27,6 +27,23 @@ session.backend.jwt = @PLUGINSDIR@/libmod_session_jwt.so
 # secret_environment =
 
 #
+# prefix directive
+#
+# The variable prefix used to store JWT claims. For security reasons,
+# it is recommended to replace the default "token" prefix with a random
+# prefix to prevent sensitive data from being overridden.
+#
+# prefix = token
+
+#
+# prefix_environment directive
+#
+# The environment variable name contains the prefix. If this parameter
+# is defined, it overrides the prefix directive.
+#
+# prefix_environment =
+
+#
 # ttl directive
 #
 # Specifies the session time-to-live in the cache (in seconds). This is a time

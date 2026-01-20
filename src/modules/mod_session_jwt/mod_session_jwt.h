@@ -50,12 +50,15 @@ public:
 	void set_secret(const std::string &secret) {
 		this->secret = secret;
 	}
+	void set_prefix(const std::string &prefix) {
+		this->prefix = prefix;
+	}
 	void set_ttl(int ttl) {
 		this->ttl = ttl;
 	}
 private:
 	int ttl{0};
-	std::string secret;
+	std::string secret, prefix;
 };
 
 class mod_session_jwt_factory: public session_factory {
@@ -64,12 +67,15 @@ public:
 	void set_secret(const std::string &secret) {
 		this->secret = secret;
 	}
+	void set_prefix(const std::string &prefix) {
+		this->prefix = prefix;
+	}
 	void set_ttl(int ttl) {
 		this->ttl = ttl;
 	}
 private:
 	int ttl{0};
-	std::string secret;
+	std::string secret, prefix;
 };
 
 } // namespace dbpager

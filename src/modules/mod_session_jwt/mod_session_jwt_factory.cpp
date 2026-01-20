@@ -34,7 +34,7 @@ using namespace std;
 // Export two functions for creating/destroying object, as required by
 // dbp::plugin class
 
-std::string secret;
+std::string secret, prefix;
 int ttl;
 
 extern "C" {
@@ -42,6 +42,7 @@ extern "C" {
 void init(dbp::app_config *config) {
 	ttl = 0;
 	if (config) {
+		// read secret from environment variable if configured
 		std::string secret_environment = config->value("services.session.jwt", "secret_environment", string());
 		if (!secret_environment.empty()) {
 			const char *env = getenv(secret_environment.c_str());
@@ -52,6 +53,18 @@ void init(dbp::app_config *config) {
 		if (secret.empty()) {
 			secret = config->value("services.session.jwt", "secret", string());
 		}
+		// read prefix from environment variable if configured
+		std::string prefix_environment = config->value("services.session.jwt", "prefix_environment", string());
+		if (!prefix_environment.empty()) {
+			const char *env = getenv(prefix_environment.c_str());
+			if (env) {
+				prefix = string(env);
+			}
+		}
+		if (prefix.empty()) {
+			prefix = config->value("services.session.jwt", "prefix", "token");
+		}
+		// read ttl
 		ttl = config->value("services.session.jwt", "ttl", 0);
 	}
 };
@@ -60,6 +73,7 @@ disposable* create_object(const char *object_name) {
 	if (strcmp(object_name, "jwt") == 0) {
 		mod_session_jwt_factory *session_factory = new mod_session_jwt_factory();
 		session_factory->set_secret(secret);
+		session_factory->set_prefix(prefix);
 		session_factory->set_ttl(ttl);
 		return session_factory;
 	} else

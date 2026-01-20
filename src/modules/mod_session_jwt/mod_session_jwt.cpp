@@ -50,7 +50,7 @@ void mod_session_jwt::load(context &ctx) {
 		auto payload = decoded.get_payload_json();
 		for (auto& key : payload.getMemberNames()) {
 			if (!key.empty() && key[0] == '_') {
-				ctx.add_value(key.substr(1), payload[key].asString());
+				ctx.add_value(prefix + key, payload[key].asString());
 			}
 		}
 
@@ -91,6 +91,10 @@ void mod_session_jwt::save(const context &ctx, dbp::http_response &resp) {
 	for (const auto& e : ctx.get_values()) {
 		std::string key = e.first;
 		std::transform(key.begin(), key.end(), key.begin(), ::tolower);
+		// cut off the prefix before storing in JWT
+		if (key.find(prefix) == 0) {
+			key = key.substr(prefix.length());
+		}
 		token.set_payload_claim(std::string("_") + key, jwt::claim(e.second));
 	}
 
@@ -115,9 +119,13 @@ void mod_session_jwt::save(const context &ctx, dbp::http_response &resp) {
 		} else {
 			// Compare each key/value
 			for (const auto& e : ctx_values) {
-				std::string jwt_key = "_" + e.first;
-				std::transform(jwt_key.begin(), jwt_key.end(), jwt_key.begin(), ::tolower);
-				if (!current_payload.isMember(jwt_key) || current_payload[jwt_key].asString() != e.second) {
+				std::string key = e.first;
+				// cut off the prefix before storing in JWT
+				if (key.find(prefix) == 0) {
+					key = key.substr(prefix.length());
+				}
+				std::transform(key.begin(), key.end(), key.begin(), ::tolower);
+				if (!current_payload.isMember(key) || current_payload[key].asString() != e.second) {
 					identical = false;
 					break;
 				}
@@ -148,6 +156,7 @@ std::unique_ptr<session_holder> mod_session_jwt_factory::create_session(const db
 			mod_session_jwt* session = new mod_session_jwt(i->value);
 			session->is_https = req.get_https();
 			session->set_secret(secret);
+			session->set_prefix(prefix);
 			session->set_ttl(ttl);
 			return std::unique_ptr<session_holder>(session);
 		}
@@ -156,6 +165,7 @@ std::unique_ptr<session_holder> mod_session_jwt_factory::create_session(const db
 	mod_session_jwt* session = new mod_session_jwt();
 	session->is_https = req.get_https();
 	session->set_secret(secret);
+	session->set_prefix(prefix);
 	session->set_ttl(ttl);
 	return std::unique_ptr<mod_session_jwt>(session);
 }

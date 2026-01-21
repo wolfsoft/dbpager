@@ -56,9 +56,12 @@ public:
 	void set_ttl(int ttl) {
 		this->ttl = ttl;
 	}
+	void set_issuer(const std::string &issuer) {
+		this->issuer = issuer;
+	}
 private:
 	int ttl{0};
-	std::string secret, prefix;
+	std::string secret, prefix, issuer;
 };
 
 class mod_session_jwt_factory: public session_factory {
@@ -73,9 +76,12 @@ public:
 	void set_ttl(int ttl) {
 		this->ttl = ttl;
 	}
+	void set_issuer(const std::string &issuer) {
+		this->issuer = issuer;
+	}
 private:
 	int ttl{0};
-	std::string secret, prefix;
+	std::string secret, prefix, issuer;
 };
 
 } // namespace dbpager

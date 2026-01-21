@@ -34,7 +34,7 @@ using namespace std;
 // Export two functions for creating/destroying object, as required by
 // dbp::plugin class
 
-std::string secret, prefix;
+std::string secret, prefix, issuer;
 int ttl;
 
 extern "C" {
@@ -66,6 +66,8 @@ void init(dbp::app_config *config) {
 		}
 		// read ttl
 		ttl = config->value("services.session.jwt", "ttl", 0);
+		// read issuer
+		issuer = config->value("services.session.jwt", "issuer", string());
 	}
 };
 
@@ -73,6 +75,7 @@ disposable* create_object(const char *object_name) {
 	if (strcmp(object_name, "jwt") == 0) {
 		mod_session_jwt_factory *session_factory = new mod_session_jwt_factory();
 		session_factory->set_secret(secret);
+		session_factory->set_issuer(issuer);
 		session_factory->set_prefix(prefix);
 		session_factory->set_ttl(ttl);
 		return session_factory;
@@ -91,4 +94,3 @@ void finalize() {
 } // extern
 
 } // namespace
-

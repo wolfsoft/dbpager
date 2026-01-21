@@ -57,11 +57,15 @@ environment::~environment() {
 }
 
 http_environment::http_environment(const interpreter &in, const dbp::http_request &r): environment(in), req(r) {
-	_session_holder = _session_factory.create_session(req);
-	_session_holder->load(*user);
-
-	// add session id to variables
-	session->add_value("SESSION", _session_holder->get_id());
+	try {
+		_session_holder = _session_factory.create_session(req);
+		_session_holder->load(*user);
+		// add session id to variables
+		session->add_value("SESSION", _session_holder->get_id());
+	} catch (dbp::exception &e) {
+		//TODO in.get_logger().warning(e.what());
+		session->add_value("SESSION_ERROR", e.what());
+	}
 	session->add_value("SESSION_PERSISTENT", "0");
 }
 

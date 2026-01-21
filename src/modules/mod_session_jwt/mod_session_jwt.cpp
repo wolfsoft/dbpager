@@ -43,9 +43,13 @@ void mod_session_jwt::load(context &ctx) {
 		return;
 	auto decoded = jwt::decode(id);
 	try {
-		jwt::verify()
+		auto verifier = jwt::verify()
 			.allow_algorithm(jwt::algorithm::hs256(secret))
-			.verify(decoded);
+			.leeway(60);
+		if (!issuer.empty()) {
+			verifier.with_issuer(issuer);
+		}
+		verifier.verify(decoded);
 
 		auto payload = decoded.get_payload_json();
 		for (auto& key : payload.getMemberNames()) {
@@ -87,6 +91,9 @@ void mod_session_jwt::save(const context &ctx, dbp::http_response &resp) {
 		.set_not_before(std::chrono::system_clock::now());
 	if (ttl > 0) {
 		token.set_expires_at(std::chrono::system_clock::now() + std::chrono::seconds{ttl});
+	}
+	if (!issuer.empty()) {
+		token.set_issuer(issuer);
 	}
 
 	std::string _prefix = prefix;
@@ -145,6 +152,7 @@ std::unique_ptr<session_holder> mod_session_jwt_factory::create_session(const db
 		if (i->name == "session-token") {
 			mod_session_jwt* session = new mod_session_jwt(i->value);
 			session->is_https = req.get_https();
+			session->set_issuer(issuer);
 			session->set_secret(secret);
 			session->set_prefix(prefix);
 			session->set_ttl(ttl);
@@ -154,6 +162,7 @@ std::unique_ptr<session_holder> mod_session_jwt_factory::create_session(const db
 
 	mod_session_jwt* session = new mod_session_jwt();
 	session->is_https = req.get_https();
+	session->set_issuer(issuer);
 	session->set_secret(secret);
 	session->set_prefix(prefix);
 	session->set_ttl(ttl);

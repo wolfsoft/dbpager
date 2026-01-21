@@ -44,6 +44,15 @@ session.backend.jwt = @PLUGINSDIR@/libmod_session_jwt.so
 # prefix_environment =
 
 #
+# issuer directive
+#
+# The token issuer name, optional. For security reasons, you could define an
+# unique issuer name per application environment to avoid reusing tokens
+# between different applications.
+#
+# issuer =
+
+#
 # ttl directive
 #
 # Specifies the session time-to-live in the cache (in seconds). This is a time

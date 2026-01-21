@@ -50,6 +50,7 @@ void mod_session_jwt::load(context &ctx) {
 		auto payload = decoded.get_payload_json();
 		for (auto& key : payload.getMemberNames()) {
 			if (!key.empty() && key[0] == '_') {
+				// prefix_key in context
 				ctx.add_value(prefix + key, payload[key].asString());
 			}
 		}
@@ -88,42 +89,31 @@ void mod_session_jwt::save(const context &ctx, dbp::http_response &resp) {
 		token.set_expires_at(std::chrono::system_clock::now() + std::chrono::seconds{ttl});
 	}
 
+	std::string _prefix = prefix;
+	std::transform(_prefix.begin(), _prefix.end(), _prefix.begin(), ::toupper);
+
 	for (const auto& e : ctx.get_values()) {
 		std::string key = e.first;
-		std::transform(key.begin(), key.end(), key.begin(), ::tolower);
 		// cut off the prefix before storing in JWT
-		if (key.find(prefix) == 0) {
-			key = key.substr(prefix.length());
+		// and also cut extra underscore
+		if (key.find(_prefix) == 0) {
+			key = key.substr(_prefix.length() + 1);
+			std::transform(key.begin(), key.end(), key.begin(), ::tolower);
+			token.set_payload_claim(std::string("_") + key, jwt::claim(e.second));
 		}
-		token.set_payload_claim(std::string("_") + key, jwt::claim(e.second));
 	}
 
 	if (id.empty()) {
 		id = token.sign(jwt::algorithm::hs256{secret});
 		is_new = true;
 	} else {
-		auto current_token = jwt::decode(id);
-		auto current_payload = current_token.get_payload_json();
+		auto current_payload = jwt::decode(id).get_payload_json();
 		bool identical = true;
-		const auto& ctx_values = ctx.get_values();
 
-		// Compare size first
-		size_t payload_count = 0;
-		for (const auto& key : current_payload.getMemberNames()) {
-			if (!key.empty() && key[0] == '_') {
-				++payload_count;
-			}
-		}
-		if (payload_count != ctx_values.size()) {
-			identical = false;
-		} else {
-			// Compare each key/value
-			for (const auto& e : ctx_values) {
-				std::string key = e.first;
-				// cut off the prefix before storing in JWT
-				if (key.find(prefix) == 0) {
-					key = key.substr(prefix.length());
-				}
+		for (const auto& e : ctx.get_values()) {
+			std::string key = e.first;
+			if (key.find(_prefix) == 0) {
+				key = key.substr(_prefix.length()); // keep underscore
 				std::transform(key.begin(), key.end(), key.begin(), ::tolower);
 				if (!current_payload.isMember(key) || current_payload[key].asString() != e.second) {
 					identical = false;

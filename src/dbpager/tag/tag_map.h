@@ -71,6 +71,13 @@ public:
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
+class tag_map_values: public tag_impl {
+public:
+	typedef std::unordered_map<std::string, std::string> string_map;
+	tag_map_values(const std::string &tag_name = ""): tag_impl(tag_name) { };
+	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
+};
+
 class tag_map_from_json: public tag_impl {
 public:
 	typedef std::unordered_map<std::string, std::string> string_map;

@@ -122,6 +122,33 @@ void tag_map_elements::execute(context &ctx, std::ostream &out, const tag *calle
 	}
 }
 
+void tag_map_values::execute(context &ctx, std::ostream &out, const tag *caller) const {
+	const string name = get_parameter(ctx, "name");
+	string prefix = get_parameter(ctx, "prefix");
+	if (prefix.empty()) {
+		prefix = name;
+	}
+
+	string data_ptr = ctx.get_value(string("@MAP@") + name);
+	if (data_ptr.empty()) {
+		throw tag_map_exception(
+		  (format(_("map '{0}' was not defined in the current context")) % name).str());
+	}
+	string_map *data = (string_map*)from_string<void*>(data_ptr);
+
+	ctx.enter();
+	for (auto it = data->begin(); it != data->end(); ++it) {
+		ctx.add_value(prefix + std::string("_") + it->first, it->second);
+	}
+	try {
+		tag_impl::execute(ctx, out, caller);
+		ctx.leave();
+	} catch (...) {
+		ctx.leave();
+		throw;
+	}
+}
+
 void tag_map_from_json::execute(context &ctx, std::ostream &out, const tag *caller) const {
 	const string name = get_parameter(ctx, "name");
 

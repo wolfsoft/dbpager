@@ -70,6 +70,7 @@ tag_factory::tag_factory() {
 	register_tag<tag_map_unset>(dbpager_uri, "map-unset");
 	register_tag<tag_map_element>(dbpager_uri, "map-element");
 	register_tag<tag_map_elements>(dbpager_uri, "map-elements");
+	register_tag<tag_map_values>(dbpager_uri, "map-values");
 	register_tag<tag_map_from_json>(dbpager_uri, "map-from-json");
 	register_tag<tag_map_to_json>(dbpager_uri, "map-to-json");
 	register_tag<tag_list>(dbpager_uri, "list");

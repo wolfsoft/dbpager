@@ -20,6 +20,7 @@
  */
 
 #include <dcl/strutils.h>
+#include <json/json.h>
 
 #include "tag/tag_list.h"
 
@@ -112,6 +113,63 @@ void tag_list_elements::execute(context &ctx, std::ostream &out, const tag *call
 		} catch (...) {
 			ctx.leave();
 			throw;
+		}
+	}
+}
+
+void tag_list_from_json::execute(context &ctx, std::ostream &out, const tag *caller) const {
+	const string name = get_parameter(ctx, "name");
+
+	string data_ptr = ctx.get_value(string("@LIST@") + name);
+	if (data_ptr.empty()) {
+		throw tag_list_exception(
+		  (format(_("list '{0}' was not defined in the current context")) % name).str());
+	}
+	vector<string> *data = (vector<string>*)from_string<void*>(data_ptr);
+
+	ostringstream s(ostringstream::out | ostringstream::binary);
+	tag_impl::execute(ctx, s, caller);
+	std::string buf = s.str();
+
+	if (buf.size() == 0) {
+		// silently skip the empty json
+		return;
+	}
+
+	Json::Value root;
+	Json::Reader reader;
+	Json::FastWriter writer;
+	if (!reader.parse(buf, root)) {
+		throw tag_list_exception(
+		  (format(_("invalid JSON structure '{0}'")) % buf).str());
+	}
+
+	if (root.isArray()) {
+		data->clear();
+		// iterate array elements and append their string representations
+		for (Json::Value::ArrayIndex i = 0; i < root.size(); ++i) {
+			const Json::Value &el = root[i];
+			if (el.type() == Json::nullValue) {
+				data->push_back(std::string());
+			} else if (el.isConvertibleTo(Json::ValueType::stringValue)) {
+				data->push_back(el.asString());
+			} else {
+				data->push_back(writer.write(el));
+			}
+		}
+	} else if (root.isObject()) {
+		// also support objects by iterating their members (append values)
+		data->clear();
+		Json::Value::Members members = root.getMemberNames();
+		for (Json::Value::Members::const_iterator i = members.begin(); i != members.end(); ++i) {
+			const Json::Value &v = root[*i];
+			if (v.type() == Json::nullValue) {
+				data->push_back(std::string());
+			} else if (v.isConvertibleTo(Json::ValueType::stringValue)) {
+				data->push_back(v.asString());
+			} else {
+				data->push_back(writer.write(v));
+			}
 		}
 	}
 }

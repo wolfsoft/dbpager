@@ -19,8 +19,7 @@
  * Boston, MA  02110-1301  USA
  */
 
-#ifndef TAG_LIST_H_
-#define TAG_LIST_H_
+#pragma once
 
 #include <vector>
 #include <string>
@@ -65,6 +64,10 @@ public:
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
-}
+class tag_list_from_json: public tag_impl {
+public:
+	tag_list_from_json(const std::string &tag_name = ""): tag_impl(tag_name) { };
+	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
+};
 
-#endif /*TAG_LIST_H_*/
+}

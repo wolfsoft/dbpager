@@ -1,3 +1,9 @@
+dbpager (3.3.1) stable; urgency=low
+
+  * dbp:list-from-json implemented
+
+ -- Dennis Prochko <dennis.prochko@gmail.com>  Sun, 08 Feb 2026 16:38:37 +0200
+
 dbpager (3.3.0) stable; urgency=low
 
   * switching to c++11. Base docker image updated to Debian bookworm.

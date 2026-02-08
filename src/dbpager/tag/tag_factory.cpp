@@ -78,6 +78,7 @@ tag_factory::tag_factory() {
 	register_tag<tag_list_remove>(dbpager_uri, "list-remove");
 	register_tag<tag_list_element>(dbpager_uri, "list-element");
 	register_tag<tag_list_elements>(dbpager_uri, "list-elements");
+	register_tag<tag_list_from_json>(dbpager_uri, "list-from-json");
 	register_tag<tag_try>(dbpager_uri, "try");
 	register_tag<tag_catch>(dbpager_uri, "catch");
 	register_tag<tag_throw>(dbpager_uri, "throw");

@@ -102,9 +102,14 @@ void http_environment::parse_urlencoded(context &ctx,
 		  	// split each parameter to name and value
 			string param, value;
 			tokenize()(*i, param, value, false, "=");
-			// add variable, decode urlencoded value
-			ctx.add_value(url().decode(param),
-			  url().decode(value));
+			// if variable name ends with "[]", it's array
+			if (param.size() > 2 && param.substr(param.size() - 2) == "[]") {
+				param = param.substr(0, param.size() - 2);
+				ctx.add_value(param, ctx.get_value(param) + "," + url().decode(value));
+			} else {
+				// otherwise it's a regular variable
+				ctx.add_value(url().decode(param), url().decode(value));
+			}
 		}
 	}
 }
@@ -194,8 +199,14 @@ void http_environment::init_custom_params() {
 	  i != pairs.end(); ++i) {
 		string param, value;
 		tokenize()(*i, param, value, false, "=");
-		session->add_value(url().decode(param),
-		  url().decode(value));
+		// if variable name ends with "[]", it's array
+		if (param.size() > 2 && param.substr(param.size() - 2) == "[]") {
+			param = param.substr(0, param.size() - 2);
+			ctx.add_value(param, ctx.get_value(param) + "," + url().decode(value));
+		} else {
+			// otherwise it's a regular variable
+			ctx.add_value(url().decode(param), url().decode(value));
+		}
 	}
 	// parse request parameters
 	switch (req.get_method()) {

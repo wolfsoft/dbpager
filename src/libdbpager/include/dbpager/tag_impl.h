@@ -40,6 +40,9 @@ public:
 
 class tag_impl: public tag {
 public:
+	typedef std::unordered_map<std::string, tag*> parameters;
+	typedef std::vector<tag*> childrens;
+
 	//! Constructor
 	tag_impl(const std::string &tag_name = ""): name(tag_name), depth(0),
 	  parent(NULL) { };
@@ -73,8 +76,10 @@ public:
 	virtual const std::string& get_text() const;
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 	virtual void apply(context &ctx, tag::visitor_handler handler);
+	const childrens& get_childs() const {
+		return childs;
+	}
 protected:
-	typedef std::unordered_map<std::string, tag*> parameters;
 	//! Tag parameters, in form name = expression
 	parameters params;
 	//! Tag name
@@ -84,7 +89,6 @@ protected:
 	//! Parent tag
 	tag *parent;
 private:
-	typedef std::vector<tag*> childrens;
 	//! Tag child nodes
 	childrens childs;
 	//! Node text

@@ -33,11 +33,13 @@ void tag_map::execute(context &ctx, std::ostream &out, const tag *caller) const 
 	const string name = get_parameter(ctx, "name");
 
 	string_map data;
+	string_map data_types;
 
 	ctx.enter();
 	try {
 		// save the pointer to data for nested tags
 		ctx.add_value(string("@MAP@") + name, dbp::to_string<string_map*>(&data));
+		ctx.add_value(string("@MAP_TYPES@") + name, dbp::to_string<string_map*>(&data_types));
 		tag_impl::execute(ctx, out, caller);
 		ctx.leave();
 	} catch (...) {
@@ -49,6 +51,7 @@ void tag_map::execute(context &ctx, std::ostream &out, const tag *caller) const 
 void tag_map_set::execute(context &ctx, std::ostream &out, const tag *caller) const {
 	const string name = get_parameter(ctx, "name");
 	const string key = get_parameter(ctx, "key");
+	const string type = get_parameter(ctx, "type");
 	const string value = get_parameter(ctx, "value");
 
 	string data_ptr = ctx.get_value(string("@MAP@") + name);
@@ -57,7 +60,20 @@ void tag_map_set::execute(context &ctx, std::ostream &out, const tag *caller) co
 		  (format(_("map '{0}' was not defined in the current context")) % name).str());
 	}
 	string_map *data = (string_map*)from_string<void*>(data_ptr);
+
 	data->insert({key, value});
+
+	if (!type.empty()) {
+		string data_type_ptr = ctx.get_value(string("@MAP_TYPES@") + name);
+		if (data_type_ptr.empty()) {
+			throw tag_map_exception(
+				(format(_("map '{0}' was not defined in the current context")) % name).str()
+			);
+		}
+		string_map *data_types = (string_map*)from_string<void*>(data_type_ptr);
+
+		data_types->insert({key, type});
+	}
 }
 
 void tag_map_unset::execute(context &ctx, std::ostream &out, const tag *caller) const {
@@ -202,9 +218,37 @@ void tag_map_to_json::execute(context &ctx, std::ostream &out, const tag *caller
 	}
 	string_map *data = (string_map*)from_string<void*>(data_ptr);
 
+	string data_type_ptr = ctx.get_value(string("@MAP_TYPES@") + name);
+	if (data_type_ptr.empty()) {
+		throw tag_map_exception(
+		  (format(_("map '{0}' was not defined in the current context")) % name).str());
+	}
+	string_map *data_types = (string_map*)from_string<void*>(data_type_ptr);
+
 	Json::Value root;
 	for (auto it = data->begin(); it != data->end(); ++it) {
-		root[it->first] = it->second;
+		Json::Value value;
+		if (data_types->find(it->first) != data_types->end()) {
+			const string &type = (*data_types)[it->first];
+			if (type == "number") {
+				value = Json::Value(std::stod(it->second));
+			} else if (type == "boolean") {
+				value = Json::Value(it->second == "true");
+			} else if (type == "object") {
+				Json::Value object;
+				Json::Reader reader;
+				if (!reader.parse(it->second, object)) {
+					throw tag_map_exception(
+					  (format(_("invalid JSON structure '{0}'")) % it->second).str());
+				}
+				value = object;
+			} else {
+				value = Json::Value(it->second);
+			}
+		} else {
+			value = Json::Value(it->second);
+		}
+		root[it->first] = value;
 	}
 
 	Json::FastWriter writer;

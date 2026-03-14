@@ -53,6 +53,7 @@
 #include "tag/tag_rename.h"
 #include "tag/tag_log.h"
 #include "tag/functions.h"
+#include "tag/tag_async.h"
 
 namespace dbpager {
 
@@ -99,9 +100,11 @@ tag_factory::tag_factory() {
 	register_tag<tag_rename>(dbpager_uri, "rename");
 	register_tag<tag_log>(dbpager_uri, "log");
 	register_tag<tag_http>(dbpager_uri, "http");
+	register_tag<tag_async>(dbpager_uri, "async");
 	// register builtin functions
 	register_tag<function_iif>(dbpager_uri, "@iif");
 	register_tag<function_byte>(dbpager_uri, "@byte");
+	register_tag<function_trim>(dbpager_uri, "@trim");
 	register_tag<function_length>(dbpager_uri, "@len");
 	register_tag<function_concatenate>(dbpager_uri, "@concat");
 	register_tag<function_pos>(dbpager_uri, "@pos");

@@ -85,6 +85,17 @@ void function_length::execute(context &ctx, std::ostream &out,
 	out << s.str().length();
 }
 
+void function_trim::execute(context &ctx, std::ostream &out,
+  const tag*) const {
+	if (params.size() != 1)
+		throw function_exception(
+		  (format(_("wrong number of arguments ({0} instead {1} expected)")) %
+		    params.size() % 1).str());
+	ostringstream s(ostringstream::out | ostringstream::binary);
+	(params.begin()->second)->execute(ctx, s, this);
+	out << trim()(s.str());
+}
+
 void function_concatenate::execute(context &ctx, std::ostream &out,
   const tag *caller) const {
 	for (parameters::const_iterator i = params.begin();

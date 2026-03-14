@@ -55,6 +55,13 @@ public:
 	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
 };
 
+class function_trim: public tag_impl {
+public:
+	function_trim(const std::string &tag_name = ""):
+	  tag_impl(tag_name) { };
+	virtual void execute(context &ctx, std::ostream &out, const tag *caller) const;
+};
+
 class function_concatenate: public tag_impl {
 public:
 	function_concatenate(const std::string &tag_name = ""):

@@ -96,19 +96,28 @@ void http_environment::parse_urlencoded(context &ctx,
 	const char *value = req.get_content();
 	if (value) {
 		// split content data to parameters
-		strings pairs = tokenize()(value, "&");
-		for (strings::const_iterator i = pairs.begin();
-		  i != pairs.end(); ++i) {
-		  	// split each parameter to name and value
+		std::map<std::string, std::vector<std::string>> params;
+		for (auto &p: tokenize()(value, "&")) {
 			string param, value;
-			tokenize()(*i, param, value, false, "=");
-			// if variable name ends with "[]", it's array
-			if (param.size() > 2 && param.substr(param.size() - 2) == "[]") {
-				param = param.substr(0, param.size() - 2);
-				ctx.add_value(param, ctx.get_value(param) + "," + url().decode(value));
+			tokenize()(p, param, value, false, "=");
+			param = url().decode(param);
+			value = url().decode(value);
+			params[param].push_back(value);
+		}
+		for (auto &p: params) {
+			const string &param = p.first;
+			const std::vector<std::string> &values = p.second;
+			if (values.size() == 1) {
+				ctx.add_value(param, values[0]);
 			} else {
-				// otherwise it's a regular variable
-				ctx.add_value(url().decode(param), url().decode(value));
+				// concatenate values to string separated by comma
+				std::string concatenated;
+				for (auto &v: values) {
+					if (!concatenated.empty())
+						concatenated += ",";
+					concatenated += v;
+				}
+				ctx.add_value(param, concatenated);
 			}
 		}
 	}
@@ -186,28 +195,33 @@ void http_environment::init_custom_params() {
 		replace(s.begin(), s.end(), '-', '_');
 		session->add_value(string("HTTP_") + s, i->second);
 	}
-	session->add_value("PATH_INFO", req.get_path_info());
-	session->add_value("HTTP_METHOD", req.method());
-	session->add_value("HTTP_REMOTE_ADDR", req.get_remote_addr());
-	session->add_value("SERVER_NAME", req.get_server_name());
-	session->add_value("SERVER_PORT", to_string<int>(req.get_server_port()));
-	session->add_value("HTTPS", req.get_https() ? "on" : string(""));
 
 	// extract name=value parameters from a query string
-	strings pairs = tokenize()(req.get_query_string(), "&");
-	for (strings::const_iterator i = pairs.begin();
-	  i != pairs.end(); ++i) {
+	std::map<string, std::vector<std::string>> params;
+	for (auto &p: tokenize()(req.get_query_string(), "&")) {
 		string param, value;
-		tokenize()(*i, param, value, false, "=");
-		// if variable name ends with "[]", it's array
-		if (param.size() > 2 && param.substr(param.size() - 2) == "[]") {
-			param = param.substr(0, param.size() - 2);
-			ctx.add_value(param, ctx.get_value(param) + "," + url().decode(value));
+		tokenize()(p, param, value, false, "=");
+		param = url().decode(param);
+		value = url().decode(value);
+		params[param].push_back(value);
+	}
+	for (auto &p: params) {
+		const string &param = p.first;
+		const std::vector<std::string> &values = p.second;
+		if (values.size() == 1) {
+			session->add_value(param, values[0]);
 		} else {
-			// otherwise it's a regular variable
-			ctx.add_value(url().decode(param), url().decode(value));
+			// concatenate values to string separated by comma
+			std::string concatenated;
+			for (auto &v: values) {
+				if (!concatenated.empty())
+					concatenated += ",";
+				concatenated += v;
+			}
+			session->add_value(param, concatenated);
 		}
 	}
+
 	// parse request parameters
 	switch (req.get_method()) {
 		case http_method::head:
@@ -240,6 +254,14 @@ void http_environment::init_custom_params() {
 			break;
 		}
 	}
+
+	// Initialize standard CGI-like variables
+	session->add_value("PATH_INFO", req.get_path_info());
+	session->add_value("HTTP_METHOD", req.method());
+	session->add_value("HTTP_REMOTE_ADDR", req.get_remote_addr());
+	session->add_value("SERVER_NAME", req.get_server_name());
+	session->add_value("SERVER_PORT", to_string<int>(req.get_server_port()));
+	session->add_value("HTTPS", req.get_https() ? "on" : string(""));
 }
 
 std::string http_environment::get_path() {

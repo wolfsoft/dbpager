@@ -230,7 +230,9 @@ void tag_map_to_json::execute(context &ctx, std::ostream &out, const tag *caller
 		Json::Value value;
 		if (data_types->find(it->first) != data_types->end()) {
 			const string &type = (*data_types)[it->first];
-			if (type == "number") {
+			if (type == "integer") {
+				value = Json::Value(std::stoi(it->second));
+			} else if (type == "number") {
 				value = Json::Value(std::stod(it->second));
 			} else if (type == "boolean") {
 				value = Json::Value(it->second == "true");

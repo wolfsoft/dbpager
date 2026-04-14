@@ -39,6 +39,7 @@ libdbpcore_la_SOURCES = \
 	../src/dbpager/tag/tag_substr.cpp \
 	../src/dbpager/tag/tag_regexp.cpp \
 	../src/dbpager/tag/tag_expression.cpp \
+	../src/dbpager/tag/tag_cdata.cpp \
 	../src/dbpager/tag/tag_read.cpp \
 	../src/dbpager/tag/tag_write.cpp \
 	../src/dbpager/tag/tag_locale.cpp \
@@ -47,6 +48,7 @@ libdbpcore_la_SOURCES = \
 	../src/dbpager/tag/tag_rename.cpp \
 	../src/dbpager/tag/tag_log.cpp \
 	../src/dbpager/tag/tag_http.cpp \
+	../src/dbpager/tag/tag_async.cpp \
 	../src/dbpager/tag/functions.cpp
 
 libdbpcore_la_LIBADD = \
